@@ -2,18 +2,28 @@ package edu.csueastbay.cs401.classic;
 
 import edu.csueastbay.cs401.pong.*;
 import javafx.scene.paint.Color;
+import java.util.Random;
 
 public class ClassicPong extends Game {
-
+    
     private double fieldHeight;
     private double fieldWidth;
 
+    Random random = new Random();
+    double leftLocation = random.nextDouble(770);
+    double rightLocation = random.nextDouble(770);
 
     public ClassicPong(int victoryScore, double fieldWidth, double fieldHeight) {
         super(victoryScore);
 
         this.fieldWidth = fieldWidth;
         this.fieldHeight = fieldHeight;
+
+        Portal leftportal = new Portal("Left Portal", (this.fieldWidth + 2)/3, this.fieldHeight - leftLocation, 5,50);
+        addObject(leftportal);
+
+        Portal rightportal = new Portal("Right Portal", (this.fieldWidth+2)*2/3, this.fieldHeight - rightLocation, 5,50);
+        addObject(rightportal);
 
         Puck puck = new Puck(this.fieldWidth, this.fieldHeight);
         puck.setID("Classic");
@@ -84,6 +94,22 @@ public class ClassicPong extends Game {
                     angle = mapRange(collision.getTop(), collision.getBottom(), 225, 135, puckCenter);
                 }
                 puck.setDirection(angle);
+                break;
+            case "Portal":
+                if (collision.getObjectID() == "Left Portal") {
+                    if(puck.getDirection() > 90 && puck.getDirection() < 270) {
+                        puck.set((this.fieldWidth + 2)*2/3 - 13, this.fieldHeight - rightLocation);
+                    } else if(puck.getDirection() > 270 || puck.getDirection() < 90){
+                        puck.set((this.fieldWidth+2)*2/3 + 13, this.fieldHeight - rightLocation);
+                    }
+                } else if (collision.getObjectID() == "Right Portal") {
+                    if(puck.getDirection() > 90 && puck.getDirection() < 270) {
+                        puck.set((this.fieldWidth+2)/ 3 - 13, this.fieldHeight - leftLocation);
+                    } else if(puck.getDirection() > 270 || puck.getDirection() < 90){
+                        puck.set((this.fieldWidth+2)/3 + 13, this.fieldHeight - leftLocation);
+                    }
+                }
+                break;
 
         }
     }
