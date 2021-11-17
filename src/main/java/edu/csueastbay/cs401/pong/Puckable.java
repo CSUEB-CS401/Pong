@@ -11,6 +11,7 @@ public interface Puckable {
     public double getDirection();
     public void setSpeed(double speed);
     public void setDirection(double angle);
+    public void set(double x, double y);
 
     void reset();
 }

@@ -71,6 +71,11 @@ public class Puck extends Circle implements Puckable {
         this.direction = angle;
     }
 
+    @Override
+    public void set(double x, double y) {
+        setCenterX(x);
+        setCenterY(y);
+    }
 
 
     @Override

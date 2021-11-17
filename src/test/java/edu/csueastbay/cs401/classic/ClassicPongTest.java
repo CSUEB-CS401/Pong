@@ -185,7 +185,7 @@ class ClassicPongTest {
                 110);
 
         game.collisionHandler(puck, bang);
-        assertEquals(2, game.getPlayerScore(1));
+        assertEquals(1, game.getPlayerScore(2));
     }
 
 
@@ -201,5 +201,75 @@ class ClassicPongTest {
     void mapRange100to200and20to50() {
         double result = ClassicPong.mapRange(200,300,20,50, 225);
         assertEquals(27.5, result);
+    }
+
+    @Test
+    void shouldHaveLeftPortal(){
+        ArrayList<Collidable> game_objects = game.getObjects();
+        Portal leftPortal = null;
+        for (Collidable object : game_objects) {
+            if (object.getID() == "Left Portal") {
+                leftPortal = (Portal)object;
+            }
+        }
+        assertNotEquals(null, game_objects);
+        assertEquals(434, leftPortal.getX());
+        assertEquals(5, leftPortal.getWidth());
+        assertEquals(50, leftPortal.getHeight());
+    }
+
+    @Test
+    void shouldHaveRightPortal(){
+        ArrayList<Collidable> game_objects = game.getObjects();
+        Portal rightPortal = null;
+        for (Collidable object : game_objects) {
+            if (object.getID() == "Right Portal") {
+                rightPortal = (Portal)object;
+            }
+        }
+        assertNotEquals(null, game_objects);
+        assertEquals(868, rightPortal.getX());
+        assertEquals(5, rightPortal.getWidth());
+        assertEquals(50, rightPortal.getHeight());
+    }
+
+    @Test
+    void hittingLeftPortalShouldTeleportToRightPortal(){
+        Puck puck = new Puck(500, 500);
+        puck.setCenterX(100);
+        puck.setCenterY(100);
+        puck.setDirection(45);
+        Collision bang = new Collision(
+                "Portal",
+                "Left Portal",
+                true,
+                0,
+                500,
+                90,
+                110);
+
+        game.collisionHandler(puck, bang);
+        assertEquals(881, puck.getCenterX());
+        assertEquals(5, puck.getSpeed());
+        assertEquals(45, puck.getDirection());
+    }
+
+    @Test
+    void hittingRightPortalShouldTeleportToLeftPortal(){
+        Puck puck = new Puck(500, 500);
+        puck.setDirection(115);
+        Collision bang = new Collision(
+                "Portal",
+                "Right Portal",
+                true,
+                0,
+                500,
+                90,
+                110);
+
+        game.collisionHandler(puck, bang);
+        assertEquals(421, puck.getCenterX());
+        assertEquals(5, puck.getSpeed());
+        assertEquals(115, puck.getDirection());
     }
 }
