@@ -31,8 +31,11 @@ public abstract class Game {
     }
 
     public void addPointsToPlayer(int player, int value) {
-        if (player == 1)  playerOneScore += value;
+        if (player == 1)  {
+            playerOneScore += value;
+        }
         else if (player == 2) playerTwoScore += value;
+
     }
 
     public void setVictoryScore(int score) {
@@ -61,9 +64,7 @@ public abstract class Game {
         return (ArrayList<Collidable>) objects.clone();
     }
 
-    public void addPuck(Puckable ball) {
-        this.pucks.add(ball);
-    }
+    public void addPuck(Puckable ball) {this.pucks.add(ball);}
 
     public ArrayList<Puckable> getPucks() {
         // Also shallow copy
@@ -104,16 +105,16 @@ public abstract class Game {
 
     public void keyPressed(KeyCode code) {
         switch (code) {
-            case E:
+            case W:
                 playOnePaddle.moveUp();
                 break;
-            case D:
+            case S:
                 playOnePaddle.moveDown();
                 break;
-            case I:
+            case UP:
                 playTwoPaddle.moveUp();
                 break;
-            case K:
+            case DOWN:
                 playTwoPaddle.moveDown();
                 break;
         }
@@ -121,10 +122,10 @@ public abstract class Game {
 
     public void keyReleased(KeyCode code) {
         switch (code) {
-            case E, D:
+            case W, S:
                 playOnePaddle.stop();
                 break;
-            case I, K:
+            case UP, DOWN:
                 playTwoPaddle.stop();
                 break;
         }

@@ -106,7 +106,7 @@ class GameTest {
 
 
     @Test
-    void eKeyPressed() {
+    void wKeyPressed() {
         Puck puck = new Puck(1000, 500);
         game.addPuck(puck);
 
@@ -115,16 +115,16 @@ class GameTest {
         Paddle player2 = new Paddle("Player 1", 100, 100, 10, 100, 0, 500);
         game.addPlayerPaddle(2, player2);
 
-        game.keyPressed(KeyCode.E);
+        game.keyPressed(KeyCode.W);
         game.move();
 
         assertEquals(95, player1.getY(),
-                "Player 1 Paddle should move up when E key is pressed");
+                "Player 1 Paddle should move up when W key is pressed");
 
     }
 
     @Test
-    void iKeyPressed() {
+    void upKeyPressed() {
         Puck puck = new Puck(1000, 500);
         game.addPuck(puck);
 
@@ -133,16 +133,16 @@ class GameTest {
         Paddle player2 = new Paddle("Player 1", 100, 100, 10, 100, 0, 500);
         game.addPlayerPaddle(2, player2);
 
-        game.keyPressed(KeyCode.I);
+        game.keyPressed(KeyCode.UP);
         game.move();
 
         assertEquals(95, player2.getY(),
-                "Player 2 Paddle should move up when I key is pressed");
+                "Player 2 Paddle should move up when UP arrow key is pressed");
 
     }
 
     @Test
-    void dKeyPressed() {
+    void sKeyPressed() {
         Puck puck = new Puck(1000, 500);
         game.addPuck(puck);
 
@@ -151,16 +151,16 @@ class GameTest {
         Paddle player2 = new Paddle("Player 1", 100, 100, 10, 100, 0, 500);
         game.addPlayerPaddle(2, player2);
 
-        game.keyPressed(KeyCode.D);
+        game.keyPressed(KeyCode.S);
         game.move();
 
         assertEquals(105, player1.getY(),
-                "Player 1 Paddle should move down when D key is pressed");
+                "Player 1 Paddle should move down when S key is pressed");
 
     }
 
     @Test
-    void kKeyPressed() {
+    void downKeyPressed() {
         Puck puck = new Puck(1000, 500);
         game.addPuck(puck);
 
@@ -169,17 +169,17 @@ class GameTest {
         Paddle player2 = new Paddle("Player 1", 100, 100, 10, 100, 0, 500);
         game.addPlayerPaddle(2, player2);
 
-        game.keyPressed(KeyCode.K);
+        game.keyPressed(KeyCode.DOWN);
         game.move();
 
         assertEquals(105, player2.getY(),
-                "Player 2 Paddle should move down when K key is pressed");
+                "Player 2 Paddle should move down when DOWN arrow key is pressed");
 
     }
 
 
     @Test
-    void eKeyReleased() {
+    void wKeyReleased() {
         Puck puck = new Puck(1000, 500);
         game.addPuck(puck);
 
@@ -188,19 +188,19 @@ class GameTest {
         Paddle player2 = new Paddle("Player 1", 100, 100, 10, 100, 0, 500);
         game.addPlayerPaddle(2, player2);
 
-        game.keyPressed(KeyCode.E);
+        game.keyPressed(KeyCode.W);
         game.move();
-        game.keyReleased(KeyCode.E);
+        game.keyReleased(KeyCode.W);
         game.move();
         game.move();
 
         assertEquals(95, player1.getY(),
-                "Player 1 Paddle should move up when E key is pressed");
+                "Player 1 Paddle should move up when W key is pressed");
 
     }
 
     @Test
-    void iKeyReleased() {
+    void upKeyReleased() {
         Puck puck = new Puck(1000, 500);
         game.addPuck(puck);
 
@@ -209,19 +209,19 @@ class GameTest {
         Paddle player2 = new Paddle("Player 1", 100, 100, 10, 100, 0, 500);
         game.addPlayerPaddle(2, player2);
 
-        game.keyPressed(KeyCode.I);
+        game.keyPressed(KeyCode.UP);
         game.move();
-        game.keyReleased(KeyCode.I);
+        game.keyReleased(KeyCode.UP);
         game.move();
         game.move();
 
         assertEquals(95, player2.getY(),
-                "Player 2 Paddle should move up when I key is pressed");
+                "Player 2 Paddle should move up when UP arrow key is pressed");
 
     }
 
     @Test
-    void dKeyReleased() {
+    void sKeyReleased() {
         Puck puck = new Puck(1000, 500);
         game.addPuck(puck);
 
@@ -230,18 +230,18 @@ class GameTest {
         Paddle player2 = new Paddle("Player 1", 100, 100, 10, 100, 0, 500);
         game.addPlayerPaddle(2, player2);
 
-        game.keyPressed(KeyCode.D);
+        game.keyPressed(KeyCode.S);
         game.move();
-        game.keyReleased(KeyCode.D);
+        game.keyReleased(KeyCode.S);
         game.move();
         game.move();
         assertEquals(105, player1.getY(),
-                "Player 1 Paddle should move down when D key is pressed");
+                "Player 1 Paddle should move down when S key is pressed");
 
     }
 
     @Test
-    void kKeyReleased() {
+    void downKeyReleased() {
         Puck puck = new Puck(1000, 500);
         game.addPuck(puck);
 
@@ -250,14 +250,14 @@ class GameTest {
         Paddle player2 = new Paddle("Player 1", 100, 100, 10, 100, 0, 500);
         game.addPlayerPaddle(2, player2);
 
-        game.keyPressed(KeyCode.K);
+        game.keyPressed(KeyCode.DOWN);
         game.move();
-        game.keyReleased(KeyCode.K);
+        game.keyReleased(KeyCode.DOWN);
         game.move();
         game.move();
 
         assertEquals(105, player2.getY(),
-                "Player 2 Paddle should move down when K key is pressed");
+                "Player 2 Paddle should move down when DOWN arrow key is pressed");
 
     }
 

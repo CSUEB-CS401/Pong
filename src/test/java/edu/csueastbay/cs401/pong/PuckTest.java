@@ -104,5 +104,4 @@ class PuckTest {
         assertTrue((d > -45 && d < 45) || (d > 115 && d < 205),
                 "Test Puch should be pointing roughly at player 1 or player 2");
     }
-
 }
