@@ -15,6 +15,8 @@ public class Puck extends Circle implements Puckable {
     private String id;
     private Double speed;
     private Double direction;
+    private boolean player1PowerUp;
+    private boolean player2PowerUp;
 
     public Puck(double fieldWidth, double fieldHeight) {
         super();
