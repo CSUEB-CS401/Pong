@@ -87,8 +87,4 @@ public class MyGameController implements Initializable {
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
     }
-
-    private void endTimeLine(){
-        timeline.stop();
-    }
 }
