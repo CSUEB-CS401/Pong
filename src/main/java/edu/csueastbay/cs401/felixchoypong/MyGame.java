@@ -1,6 +1,7 @@
 package edu.csueastbay.cs401.felixchoypong;
 
 import edu.csueastbay.cs401.pong.*;
+import javafx.animation.Timeline;
 import javafx.scene.input.KeyCode;
 import javafx.scene.shape.Shape;
 
@@ -12,8 +13,6 @@ public abstract class MyGame {
     private int playerTwoScore;
     private Paddle playTwoPaddle;
     private int victoryScore;
-    private boolean player1Wins;
-    private boolean player2Wins;
     private ArrayList<Collidable> objects;
     private ArrayList<Puckable> pucks;
 
@@ -23,24 +22,6 @@ public abstract class MyGame {
         this.pucks = new ArrayList<>();
         this.playerOneScore = 0;
         this.playerTwoScore = 0;
-        this.player1Wins = false;
-        this.player2Wins = false;
-    }
-
-    public void setPlayer1Wins(boolean player1Wins){
-        this.player1Wins = player1Wins;
-    }
-
-    public void setPlayer2Wins(boolean player2Wins){
-        this.player2Wins = player2Wins;
-    }
-
-    public boolean getPlayer1Wins(){
-        return player1Wins;
-    }
-
-    public boolean getPlayer2Wins(){
-        return player2Wins;
     }
 
     public int getPlayerScore(int player) {
@@ -65,6 +46,7 @@ public abstract class MyGame {
     public int getVictor() {
         int victor = 0;
         if (playerOneScore >= victoryScore) victor = 1;
+        else if(playerTwoScore >= victoryScore) victor = 2;
         return victor;
     }
 

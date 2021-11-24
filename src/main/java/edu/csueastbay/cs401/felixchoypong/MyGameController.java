@@ -33,14 +33,18 @@ public class MyGameController implements Initializable {
     Label playerOneScore;
     @FXML
     Label playerTwoScore;
+    @FXML
+    Label playerOneVictoryText;
+    @FXML
+    Label playerTwoVictoryText;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        game = new MyPong(VICTORY_SCORE, FIELD_WIDTH, FIELD_HEIGHT);
+        game = new MyPong(VICTORY_SCORE, FIELD_WIDTH, FIELD_HEIGHT, playerOneVictoryText, playerTwoVictoryText);
         Platform.runLater(()->fieldPane.requestFocus());
         addGameElementsToField();
         setUpTimeline();
-
+        game.setTimeLine(timeline);
     }
 
 
@@ -84,5 +88,7 @@ public class MyGameController implements Initializable {
         timeline.play();
     }
 
-
+    private void endTimeLine(){
+        timeline.stop();
+    }
 }

@@ -8,6 +8,7 @@ public class Sounds {
     private AudioClip paddleTwoSound;
     private AudioClip goalSound;
     private AudioClip wallSound;
+    private AudioClip CelebrationSound;
 
 
     public Sounds() {
@@ -15,6 +16,7 @@ public class Sounds {
         paddleTwoSound = new AudioClip(this.getClass().getResource("Player2paddlesoundeffect.wav").toExternalForm());
         goalSound = new AudioClip(this.getClass().getResource("Ponggoalsoundeffect.wav").toExternalForm());
         wallSound = new AudioClip(this.getClass().getResource("pongwallsoundeffect.wav").toExternalForm());
+        CelebrationSound = new AudioClip(this.getClass().getResource("celebration.wav").toExternalForm());
 
         paddleOneSound.setVolume(0.3);
         paddleOneSound.setCycleCount(1);
@@ -27,6 +29,9 @@ public class Sounds {
 
         goalSound.setVolume(0.1);
         goalSound.setCycleCount(1);
+
+        CelebrationSound.setVolume(0.05);
+        CelebrationSound.setCycleCount(1);
     }
 
     public void playPaddleOneSound(){
@@ -45,11 +50,20 @@ public class Sounds {
         goalSound.play();
     }
 
+    public void playCelebrationSound(){
+        CelebrationSound.play();
+    }
+
+    public boolean celebrationSoundIsPlaying(){
+        return CelebrationSound.isPlaying();
+    }
+
     public void stopPlayingSound(){
         paddleOneSound.stop();
         paddleTwoSound.stop();
         wallSound.stop();
         goalSound.stop();
+        CelebrationSound.stop();
     }
 
 }

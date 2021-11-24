@@ -1,18 +1,29 @@
 package edu.csueastbay.cs401.felixchoypong;
 import edu.csueastbay.cs401.pong.*;
+import javafx.animation.Timeline;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 public class MyPong extends MyGame {
 
     private double fieldHeight;
     private double fieldWidth;
     private Sounds soundClip;
+    @FXML
+    Label playerOneVictoryText;
+    @FXML
+    Label playerTwoVictoryText;
 
-    public MyPong(int victoryScore, double fieldWidth, double fieldHeight) {
-        super(10);
+    private Timeline timeLine;
+
+    public MyPong(int victoryScore, double fieldWidth, double fieldHeight, Label playerOneVictoryText, Label playerTwoVictoryText) {
+        super(10); ///first to 10 points wins, can be changed.
         soundClip = new Sounds();
         soundClip.stopPlayingSound(); //prevents sound from carrying over to next game
         this.fieldWidth = fieldWidth;
         this.fieldHeight = fieldHeight;
+        this.playerOneVictoryText = playerOneVictoryText;
+        this.playerTwoVictoryText = playerTwoVictoryText;
 
         Puck puck = new Puck(this.fieldWidth, this.fieldHeight);
         puck.setID("Classic");
@@ -73,28 +84,33 @@ public class MyPong extends MyGame {
                     //play sound
                     soundClip.stopPlayingSound();
                     addPointsToPlayer(1, 1);
-                    if(super.getPlayerScore(1) == 10){ //if player 1 wins
-                        //display game over screen
-                        //play celebration sound effect
-                        //play funny spongebob clip
+                    /** If Player One Wins **/
+                    if(super.getVictor() == 1){
+                        //display player one victory text, play a cheer, and end the game.
+                        playerOneVictoryText.setText("Player One Wins");
+                        soundClip.playCelebrationSound();
+                        timeLine.stop();
                     }
-                    else { //else if not over
+                    else {
                         soundClip.playGoalSound();
                         puck.reset();
+                        }
                     }
-                } else if (collision.getObjectID() == "Player 2 Goal") {
+                else if (collision.getObjectID() == "Player 2 Goal") {
                     soundClip.stopPlayingSound();
                     addPointsToPlayer(2, 1);
-
-                    if(super.getPlayerScore(2) == 10){ //if player 2 wins
-                        //display game over screen
-                        //play celebration sound effect
-                        //play funny spongebob clip
+                    /** If Player Two Wins **/
+                    if(super.getVictor() == 2){
+                        //display player two victory text, play a cheer, and end the game.
+                        playerTwoVictoryText.setText("Player Two Wins");
+                        soundClip.playCelebrationSound();
+                        timeLine.stop();
                     }
-                    else{
+                    else {
                         soundClip.playGoalSound();
                         puck.reset();
                     }
+
                 }
                 break;
             case "Paddle":
@@ -115,6 +131,11 @@ public class MyPong extends MyGame {
                 puck.setDirection(angle);
 
         }
+    }
+
+    /**Used to end the game using the timeline.stop() function**/
+    public void setTimeLine(Timeline timeline){
+        this.timeLine = timeline;
     }
 
     public static double mapRange(double a1, double a2, double b1, double b2, double s) {
