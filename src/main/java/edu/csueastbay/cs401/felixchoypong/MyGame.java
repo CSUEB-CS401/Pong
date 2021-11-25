@@ -1,8 +1,9 @@
 package edu.csueastbay.cs401.felixchoypong;
 
 import edu.csueastbay.cs401.pong.*;
-import javafx.animation.Timeline;
+import javafx.fxml.FXML;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Shape;
 
 import java.util.ArrayList;
@@ -13,8 +14,11 @@ public abstract class MyGame {
     private int playerTwoScore;
     private Paddle playTwoPaddle;
     private int victoryScore;
+    private boolean playerOnePowerUp;
+    private boolean playerTwoPowerUp;
     private ArrayList<Collidable> objects;
     private ArrayList<Puckable> pucks;
+    private Sounds sound;
 
     public MyGame(int victoryScore) {
         this.victoryScore = victoryScore;
@@ -22,6 +26,24 @@ public abstract class MyGame {
         this.pucks = new ArrayList<>();
         this.playerOneScore = 0;
         this.playerTwoScore = 0;
+        this.playerOnePowerUp = false;
+        this.playerTwoPowerUp = false;
+        this.sound = new Sounds();
+    }
+    public void setPlayerOnePowerUp(boolean playerOnePowerUp){
+        this.playerOnePowerUp = playerOnePowerUp;
+    }
+
+    public void setPlayerTwoPowerUp(boolean playerTwoPowerUp){
+        this.playerTwoPowerUp = playerTwoPowerUp;
+    }
+
+    public boolean getPlayerOnePowerUp(){
+        return playerOnePowerUp;
+    }
+
+    public boolean getPlayerTwoPowerUp(){
+        return playerTwoPowerUp;
     }
 
     public int getPlayerScore(int player) {
@@ -70,6 +92,16 @@ public abstract class MyGame {
         return (ArrayList<Puckable>) pucks.clone();
     }
 
+    protected void addPlayerPaddle(int player, Paddle paddle) {
+        if (player == 1) {
+            playOnePaddle = paddle;
+            addObject(paddle);
+        } else if (player == 2) {
+            playTwoPaddle = paddle;
+            addObject(paddle);
+        }
+    }
+
     public void move() {
 
         playOnePaddle.move();
@@ -87,18 +119,14 @@ public abstract class MyGame {
             if (collision.isCollided()) {
                 collisionHandler(puck, collision);
             }
+            else{ /**If no collisions, check for if player one or two has a power up active**/
+                if(playerOnePowerUp || playerTwoPowerUp){
+                    puck.setSpeed(7.5);
+                }
+            }
         });
     }
 
-    protected void addPlayerPaddle(int player, Paddle paddle) {
-        if (player == 1) {
-            playOnePaddle = paddle;
-            addObject(paddle);
-        } else if (player == 2) {
-            playTwoPaddle = paddle;
-            addObject(paddle);
-        }
-    }
 
     public abstract void collisionHandler(Puckable puck, Collision collision);
 
@@ -110,16 +138,36 @@ public abstract class MyGame {
             case D:
                 playOnePaddle.moveDown();
                 break;
-            case F:
-                break; //player 1 powerup key
+            case F: //player 1 powerup key
+                if(playerOnePowerUp == false && (playerTwoScore - playerOneScore) >= 3){ //if player 1 is not on power up mode, and they are trailing by 3 or more points
+                    playerOnePowerUp = true; //set to true
+                    sound.playPowerUpSound();
+                }
+                else if(playerOnePowerUp == true){
+                    //do nothing
+                }
+                else{
+                    sound.playDeniedSound();
+                }
+                break;
             case I:
                 playTwoPaddle.moveUp();
                 break;
             case K:
                 playTwoPaddle.moveDown();
                 break;
-            case J:
-                break; //player2 powerup key
+            case J: //player2 powerup key
+                if(playerTwoPowerUp == false && (playerOneScore - playerTwoScore) >= 3){ //if player 1 is not on power up mode, and they are trailing by 3 or more points
+                    playerTwoPowerUp = true; //set to true
+                    sound.playPowerUpSound();
+                }
+                else if(playerTwoPowerUp == true){
+                    //do nothing
+                }
+                else{
+                    sound.playDeniedSound();
+                }
+                break;
         }
     }
 

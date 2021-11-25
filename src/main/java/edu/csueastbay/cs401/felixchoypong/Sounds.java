@@ -9,6 +9,8 @@ public class Sounds {
     private AudioClip goalSound;
     private AudioClip wallSound;
     private AudioClip CelebrationSound;
+    private AudioClip powerUpSound;
+    private AudioClip deniedSound;
 
 
     public Sounds() {
@@ -17,6 +19,8 @@ public class Sounds {
         goalSound = new AudioClip(this.getClass().getResource("Ponggoalsoundeffect.wav").toExternalForm());
         wallSound = new AudioClip(this.getClass().getResource("pongwallsoundeffect.wav").toExternalForm());
         CelebrationSound = new AudioClip(this.getClass().getResource("celebration.wav").toExternalForm());
+        powerUpSound = new AudioClip(this.getClass().getResource("powerupsound.wav").toExternalForm());
+        deniedSound = new AudioClip(this.getClass().getResource("deniedSound.wav").toExternalForm());
 
         paddleOneSound.setVolume(0.3);
         paddleOneSound.setCycleCount(1);
@@ -32,6 +36,12 @@ public class Sounds {
 
         CelebrationSound.setVolume(0.05);
         CelebrationSound.setCycleCount(1);
+
+        powerUpSound.setVolume(0.2);
+        powerUpSound.setCycleCount(1);
+
+        deniedSound.setVolume(0.85);
+        deniedSound.setCycleCount(1);
     }
 
     public void playPaddleOneSound(){
@@ -54,8 +64,12 @@ public class Sounds {
         CelebrationSound.play();
     }
 
-    public boolean celebrationSoundIsPlaying(){
-        return CelebrationSound.isPlaying();
+    public void playPowerUpSound(){
+        powerUpSound.play();
+    }
+
+    public void playDeniedSound(){
+        deniedSound.play();
     }
 
     public void stopPlayingSound(){
@@ -64,6 +78,15 @@ public class Sounds {
         wallSound.stop();
         goalSound.stop();
         CelebrationSound.stop();
+    }
+
+    public void stopPlayingDeniedSound(){
+        deniedSound.stop();
+
+    }
+
+    public void stopPlayingPowerUpSound(){
+        powerUpSound.stop();
     }
 
 }

@@ -3,12 +3,14 @@ import edu.csueastbay.cs401.pong.*;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 public class MyPong extends MyGame {
 
     private double fieldHeight;
     private double fieldWidth;
     private Sounds soundClip;
+
     @FXML
     Label playerOneVictoryText;
     @FXML
@@ -16,10 +18,12 @@ public class MyPong extends MyGame {
 
     private Timeline timeLine;
 
-    public MyPong(int victoryScore, double fieldWidth, double fieldHeight, Label playerOneVictoryText, Label playerTwoVictoryText) {
+    public MyPong(int victoryScore, double fieldWidth, double fieldHeight, Label playerOneVictoryText, Label playerTwoVictoryText, AnchorPane fieldPane) {
         super(10); ///first to 10 points wins, can be changed.
         soundClip = new Sounds();
         soundClip.stopPlayingSound(); //prevents sound from carrying over to next game
+        soundClip.stopPlayingPowerUpSound();
+        soundClip.stopPlayingDeniedSound();
         this.fieldWidth = fieldWidth;
         this.fieldHeight = fieldHeight;
         this.playerOneVictoryText = playerOneVictoryText;
@@ -71,7 +75,6 @@ public class MyPong extends MyGame {
 
     @Override
     public void collisionHandler(Puckable puck, Collision collision) {
-//        System.out.println(puck.getDirection());
         switch(collision.getType()) {
             case "Wall":
                 puck.setDirection(0 - puck.getDirection());
@@ -83,7 +86,19 @@ public class MyPong extends MyGame {
                 if (collision.getObjectID() == "Player 1 Goal") {
                     //play sound
                     soundClip.stopPlayingSound();
-                    addPointsToPlayer(1, 1);
+                    //reset status of power up for player 1.
+                    //change speed of puck back to normal
+                    if(super.getPlayerOnePowerUp()){
+                        addPointsToPlayer(1, 2); //get two points for scoring a goal on opposing player who activated power up mode
+                    }
+                    else {
+                        addPointsToPlayer(1, 1);
+                    }
+                    puck.setSpeed(5.5);//change speed of puck back to normal
+                    //reset status of power up regardless of who made the goal
+                    super.setPlayerOnePowerUp(false);
+                    super.setPlayerTwoPowerUp(false);
+
                     /** If Player One Wins **/
                     if(super.getVictor() == 1){
                         //display player one victory text, play a cheer, and end the game.
@@ -98,7 +113,16 @@ public class MyPong extends MyGame {
                     }
                 else if (collision.getObjectID() == "Player 2 Goal") {
                     soundClip.stopPlayingSound();
-                    addPointsToPlayer(2, 1);
+                    if(super.getPlayerTwoPowerUp()){
+                        addPointsToPlayer(2, 2); //get two points for scoring a goal on opposing player who activated power up mode
+                    }
+                    else {
+                        addPointsToPlayer(2, 1);
+                    }
+                    puck.setSpeed(5.5);//change speed of puck back to normal
+                    //reset status of power up regardless of who made the goal
+                    super.setPlayerOnePowerUp(false);
+                    super.setPlayerTwoPowerUp(false);
                     /** If Player Two Wins **/
                     if(super.getVictor() == 2){
                         //display player two victory text, play a cheer, and end the game.
