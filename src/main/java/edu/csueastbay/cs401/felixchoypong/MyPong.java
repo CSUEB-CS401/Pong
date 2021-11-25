@@ -3,7 +3,6 @@ import edu.csueastbay.cs401.pong.*;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 public class MyPong extends MyGame {
 
@@ -18,8 +17,8 @@ public class MyPong extends MyGame {
 
     private Timeline timeLine;
 
-    public MyPong(int victoryScore, double fieldWidth, double fieldHeight, Label playerOneVictoryText, Label playerTwoVictoryText, AnchorPane fieldPane) {
-        super(10); ///first to 10 points wins, can be changed.
+    public MyPong(int victoryScore, double fieldWidth, double fieldHeight, Label playerOneVictoryText, Label playerTwoVictoryText) {
+        super(victoryScore); ///first to 10 points wins, can be changed.
         soundClip = new Sounds();
         soundClip.stopPlayingSound(); //prevents sound from carrying over to next game
         soundClip.stopPlayingPowerUpSound();
@@ -94,7 +93,7 @@ public class MyPong extends MyGame {
                     else {
                         addPointsToPlayer(1, 1);
                     }
-                    puck.setSpeed(5.5);//change speed of puck back to normal
+                    puck.setSpeed(6);//change speed of puck back to normal
                     //reset status of power up regardless of who made the goal
                     super.setPlayerOnePowerUp(false);
                     super.setPlayerTwoPowerUp(false);
@@ -119,7 +118,7 @@ public class MyPong extends MyGame {
                     else {
                         addPointsToPlayer(2, 1);
                     }
-                    puck.setSpeed(5.5);//change speed of puck back to normal
+                    puck.setSpeed(6);//change speed of puck back to normal
                     //reset status of power up regardless of who made the goal
                     super.setPlayerOnePowerUp(false);
                     super.setPlayerTwoPowerUp(false);

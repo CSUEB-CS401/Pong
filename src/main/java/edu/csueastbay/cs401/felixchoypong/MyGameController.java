@@ -40,7 +40,7 @@ public class MyGameController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        game = new MyPong(VICTORY_SCORE, FIELD_WIDTH, FIELD_HEIGHT, playerOneVictoryText, playerTwoVictoryText, fieldPane);
+        game = new MyPong(VICTORY_SCORE, FIELD_WIDTH, FIELD_HEIGHT, playerOneVictoryText, playerTwoVictoryText);
         Platform.runLater(()->fieldPane.requestFocus());
         addGameElementsToField();
         setUpTimeline();

@@ -1,9 +1,7 @@
 package edu.csueastbay.cs401.felixchoypong;
 
 import edu.csueastbay.cs401.pong.*;
-import javafx.fxml.FXML;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Shape;
 
 import java.util.ArrayList;

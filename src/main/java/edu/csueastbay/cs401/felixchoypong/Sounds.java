@@ -1,8 +1,6 @@
 package edu.csueastbay.cs401.felixchoypong;
 import javafx.scene.media.AudioClip;
 
-import java.io.File;
-
 public class Sounds {
     private AudioClip paddleOneSound;
     private AudioClip paddleTwoSound;

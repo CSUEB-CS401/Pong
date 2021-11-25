@@ -11,7 +11,7 @@ import java.util.Random;
 
 public class Puck extends Circle implements Puckable {
 
-    public static final double STARTING_SPEED = 5.5;
+    public static final double STARTING_SPEED = 6;
     public static final int STARTING_RADIUS = 5;
     private final double fieldWidth;
     private final double fieldHeight;
