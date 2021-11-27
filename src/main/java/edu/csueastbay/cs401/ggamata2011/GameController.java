@@ -20,9 +20,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-
-public class GameController implements Initializable
-{
+public class GameController implements Initializable {
     public static final int FIELD_WIDTH = 1300;
     public static final int FIELD_HEIGHT = 860;
     public static final int VICTORY_SCORE = 10;
@@ -62,7 +60,7 @@ public class GameController implements Initializable
 
     @FXML
     public void keyPressed(KeyEvent event) {
-        System.out.println("Pressed: " + event.getCode() + " hoes ");
+        System.out.println("Pressed: " + event.getCode() + "hoes");
         game.keyPressed(event.getCode());
     }
 
@@ -86,5 +84,6 @@ public class GameController implements Initializable
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
     }
+
 
 }

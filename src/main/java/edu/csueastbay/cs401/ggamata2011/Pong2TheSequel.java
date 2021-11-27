@@ -3,117 +3,93 @@ package edu.csueastbay.cs401.ggamata2011;
 import edu.csueastbay.cs401.pong.*;
 import javafx.scene.paint.Color;
 
+public class Pong2TheSequel extends Game {
 
-public class Pong2TheSequel extends Game
-{
-
-   private double fieldHeight;
-   private double fieldWidth;
-
-    /**
-     *Default Constructor with arguments
-     * @param victoryScore used to determine the victory score
-     * @param SetWidth used to Set width of fieldWidth
-     * @param setHeight used to set the height of the fieldHeight
-     */
-   public Pong2TheSequel(int victoryScore,double SetWidth,double setHeight) {
-       /**
-        * Call to Parent Constructor initializing
-        * the victory score
-        */
-       super(victoryScore);
+    private double fieldHeight;
+    private double fieldWidth;
 
 
-       Puck puck = new Puck(this.fieldWidth, this.fieldHeight);
-       puck.setID("Pong2TheSequel");
-       addPuck(puck);
+    public Pong2TheSequel(int victoryScore, double fieldWidth, double fieldHeight) {
+        super(victoryScore);
 
-       Wall top = new Wall("Top Wall", 0, 0, this.fieldWidth, 10);
-       top.setFill(Color.WHITE);
-       addObject(top);
+        this.fieldWidth = fieldWidth;
+        this.fieldHeight = fieldHeight;
 
-       Wall bottom = new Wall("Bottom Wall", 0, this.fieldHeight - 10, this.fieldWidth, 10);
-       bottom.setFill(Color.WHITE);
-       addObject(bottom);
+        Puck puck = new Puck(this.fieldWidth, this.fieldHeight);
+        puck.setID("Classic");
+        addPuck(puck);
 
-       Goal left = new Goal("Player 1 Goal", this.fieldWidth - 10, 10, 10, this.fieldHeight - 20);
-       left.setFill(Color.RED);
-       addObject(left);
+        Wall top = new Wall("Top Wall", 0,0, this.fieldWidth, 10);
+        top.setFill(Color.WHITE);
+        addObject(top);
 
-       Goal right = new Goal("Player 2 Goal", 0, 10, 10, this.fieldHeight - 20);
-       right.setFill(Color.BLUE);
-       addObject(right);
+        Wall bottom = new Wall("Bottom Wall", 0, this.fieldHeight -10, this.fieldWidth, 10 );
+        bottom.setFill(Color.WHITE);
+        addObject(bottom);
 
-       Paddle playerOne = new Paddle(
-               "Player 1 Paddle",
-               50,
-               (this.fieldHeight / 2) - 50,
-               10,
-               100,
-               10,
-               this.fieldHeight - 10);
-       playerOne.setFill(Color.RED);
-       addPlayerPaddle(1, playerOne);
+        Goal left = new Goal("Player 1 Goal", this.fieldWidth -10, 10, 10, this.fieldHeight - 20);
+        left.setFill(Color.RED);
+        addObject(left);
 
-       Paddle playerTwo = new Paddle(
-               "Player 2 Paddle",
-               this.fieldWidth - 50,
-               (this.fieldHeight / 2) - 50,
-               10,
-               100,
-               10,
-               this.fieldHeight - 10);
-       playerTwo.setFill(Color.BLUE);
-       addPlayerPaddle(2, playerTwo);
+        Goal right = new Goal("Player 2 Goal", 0, 10, 10, this.fieldHeight - 20);
+        right.setFill(Color.BLUE);
+        addObject(right);
 
-   }
+        Paddle playerOne = new Paddle(
+                "Player 1 Paddle",
+                50,
+                (this.fieldHeight/2) - 50,
+                10,
+                100,
+                10,
+                this.fieldHeight - 10);
+        playerOne.setFill(Color.RED);
+        addPlayerPaddle(1, playerOne);
 
-    /**
-     *
-     * @param puck passed in our puck
-     * @param collision used to handle collisions
-     *
-     *                  Function will handle collisions with Walls,Goal or Paddle
-     *
-     */
-       @Override
-       public void collisionHandler(Puckable puck, Collision collision)
-       {
+        Paddle playerTwo = new Paddle(
+                "Player 2 Paddle",
+                this.fieldWidth - 50,
+                (this.fieldHeight/2) - 50,
+                10,
+                100,
+                10,
+                this.fieldHeight - 10);
+        playerTwo.setFill(Color.BLUE);
+        addPlayerPaddle(2, playerTwo);
+
+    }
+
+    @Override
+    public void collisionHandler(Puckable puck, Collision collision) {
 //        System.out.println(puck.getDirection());
-       switch(collision.getType())
-       {
-           case "Wall":
-               puck.setDirection(0 - puck.getDirection());
-               break;
-           case "Goal":
-               if (collision.getObjectID() == "Player 1 Goal") {
-                   addPointsToPlayer(1, 1);
-                   puck.reset();
-               } else if (collision.getObjectID() == "Player 2 Goal") {
-                   addPointsToPlayer(2, 1);
-                   puck.reset();
-               }
-               break;
-           case "Paddle":
-               double puckCenter = ((Puck) puck).getCenterY();
-               double angle;
-               if (collision.getObjectID() == "Player 1 Paddle") {
-                   angle = mapRange(collision.getTop(), collision.getBottom(), -45, 45, puckCenter);
-               } else {
-                   angle = mapRange(collision.getTop(), collision.getBottom(), 225, 135, puckCenter);
-               }
-               puck.setDirection(angle);
+        switch(collision.getType()) {
+            case "Wall":
+                puck.setDirection(0 - puck.getDirection());
+                break;
+            case "Goal":
+                if (collision.getObjectID() == "Player 1 Goal") {
+                    addPointsToPlayer(1, 1);
+                    puck.reset();
+                } else if (collision.getObjectID() == "Player 2 Goal") {
+                    addPointsToPlayer(2, 1);
+                    puck.reset();
+                }
+                break;
+            case "Paddle":
+                double puckCenter = ((Puck) puck).getCenterY();
+                double angle;
+                if (collision.getObjectID() == "Player 1 Paddle") {
+                    angle = mapRange(collision.getTop(), collision.getBottom(), -45, 45, puckCenter);
+                } else {
+                    angle = mapRange(collision.getTop(), collision.getBottom(), 225, 135, puckCenter);
+                }
+                puck.setDirection(angle);
 
-       }
+        }
+    }
 
-       }
-
-
-       public static double mapRange(double a1, double a2, double b1, double b2, double s)
-       {
-       return b1 + ((s - a1)*(b2 - b1))/(a2 - a1);
-       }
-
-
+    public static double mapRange(double a1, double a2, double b1, double b2, double s) {
+        return b1 + ((s - a1)*(b2 - b1))/(a2 - a1);
+    }
 
 }
