@@ -20,19 +20,19 @@ public class Pong2TheSequel extends Game {
         addPuck(puck);
 
         Wall top = new Wall("Top Wall", 0,0, this.fieldWidth, 10);
-        top.setFill(Color.WHITE);
+        top.setFill(Color.RED);
         addObject(top);
 
         Wall bottom = new Wall("Bottom Wall", 0, this.fieldHeight -10, this.fieldWidth, 10 );
-        bottom.setFill(Color.WHITE);
+        bottom.setFill(Color.RED);
         addObject(bottom);
 
         Goal left = new Goal("Player 1 Goal", this.fieldWidth -10, 10, 10, this.fieldHeight - 20);
-        left.setFill(Color.RED);
+        left.setFill(Color.GREEN);
         addObject(left);
 
         Goal right = new Goal("Player 2 Goal", 0, 10, 10, this.fieldHeight - 20);
-        right.setFill(Color.BLUE);
+        right.setFill(Color.GREEN);
         addObject(right);
 
         Paddle playerOne = new Paddle(
@@ -43,7 +43,7 @@ public class Pong2TheSequel extends Game {
                 100,
                 10,
                 this.fieldHeight - 10);
-        playerOne.setFill(Color.RED);
+        playerOne.setFill(Color.WHITE);
         addPlayerPaddle(1, playerOne);
 
         Paddle playerTwo = new Paddle(
@@ -54,7 +54,7 @@ public class Pong2TheSequel extends Game {
                 100,
                 10,
                 this.fieldHeight - 10);
-        playerTwo.setFill(Color.BLUE);
+        playerTwo.setFill(Color.WHITE);
         addPlayerPaddle(2, playerTwo);
 
     }
