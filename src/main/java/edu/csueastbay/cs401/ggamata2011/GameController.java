@@ -16,6 +16,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
+import java.lang.reflect.Field;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -56,11 +57,16 @@ public class GameController implements Initializable {
             fieldPane.getChildren().add((Node) object);
         });
 
+        ArrayList<Collidable> DisplayUpgrade = game.getUpgrades();
+        DisplayUpgrade.forEach((Up) -> {
+            fieldPane.getChildren().add((Node) Up);
+        });
+
     }
 
     @FXML
     public void keyPressed(KeyEvent event) {
-        System.out.println("Pressed: " + event.getCode() + "hoes");
+        System.out.println("Pressed: " + event.getCode());
         game.keyPressed(event.getCode());
     }
 
@@ -70,12 +76,26 @@ public class GameController implements Initializable {
         System.out.println("Released: " + event.getCode() + "hoes");
     }
 
+    public void UpdateField()
+    {
+
+        if(!game.UpgradeStatus())
+        {
+            ArrayList<Collidable> DisplayUpgrade = game.getUpgrades();
+            fieldPane.getChildren().remove(DisplayUpgrade.get(0));
+        }
+
+
+
+    }
+
     private void setUpTimeline() {
 
         timeline = new Timeline(new KeyFrame(Duration.millis(10), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 game.move();
+                UpdateField();
                 playerOneScore.setText(Integer.toString(game.getPlayerScore(1)));
                 playerTwoScore.setText(Integer.toString(game.getPlayerScore(2)));
             }

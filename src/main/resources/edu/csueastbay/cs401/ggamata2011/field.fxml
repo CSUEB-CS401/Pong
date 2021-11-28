@@ -11,3 +11,4 @@
       <Label fx:id="playerTwoScore" layoutX="1207.0" layoutY="38.0" style="-fx-font-size: 64;" text="0" textFill="WHITE" />
    </children>
 </AnchorPane>
+
