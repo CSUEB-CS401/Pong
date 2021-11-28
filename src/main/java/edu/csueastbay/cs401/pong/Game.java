@@ -109,16 +109,12 @@ public abstract class Game {
             case D:
                 playOnePaddle.moveDown();
                 break;
-            case F:
-                break; //player 1 powerup key
             case I:
                 playTwoPaddle.moveUp();
                 break;
             case K:
                 playTwoPaddle.moveDown();
                 break;
-            case J:
-                break; //player2 powerup key
         }
     }
 

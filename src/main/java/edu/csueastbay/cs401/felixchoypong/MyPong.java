@@ -28,7 +28,7 @@ public class MyPong extends MyGame {
         this.playerOneVictoryText = playerOneVictoryText;
         this.playerTwoVictoryText = playerTwoVictoryText;
 
-        Puck puck = new Puck(this.fieldWidth, this.fieldHeight);
+        MyPuck puck = new MyPuck(this.fieldWidth, this.fieldHeight);
         puck.setID("Classic");
         addPuck(puck);
 

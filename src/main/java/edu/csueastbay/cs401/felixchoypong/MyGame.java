@@ -115,9 +115,12 @@ public abstract class MyGame {
         objects.forEach((object) -> {
             Collision collision = object.getCollision((Shape)puck);
             if (collision.isCollided()) {
+                if(playerOnePowerUp || playerTwoPowerUp){ /**Check for active power up if activated on collision **/
+                    puck.setSpeed(7.5);
+                }
                 collisionHandler(puck, collision);
             }
-            else{ /**If no collisions, check for if player one or two has a power up active**/
+            else{ /**Even if no collisions, check for if player one or two has a power up active**/
                 if(playerOnePowerUp || playerTwoPowerUp){
                     puck.setSpeed(7.5);
                 }
