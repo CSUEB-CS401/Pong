@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.effect.GaussianBlur?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane fx:id="baseBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="860.0" prefWidth="1300.0" style="-fx-background-color: White;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.csueastbay.cs401.jzepeda.myMainMenuControls">
+   <center>
+      <AnchorPane prefHeight="845.0" prefWidth="1300.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fx:id="imageView" fitHeight="860.0" fitWidth="853.0" layoutX="-141.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+               <effect>
+                  <GaussianBlur radius="17.79" />
+               </effect>
+               <image>
+                  <Image url="@BWspacewave.gif" />
+               </image>
+            </ImageView>
+            <Line endX="-98.99993896484375" endY="846.0" layoutX="704.0" layoutY="2.0" startX="-99.0" startY="10.0" stroke="WHITE" strokeWidth="3.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" height="860.0" layoutX="605.0" layoutY="-1.0" stroke="BLACK" strokeType="INSIDE" width="695.0" />
+            <Button layoutX="919.0" layoutY="413.0" mnemonicParsing="false" onAction="#goBack" text="Play!">
+               <font>
+                  <Font size="20.0" />
+               </font></Button>
+            <ImageView fx:id="imageLogo" fitHeight="273.0" fitWidth="317.0" layoutX="149.0" layoutY="298.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@BWspacewave.gif" />
+               </image>
+            </ImageView>
+            <Text fill="WHITE" layoutX="157.0" layoutY="228.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Pong Game">
+               <font>
+                  <Font size="50.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="272.0" layoutY="639.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="by">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="168.0" layoutY="679.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Jonathan Zepeda">
+               <font>
+                  <Font size="31.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>
