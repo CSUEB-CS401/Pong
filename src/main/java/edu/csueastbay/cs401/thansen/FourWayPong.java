@@ -2,6 +2,7 @@ package edu.csueastbay.cs401.thansen;
 
 import edu.csueastbay.cs401.classic.ClassicPong;
 import edu.csueastbay.cs401.pong.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 
 import edu.csueastbay.cs401.pong.Game;
@@ -9,23 +10,30 @@ import edu.csueastbay.cs401.pong.Game;
 import java.lang.reflect.AnnotatedWildcardType;
 
 /**
- * Pong game with 4 paddles on each side of the screen.
- *
- * Here, paddles are removed from the game if their goals have been hit multiple
- * times, with the last one standing being the winner.
+ * Pong game with 4 paddles on each side of the screen. Here, paddles are
+ * removed from the game if their goals have been hit multiple times, with the
+ * last one standing being the winner.
  */
 public class FourWayPong extends Game {
+    public static final int NUM_PLAYERS = 4;
     public static final double WALL_THICKNESS = 10;
     public static final double PADDLE_OFFSET = 50;
     public static final double PADDLE_LENGTH = 100;
     public static final double PADDLE_THICKNESS = 10;
 
-    private final int[] scores = new int[4];
+    private final int[] scores = new int[NUM_PLAYERS];
     private final HorizontalPaddle playerThreePaddle;
     private final HorizontalPaddle playerFourPaddle;
 
-    public FourWayPong(int victoryScore, double fieldWidth, double fieldHeight) {
-        super(victoryScore);
+    /**
+     * Creates a FourWayPong game.
+     *
+     * @param loseScore   Score at which a paddle will be removed.
+     * @param fieldWidth  Width of the field.
+     * @param fieldHeight Height of the field.
+     */
+    public FourWayPong(int loseScore, double fieldWidth, double fieldHeight) {
+        super(loseScore);
 
         final Puck puck = new Puck(fieldWidth, fieldHeight);
         puck.setID("Four Way");
@@ -169,14 +177,21 @@ public class FourWayPong extends Game {
 
     @Override
     public int getPlayerScore(int player) {
-        if (player < 1 || player > 4) return 0;
+        if (player < 1 || player > scores.length) return 0;
         return scores[player - 1];
     }
 
     @Override
     public void addPointsToPlayer(int player, int value) {
-        if (player < 1 || player > 4) return;
+        if (player < 1 || player > scores.length) return;
         scores[player - 1] += value;
+    }
+
+    @Override
+    public void move() {
+        playerThreePaddle.move();
+        playerFourPaddle.move();
+        super.move();
     }
 
     @Override
@@ -224,6 +239,40 @@ public class FourWayPong extends Game {
                     default -> throw new Error("Unknown paddle " + collision.getObjectID());
                 });
             }
+        }
+    }
+
+    @Override
+    public void keyPressed(KeyCode code) {
+        switch (code) {
+            case T:
+                playerThreePaddle.moveLeft();
+                break;
+            case Y:
+                playerThreePaddle.moveRight();
+                break;
+            case V:
+                playerFourPaddle.moveLeft();
+                break;
+            case B:
+                playerFourPaddle.moveRight();
+                break;
+            default:
+                super.keyPressed(code);
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyCode code) {
+        switch (code) {
+            case T, Y:
+                playerThreePaddle.stop();
+                break;
+            case V, B:
+                playerFourPaddle.stop();
+                break;
+            default:
+                super.keyReleased(code);
         }
     }
 }
