@@ -7,8 +7,6 @@ import javafx.scene.paint.Color;
 
 import edu.csueastbay.cs401.pong.Game;
 
-import java.lang.reflect.AnnotatedWildcardType;
-
 /**
  * Pong game with 4 paddles on each side of the screen. Here, paddles are
  * removed from the game if their goals have been hit multiple times, with the

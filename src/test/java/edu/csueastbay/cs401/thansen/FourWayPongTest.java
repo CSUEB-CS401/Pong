@@ -21,7 +21,7 @@ public class FourWayPongTest {
     }
 
     @Test
-    void ShouldHaveOnePuckAtStart() {
+    void shouldHaveOnePuckAtStart() {
         ArrayList<Puckable> pucks = game.getPucks();
         assertEquals(1, pucks.size(), "There should be one puck");
     }
@@ -75,7 +75,7 @@ public class FourWayPongTest {
     }
 
     @Test
-    void HittingAHorizontalWallShouldMakePuckReverseVerticalDirection() {
+    void hittingAHorizontalWallShouldMakePuckReverseVerticalDirection() {
         Puck puck = new Puck(500, 500);
         puck.setCenterX(100);
         puck.setCenterY(100);
@@ -95,7 +95,7 @@ public class FourWayPongTest {
     }
 
     @Test
-    void HittingAVerticalWallShouldMakePuckReverseVerticalDirection() {
+    void hittingAVerticalWallShouldMakePuckReverseVerticalDirection() {
         Puck puck = new Puck(500, 500);
         puck.setCenterX(100);
         puck.setCenterY(100);
@@ -115,7 +115,7 @@ public class FourWayPongTest {
     }
 
     @Test
-    void HittingPlayer1GoalAddAPointToPlayer1() {
+    void hittingPlayer1GoalAddAPointToPlayer1() {
         Puck puck = new Puck(500, 500);
         puck.setCenterX(100);
         puck.setCenterY(100);
@@ -131,5 +131,62 @@ public class FourWayPongTest {
 
         game.collisionHandler(puck, bang);
         assertEquals(1, game.getPlayerScore(1));
+    }
+
+    @Test
+    void hittingPlayer2GoalAddAPointToPlayer2() {
+        Puck puck = new Puck(500, 500);
+        puck.setCenterX(100);
+        puck.setCenterY(100);
+        Collision bang = new Collision(
+                "Goal",
+                "Player 2 Goal",
+                true,
+                0,
+                500,
+                90,
+                110
+        );
+
+        game.collisionHandler(puck, bang);
+        assertEquals(1, game.getPlayerScore(2));
+    }
+
+    @Test
+    void hittingPlayer3GoalAddAPointToPlayer3() {
+        Puck puck = new Puck(500, 500);
+        puck.setCenterX(100);
+        puck.setCenterY(100);
+        Collision bang = new Collision(
+                "Goal",
+                "Player 3 Goal",
+                true,
+                0,
+                500,
+                90,
+                110
+        );
+
+        game.collisionHandler(puck, bang);
+        assertEquals(1, game.getPlayerScore(3));
+    }
+
+    @Test
+    void hittingPlayer4GoalAddAPointToPlayer4() {
+        Puck puck = new Puck(500, 500);
+        puck.setCenterX(100);
+        puck.setCenterY(100);
+        Collision bang = new Collision(
+                "Goal",
+                "Player 4 Goal",
+                true,
+                0,
+                500,
+                90,
+                110
+        );
+
+        game.collisionHandler(puck, bang);
+        assertEquals(1, game.getPlayerScore(4));
     }
 }
