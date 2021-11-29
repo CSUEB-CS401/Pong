@@ -6,8 +6,8 @@
 
 <AnchorPane fx:id="fieldPane" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyPressed" onKeyReleased="#keyReleased" prefHeight="860.0" prefWidth="1300.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.csueastbay.cs401.thansen.GameController">
    <children>
-      <Line startX="1300.0" startY="860.0" stroke="WHITE" strokeWidth="10.0" />
-      <Line endX="1300.0" startY="860.0" stroke="WHITE" strokeWidth="10.0" />
+      <Line startX="1300.0" startY="860.0" stroke="WHITE" strokeWidth="3.0" />
+      <Line endX="1300.0" startY="860.0" stroke="WHITE" strokeWidth="3.0" />
       <Label fx:id="playerOneScore" alignment="CENTER_RIGHT" layoutX="530.0" layoutY="392.0" style="-fx-font-size: 64;" text="0" textAlignment="RIGHT" textFill="WHITE" />
       <Label fx:id="playerTwoScore" layoutX="730.0" layoutY="392.0" style="-fx-font-size: 64;" text="0" textFill="WHITE" />
       <Label fx:id="playerThreeScore" alignment="CENTER" layoutX="630.0" layoutY="322.0" style="-fx-font-size: 64;" text="0" textAlignment="CENTER" textFill="WHITE" />
