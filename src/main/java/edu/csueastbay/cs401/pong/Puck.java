@@ -21,7 +21,6 @@ public class Puck extends Circle implements Puckable {
         this.fieldWidth = fieldWidth;
         this.fieldHeight = fieldHeight;
         reset();
-
     }
 
     @Override
@@ -70,8 +69,6 @@ public class Puck extends Circle implements Puckable {
     public void setDirection(double angle) {
         this.direction = angle;
     }
-
-
 
     @Override
     public void move() {

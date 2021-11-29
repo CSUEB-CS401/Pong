@@ -1,4 +1,4 @@
-package edu.csueastbay.cs401.classic;
+package edu.csueastbay.cs401.StarWarsPong;
 
 import edu.csueastbay.cs401.pong.Collidable;
 import edu.csueastbay.cs401.pong.Puckable;
@@ -23,10 +23,13 @@ public class GameController implements Initializable {
     public static final int FIELD_WIDTH = 1300;
     public static final int FIELD_HEIGHT = 860;
     public static final int VICTORY_SCORE = 10;
+    public Label ScorePoint;
+    public Label GoalL;
+    public Label GoalR;
 
-    private ClassicPong game;
+    private PongWars game;
     private Timeline timeline;
-
+    public int n;
     @FXML
     AnchorPane fieldPane;
     @FXML
@@ -34,9 +37,15 @@ public class GameController implements Initializable {
     @FXML
     Label playerTwoScore;
 
+    @FXML
+    Label playerOneStreak;
+    @FXML
+    Label playerTwoStreak;
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        game = new ClassicPong(VICTORY_SCORE, FIELD_WIDTH, FIELD_HEIGHT);
+        game = new PongWars(VICTORY_SCORE, FIELD_WIDTH, FIELD_HEIGHT);
 
         addGameElementsToField();
         setUpTimeline();
@@ -79,6 +88,18 @@ public class GameController implements Initializable {
                 game.move();
                 playerOneScore.setText(Integer.toString(game.getPlayerScore(1)));
                 playerTwoScore.setText(Integer.toString(game.getPlayerScore(2)));
+
+                //Adding streak count display here
+                playerOneStreak.setText(Integer.toString(game.getPlayerStreak(1)));
+                playerTwoStreak.setText(Integer.toString(game.getPlayerStreak(2)));
+
+                // Victory Score Point
+                ScorePoint.setText(Integer.toString(game.getVictoryScore()));
+
+                // Set Goal for players
+                GoalL.setText(String.valueOf(game.getMessage()));
+                GoalR.setText(String.valueOf(game.getMessage2()));
+
             }
         }));
 
@@ -88,3 +109,4 @@ public class GameController implements Initializable {
 
 
 }
+
