@@ -1,14 +1,9 @@
 package edu.csueastbay.cs401.thansen;
 
-import edu.csueastbay.cs401.classic.ClassicPong;
-import edu.csueastbay.cs401.pong.Collidable;
-import edu.csueastbay.cs401.pong.Puckable;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -18,7 +13,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class GameController implements Initializable {
@@ -27,7 +21,6 @@ public class GameController implements Initializable {
     public static final int VICTORY_SCORE = 10;
 
     private FourWayPong game;
-    private Timeline timeline;
 
     @FXML
     AnchorPane fieldPane;
@@ -43,21 +36,14 @@ public class GameController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         game = new FourWayPong(VICTORY_SCORE, FIELD_WIDTH, FIELD_HEIGHT);
-        Platform.runLater(()->fieldPane.requestFocus());
+        Platform.runLater(() -> fieldPane.requestFocus());
         addGameElementsToField();
         setUpTimeline();
     }
 
     private void addGameElementsToField() {
-        ArrayList<Puckable> pucks = game.getPucks();
-        pucks.forEach((puck) -> {
-            fieldPane.getChildren().add((Node) puck);
-        });
-
-        ArrayList<Collidable> objects = game.getObjects();
-        objects.forEach((object)-> {
-            fieldPane.getChildren().add((Node) object);
-        });
+        game.getPucks().forEach(puck -> fieldPane.getChildren().add((Node) puck));
+        game.getObjects().forEach(object -> fieldPane.getChildren().add((Node) object));
     }
 
     @FXML
@@ -73,17 +59,13 @@ public class GameController implements Initializable {
     }
 
     private void setUpTimeline() {
-        timeline = new Timeline(new KeyFrame(Duration.millis(10), new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                game.move();
-                playerOneScore.setText(Integer.toString(game.getPlayerScore(1)));
-                playerTwoScore.setText(Integer.toString(game.getPlayerScore(2)));
-                playerThreeScore.setText(Integer.toString(game.getPlayerScore(3)));
-                playerFourScore.setText(Integer.toString(game.getPlayerScore(4)));
-            }
+        final Timeline timeline = new Timeline(new KeyFrame(Duration.millis(10), actionEvent -> {
+            game.move();
+            playerOneScore.setText(Integer.toString(game.getPlayerScore(1)));
+            playerTwoScore.setText(Integer.toString(game.getPlayerScore(2)));
+            playerThreeScore.setText(Integer.toString(game.getPlayerScore(3)));
+            playerFourScore.setText(Integer.toString(game.getPlayerScore(4)));
         }));
-
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
     }

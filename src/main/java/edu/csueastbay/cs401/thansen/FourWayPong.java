@@ -12,7 +12,7 @@ import edu.csueastbay.cs401.pong.Game;
  * removed from the game if their goals have been hit multiple times, with the
  * last one standing being the winner.
  */
-public class FourWayPong extends Game {
+public final class FourWayPong extends Game {
     public static final int NUM_PLAYERS = 4;
     public static final double WALL_THICKNESS = 10;
     public static final double PADDLE_OFFSET = 50;
@@ -188,6 +188,24 @@ public class FourWayPong extends Game {
     public void addPointsToPlayer(int player, int value) {
         if (player < 1 || player > scores.length) return;
         scores[player - 1] += value;
+    }
+
+    @Override
+    public int getVictor() {
+        int victor = 0;
+        for (int i = 0; i < scores.length; ++i) {
+            final int score = scores[i];
+            if (score < getVictoryScore()) {
+                if (victor > 0) {
+                    // More than one player left, so we haven't reached a
+                    // game-over state yet.
+                    return 0;
+                }
+                // Player that hasn't been eliminated yet.
+                victor = i + 1;
+            }
+        }
+        return victor;
     }
 
     @Override
