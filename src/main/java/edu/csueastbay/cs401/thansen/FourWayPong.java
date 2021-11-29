@@ -35,7 +35,7 @@ public class FourWayPong extends Game {
     public FourWayPong(int loseScore, double fieldWidth, double fieldHeight) {
         super(loseScore);
 
-        final Puck puck = new Puck(fieldWidth, fieldHeight);
+        final FourWayPuck puck = new FourWayPuck(fieldWidth, fieldHeight);
         puck.setID("Four Way");
         addPuck(puck);
 
