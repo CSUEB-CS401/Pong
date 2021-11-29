@@ -230,13 +230,19 @@ public class FourWayPong extends Game {
                     case "Player 2 Paddle" -> ClassicPong.mapRange(
                             collision.getTop(), collision.getBottom(), 225, 135, puckCenter
                     );
+                    default -> throw new Error("Unknown Paddle " + collision.getObjectID());
+                });
+            }
+            case "HorizontalPaddle" -> {
+                final double puckCenter = ((Puck) puck).getCenterX();
+                puck.setDirection(switch (collision.getObjectID()) {
                     case "Player 3 Paddle" -> ClassicPong.mapRange(
-                            collision.getLeft(), collision.getRight(), -45, -135, puckCenter
+                            collision.getLeft(), collision.getRight(), 135, 45, puckCenter
                     );
                     case "Player 4 Paddle" -> ClassicPong.mapRange(
-                            collision.getLeft(), collision.getRight(), 45, 135, puckCenter
+                            collision.getLeft(), collision.getRight(), -135, -45, puckCenter
                     );
-                    default -> throw new Error("Unknown paddle " + collision.getObjectID());
+                    default -> throw new Error("Unknown HorizontalPaddle " + collision.getObjectID());
                 });
             }
         }
