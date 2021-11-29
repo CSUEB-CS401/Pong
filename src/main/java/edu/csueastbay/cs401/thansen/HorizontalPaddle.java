@@ -58,9 +58,9 @@ public class HorizontalPaddle extends Rectangle implements Collidable {
             setX(getX() + speed);
         }
 
-        if (getX() < leftBound) setY(leftBound);
+        if (getX() < leftBound) setX(leftBound);
         final double rightLimit = rightBound - getWidth();
-        if (getX() > rightLimit) setY(rightLimit);
+        if (getX() > rightLimit) setX(rightLimit);
     }
 
     public void stop() {

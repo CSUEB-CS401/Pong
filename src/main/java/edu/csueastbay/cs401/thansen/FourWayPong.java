@@ -10,6 +10,9 @@ import java.lang.reflect.AnnotatedWildcardType;
 
 /**
  * Pong game with 4 paddles on each side of the screen.
+ *
+ * Here, paddles are removed from the game if their goals have been hit multiple
+ * times, with the last one standing being the winner.
  */
 public class FourWayPong extends Game {
     public static final double WALL_THICKNESS = 10;
