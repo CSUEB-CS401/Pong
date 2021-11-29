@@ -20,6 +20,11 @@ public class FourWayPong extends Game {
     public static final double PADDLE_OFFSET = 50;
     public static final double PADDLE_LENGTH = 100;
     public static final double PADDLE_THICKNESS = 10;
+    /**
+     * Max angle (relative to the normal) by which the paddle can angle the
+     * puck.
+     */
+    public static final double PADDLE_COLLISION_ANGLE = 45;
 
     private final int[] scores = new int[NUM_PLAYERS];
     private final HorizontalPaddle playerThreePaddle;
@@ -225,10 +230,14 @@ public class FourWayPong extends Game {
                 final double puckCenter = ((Puck) puck).getCenterY();
                 puck.setDirection(switch (collision.getObjectID()) {
                     case "Player 1 Paddle" -> ClassicPong.mapRange(
-                            collision.getTop(), collision.getBottom(), -45, 45, puckCenter
+                            collision.getTop(), collision.getBottom(),
+                            -PADDLE_COLLISION_ANGLE, PADDLE_COLLISION_ANGLE,
+                            puckCenter
                     );
                     case "Player 2 Paddle" -> ClassicPong.mapRange(
-                            collision.getTop(), collision.getBottom(), 225, 135, puckCenter
+                            collision.getTop(), collision.getBottom(),
+                            180 + PADDLE_COLLISION_ANGLE, 90 + PADDLE_COLLISION_ANGLE,
+                            puckCenter
                     );
                     default -> throw new Error("Unknown Paddle " + collision.getObjectID());
                 });
@@ -237,10 +246,14 @@ public class FourWayPong extends Game {
                 final double puckCenter = ((Puck) puck).getCenterX();
                 puck.setDirection(switch (collision.getObjectID()) {
                     case "Player 3 Paddle" -> ClassicPong.mapRange(
-                            collision.getLeft(), collision.getRight(), 135, 45, puckCenter
+                            collision.getLeft(), collision.getRight(),
+                            90 + PADDLE_COLLISION_ANGLE, PADDLE_COLLISION_ANGLE,
+                            puckCenter
                     );
                     case "Player 4 Paddle" -> ClassicPong.mapRange(
-                            collision.getLeft(), collision.getRight(), -135, -45, puckCenter
+                            collision.getLeft(), collision.getRight(),
+                            -90 - PADDLE_COLLISION_ANGLE, -PADDLE_COLLISION_ANGLE,
+                            puckCenter
                     );
                     default -> throw new Error("Unknown HorizontalPaddle " + collision.getObjectID());
                 });
@@ -251,34 +264,20 @@ public class FourWayPong extends Game {
     @Override
     public void keyPressed(KeyCode code) {
         switch (code) {
-            case T:
-                playerThreePaddle.moveLeft();
-                break;
-            case Y:
-                playerThreePaddle.moveRight();
-                break;
-            case V:
-                playerFourPaddle.moveLeft();
-                break;
-            case B:
-                playerFourPaddle.moveRight();
-                break;
-            default:
-                super.keyPressed(code);
+            case T -> playerThreePaddle.moveLeft();
+            case Y -> playerThreePaddle.moveRight();
+            case V -> playerFourPaddle.moveLeft();
+            case B -> playerFourPaddle.moveRight();
+            default -> super.keyPressed(code);
         }
     }
 
     @Override
     public void keyReleased(KeyCode code) {
         switch (code) {
-            case T, Y:
-                playerThreePaddle.stop();
-                break;
-            case V, B:
-                playerFourPaddle.stop();
-                break;
-            default:
-                super.keyReleased(code);
+            case T, Y -> playerThreePaddle.stop();
+            case V, B -> playerFourPaddle.stop();
+            default -> super.keyReleased(code);
         }
     }
 }
