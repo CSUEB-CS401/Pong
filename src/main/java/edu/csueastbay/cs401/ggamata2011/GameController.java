@@ -57,11 +57,6 @@ public class GameController implements Initializable {
             fieldPane.getChildren().add((Node) object);
         });
 
-        ArrayList<Collidable> DisplayUpgrade = game.getUpgrades();
-        DisplayUpgrade.forEach((Up) -> {
-            fieldPane.getChildren().add((Node) Up);
-        });
-
     }
 
     @FXML
@@ -78,11 +73,13 @@ public class GameController implements Initializable {
 
     public void UpdateField()
     {
-
-        if(!game.UpgradeStatus())
+        if(game.SpawnIn())
         {
-            ArrayList<Collidable> DisplayUpgrade = game.getUpgrades();
-            fieldPane.getChildren().remove(DisplayUpgrade.get(0));
+          fieldPane.getChildren().add(game.getSpeedUpgrades());
+        }
+        else if(game.SpawnOut())
+        {
+            fieldPane.getChildren().remove(game.getSpeedUpgrades());
         }
 
 

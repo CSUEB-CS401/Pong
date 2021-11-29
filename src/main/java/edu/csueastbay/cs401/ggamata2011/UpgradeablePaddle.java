@@ -21,19 +21,19 @@ public class UpgradeablePaddle extends Paddle
       this.bottomBound = bottomBound;
   }
 
-  public void SpeedBoost()
+  public void ModifySpeed(double boost)
   {
-    UPGRADE_SPEED += 2;
+    UPGRADE_SPEED += boost;
 
-    if(UPGRADE_SPEED > 14)
+    if(UPGRADE_SPEED > 15)
     {
-      UPGRADE_SPEED = 14;
+      UPGRADE_SPEED = 15;
     }
   }
 
-  public void HeightBoost()
+  public void HeightBoost(int heightboost)
   {
-    super.setHeight(12);
+    super.setHeight(heightboost);
   }
 
   @Override

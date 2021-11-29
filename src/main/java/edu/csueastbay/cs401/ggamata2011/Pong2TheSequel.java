@@ -31,31 +31,38 @@ public class Pong2TheSequel extends Game {
     private double fieldHeight;
     private double fieldWidth;
     private int NumberofHits = 0;
-    private int NumUpgradesOnField = 0;
+
     private ArrayList<Collidable> Upgrades = new ArrayList<>();
 
     UpgradeablePuck puck;
     UpgradeablePaddle playerOne;
     UpgradeablePaddle playerTwo;
 
-
-    private boolean Upgradeobtained = false;
-    private boolean UpgradeInPlay = true;
-
-
-
-
-
     //Adding SpeedItem into GameObjects List
-    private UpgradeSpeed SpeedItem = new UpgradeSpeed("UpgradeSpeed", 500.0, 500.0, 80.0, 80.0, (double) this.fieldHeight - 30, (double) this.fieldHeight - 30, (double) this.fieldWidth - 100, (double) this.fieldWidth - 100);
+    private UpgradeSpeed SpeedItem = new UpgradeSpeed(
+            "UpgradeSpeed",
+            500.0,
+            500.0,
+            80.0,
+            80.0,
+            (double) this.fieldHeight - 30,
+            (double) this.fieldHeight - 30,
+            (double) this.fieldWidth - 100,
+            (double) this.fieldWidth - 100);
+
+    private Boolean RequestSpawn = false;
+    private Boolean RemoveSpawn = false;
+
+
 
 
     public Pong2TheSequel(int victoryScore, double fieldWidth, double fieldHeight) {
 
-
         super(victoryScore);
 
-        addUpgrade(SpeedItem);
+
+
+
 
         this.fieldWidth = fieldWidth;
         this.fieldHeight = fieldHeight;
@@ -136,22 +143,27 @@ public class Pong2TheSequel extends Game {
                 puck.setDirection(angle);
                 break;
             case "UpgradeSpeed":
-                Upgradeobtained = true;
-                UpgradeInPlay = false;
-                if(puck.getDirection() < 0)
-                {
-                    System.out.println("Player 1 Obtained Speed Upgrade!");
-                    playerOne.SpeedBoost();
-                }
-                if(puck.getDirection() > 0)
-                {
-                    System.out.println("Player 2 Obtained Speed Upgrade!");
-                    playerTwo.SpeedBoost();
-                }
-
+              if(GetSpeedState()) {
+                  if (puck.getDirection() < 0) {
+                      System.out.println("Player 1 Obtained Speed Upgrade!");
+                      playerOne.ModifySpeed(SpeedItem.SpeedModify());
+                  }
+                  if (puck.getDirection() > 0) {
+                      System.out.println("Player 2 Obtained Speed Upgrade!");
+                      playerTwo.ModifySpeed(SpeedItem.SpeedModify());
+                  }
+                  RemoveSpeedUpgrade();
+              }
                 break;
 
 
+        }
+
+        //Every 5 hits will spawn an Upgrade Puck
+        if(NumberofHits%5 == 0)
+        {
+          AddSpeedUpgrade();
+          System.out.println("Speed Upgrade Spawned");
         }
 
 
@@ -163,7 +175,6 @@ public class Pong2TheSequel extends Game {
     {
         super.move();
     }
-
     @Override
     public void checkCollision(Puckable puck)
     {
@@ -176,28 +187,43 @@ public class Pong2TheSequel extends Game {
         });
     }
 
-
-
     public static double mapRange(double a1, double a2, double b1, double b2, double s) {
         return b1 + ((s - a1) * (b2 - b1)) / (a2 - a1);
     }
+
+
+
+    //All my Extra Functions will be defined here
 
     /**
      * Returns list of upgrades
      * @return
      */
-    public ArrayList<Collidable> getUpgrades()
+
+    /*
+    public ArrayList<Collidable> getSpeedUpgrades()
     {
         return (ArrayList<Collidable>)Upgrades.clone();
+    }
+    */
+
+    public UpgradeSpeed getSpeedUpgrades()
+    {
+        return SpeedItem;
     }
 
     /**
      * object will be added to Upgrades List
      * @param object
      */
-    public void addUpgrade(Collidable object)
+    public void AddSpeedUpgrade()
     {
-      Upgrades.add(object);
+
+      if(!SpeedItem.InPlay)
+      {
+          RequestSpawn = true;
+          SpeedItem.InPlay();
+      }
 
     }
 
@@ -205,20 +231,31 @@ public class Pong2TheSequel extends Game {
      * Remove Upgrades from List
      * @param object
      */
-    public void RemoveUpgrade(Collidable object)
+    public void RemoveSpeedUpgrade()
     {
-        Upgrades.remove(object);
+        RemoveSpawn = true;
+        SpeedItem.OutOfPlay();
 
     }
 
-    public boolean UpgradeStatus()
+    public Boolean GetSpeedState()
     {
-
-        return UpgradeInPlay;
-
+        return SpeedItem.PlayState();
     }
 
+    public Boolean SpawnIn()
+    {
+       Boolean TempReturn = RequestSpawn;
+       RequestSpawn = false;
+       return  TempReturn;
+    }
 
+    public Boolean SpawnOut()
+    {
+        Boolean TempReturn = RemoveSpawn;
+        RemoveSpawn = false;
+        return  TempReturn;
+    }
 
 
 

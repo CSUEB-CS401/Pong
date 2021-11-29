@@ -37,6 +37,7 @@ public class UpgradeSpeed extends Rectangle implements Collidable
         setHeight(height);
         setWidth(width);
         setFill(Color.GREEN);
+        InPlay = false;
 
     }
 
@@ -63,6 +64,22 @@ public class UpgradeSpeed extends Rectangle implements Collidable
         return "UpgradeSpeed";
     }
 
+    public void InPlay()
+    {
+       InPlay = true;
+    }
+
+    public void OutOfPlay()
+    {
+        InPlay = false;
+    }
+
+    public Boolean PlayState()
+    {
+        return InPlay;
+    }
+
+
     /**
      * Returns a random speed modifier for the player that has collided with it
      * @return
@@ -71,10 +88,9 @@ public class UpgradeSpeed extends Rectangle implements Collidable
     {
         Random rand = new Random();
         double speedmodifier= rand.nextInt(10)+1;
-
+        OutOfPlay();
         return speedmodifier;
     }
-
     /**
      * Reset position on the field of the upgrade puck
      */
