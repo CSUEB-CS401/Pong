@@ -2,6 +2,9 @@ package edu.csueastbay.cs401.thansen;
 
 import edu.csueastbay.cs401.classic.ClassicPong;
 import edu.csueastbay.cs401.pong.*;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ReadOnlyIntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 
@@ -24,19 +27,24 @@ public final class FourWayPong extends Game {
      */
     public static final double PADDLE_COLLISION_ANGLE = 60;
 
-    private final int[] scores = new int[NUM_PLAYERS];
+    private final IntegerProperty[] scores = new IntegerProperty[NUM_PLAYERS];
     private final HorizontalPaddle playerThreePaddle;
     private final HorizontalPaddle playerFourPaddle;
 
     /**
      * Creates a FourWayPong game.
      *
-     * @param loseScore   Score at which a paddle will be removed.
+     * @param loseScore   Score at which a player will be eliminated from the
+     *                    game.
      * @param fieldWidth  Width of the field.
      * @param fieldHeight Height of the field.
      */
     public FourWayPong(int loseScore, double fieldWidth, double fieldHeight) {
         super(loseScore);
+
+        for (int i = 0; i < scores.length; ++i) {
+            scores[i] = new SimpleIntegerProperty();
+        }
 
         final FourWayPuck puck = new FourWayPuck(fieldWidth, fieldHeight);
         puck.setID("Four Way");
@@ -181,20 +189,25 @@ public final class FourWayPong extends Game {
     @Override
     public int getPlayerScore(int player) {
         if (player < 1 || player > scores.length) return 0;
+        return scores[player - 1].get();
+    }
+
+    public ReadOnlyIntegerProperty playerScoreProperty(int player) {
+        if (player < 1 || player > scores.length) return null;
         return scores[player - 1];
     }
 
     @Override
     public void addPointsToPlayer(int player, int value) {
         if (player < 1 || player > scores.length) return;
-        scores[player - 1] += value;
+        scores[player - 1].set(scores[player - 1].get() + value);
     }
 
     @Override
     public int getVictor() {
         int victor = 0;
         for (int i = 0; i < scores.length; ++i) {
-            final int score = scores[i];
+            final int score = scores[i].get();
             if (score < getVictoryScore()) {
                 if (victor > 0) {
                     // More than one player left, so we haven't reached a

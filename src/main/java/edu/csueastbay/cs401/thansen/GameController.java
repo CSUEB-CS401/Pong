@@ -18,7 +18,7 @@ import java.util.ResourceBundle;
 public class GameController implements Initializable {
     public static final int FIELD_WIDTH = 1300;
     public static final int FIELD_HEIGHT = 860;
-    public static final int VICTORY_SCORE = 10;
+    public static final int LOSE_SCORE = 10;
 
     private FourWayPong game;
 
@@ -35,9 +35,10 @@ public class GameController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        game = new FourWayPong(VICTORY_SCORE, FIELD_WIDTH, FIELD_HEIGHT);
+        game = new FourWayPong(LOSE_SCORE, FIELD_WIDTH, FIELD_HEIGHT);
         Platform.runLater(() -> fieldPane.requestFocus());
         addGameElementsToField();
+        setUpBindings();
         setUpTimeline();
     }
 
@@ -58,13 +59,16 @@ public class GameController implements Initializable {
         System.out.println("Released: " + event.getCode());
     }
 
+    private void setUpBindings() {
+        playerOneScore.textProperty().bind(game.playerScoreProperty(1).asString());
+        playerTwoScore.textProperty().bind(game.playerScoreProperty(2).asString());
+        playerThreeScore.textProperty().bind(game.playerScoreProperty(3).asString());
+        playerFourScore.textProperty().bind(game.playerScoreProperty(4).asString());
+    }
+
     private void setUpTimeline() {
         final Timeline timeline = new Timeline(new KeyFrame(Duration.millis(10), actionEvent -> {
             game.move();
-            playerOneScore.setText(Integer.toString(game.getPlayerScore(1)));
-            playerTwoScore.setText(Integer.toString(game.getPlayerScore(2)));
-            playerThreeScore.setText(Integer.toString(game.getPlayerScore(3)));
-            playerFourScore.setText(Integer.toString(game.getPlayerScore(4)));
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
