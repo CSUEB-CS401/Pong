@@ -24,7 +24,7 @@ public class FourWayPong extends Game {
      * Max angle (relative to the normal) by which the paddle can angle the
      * puck.
      */
-    public static final double PADDLE_COLLISION_ANGLE = 45;
+    public static final double PADDLE_COLLISION_ANGLE = 60;
 
     private final int[] scores = new int[NUM_PLAYERS];
     private final HorizontalPaddle playerThreePaddle;
