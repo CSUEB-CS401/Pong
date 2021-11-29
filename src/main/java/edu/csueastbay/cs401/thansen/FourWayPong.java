@@ -12,13 +12,14 @@ import java.lang.reflect.AnnotatedWildcardType;
  * Pong game with 4 paddles on each side of the screen.
  */
 public class FourWayPong extends Game {
-
-    /**
-     * Scores for each player.
-     */
-    private final int[] scores = new int[4];
-
     public static final double WALL_THICKNESS = 10;
+    public static final double PADDLE_OFFSET = 50;
+    public static final double PADDLE_LENGTH = 100;
+    public static final double PADDLE_THICKNESS = 10;
+
+    private final int[] scores = new int[4];
+    private final HorizontalPaddle playerThreePaddle;
+    private final HorizontalPaddle playerFourPaddle;
 
     public FourWayPong(int victoryScore, double fieldWidth, double fieldHeight) {
         super(victoryScore);
@@ -128,21 +129,39 @@ public class FourWayPong extends Game {
 
         final Paddle playerOne = new Paddle(
                 "Player 1 Paddle",
-                50, (fieldHeight / 2) - 50,
-                10, 100,
-                10, fieldHeight - 10
+                PADDLE_OFFSET, (fieldHeight / 2) - PADDLE_OFFSET,
+                PADDLE_THICKNESS, PADDLE_LENGTH,
+                WALL_THICKNESS, fieldHeight - WALL_THICKNESS
         );
         playerOne.setFill(Color.RED);
         addPlayerPaddle(1, playerOne);
 
         final Paddle playerTwo = new Paddle(
                 "Player 2 Paddle",
-                fieldWidth - 50, (fieldHeight / 2) - 50,
-                10, 100,
-                10, fieldHeight - 10
+                fieldWidth - PADDLE_OFFSET, (fieldHeight / 2) - PADDLE_OFFSET,
+                PADDLE_THICKNESS, PADDLE_LENGTH,
+                WALL_THICKNESS, fieldHeight - WALL_THICKNESS
         );
         playerTwo.setFill(Color.BLUE);
         addPlayerPaddle(2, playerTwo);
+
+        playerThreePaddle = new HorizontalPaddle(
+                "Player 3 Paddle",
+                (fieldWidth / 2) - PADDLE_OFFSET, PADDLE_OFFSET,
+                PADDLE_LENGTH, PADDLE_THICKNESS,
+                WALL_THICKNESS, fieldWidth - WALL_THICKNESS
+        );
+        playerThreePaddle.setFill(Color.YELLOW);
+        addObject(playerThreePaddle);
+
+        playerFourPaddle = new HorizontalPaddle(
+                "Player 4 Paddle",
+                (fieldWidth / 2) - PADDLE_OFFSET, fieldHeight - PADDLE_OFFSET,
+                PADDLE_LENGTH, PADDLE_THICKNESS,
+                WALL_THICKNESS, fieldWidth - WALL_THICKNESS
+        );
+        playerFourPaddle.setFill(Color.GREEN);
+        addObject(playerFourPaddle);
     }
 
     @Override
