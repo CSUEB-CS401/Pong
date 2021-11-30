@@ -216,8 +216,8 @@ public class Pong2TheSequel extends Game {
         //Upgrades will Spawn every 4 hits
         if(NumberofHits%4 == 0 && NumberofHits >= 4)
         {
-               //AddSpeedUpgrade();
-               //AddHeightUpgrade();
+               AddSpeedUpgrade();
+               AddHeightUpgrade();
                AddDebuff();
         }
 
