@@ -36,7 +36,7 @@ public final class FourWayPong extends Game {
     private final HorizontalPaddle playerThreePaddle;
     private final HorizontalPaddle playerFourPaddle;
 
-    private final IntegerBinding victorProperty;
+    private final ReadOnlyIntegerProperty victorProperty;
     private final BooleanBinding stillPlaying;
     private final BooleanBinding gameOver;
 
@@ -55,7 +55,10 @@ public final class FourWayPong extends Game {
             scores[i] = new SimpleIntegerProperty();
         }
 
-        victorProperty = Bindings.createIntegerBinding(this::getVictor, scores);
+        victorProperty = new SimpleIntegerProperty();
+        ((IntegerProperty) victorProperty).bind(
+                Bindings.createIntegerBinding(this::getVictorImpl, scores)
+        );
         stillPlaying = victorProperty.lessThanOrEqualTo(0);
         gameOver = victorProperty.greaterThan(0);
 
@@ -335,23 +338,27 @@ public final class FourWayPong extends Game {
 
     @Override
     public int getVictor() {
+        return victorProperty().get();
+    }
+
+    /**
+     * @return Property version of {@link #getVictor()}.
+     */
+    public ReadOnlyIntegerProperty victorProperty() {
+        return victorProperty;
+    }
+
+    private int getVictorImpl() {
         int victor = 0;
         for (int player = 1; player <= NUM_PLAYERS; ++player) {
             if (isPlayerDead(player)) continue;
-            // More than one player left, so we haven't reached a game-over
+            // More than one player left, so we haven't reached the game-over
             // state yet.
             if (victor > 0) return 0;
             // Player that hasn't been eliminated yet.
             victor = player;
         }
         return victor;
-    }
-
-    /**
-     * @return Property binding version of {@link #getVictor()}.
-     */
-    public IntegerBinding victorProperty() {
-        return victorProperty;
     }
 
     /**
