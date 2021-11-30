@@ -2,7 +2,9 @@ package edu.csueastbay.cs401.thansen;
 
 import edu.csueastbay.cs401.classic.ClassicPong;
 import edu.csueastbay.cs401.pong.*;
+import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
+import javafx.beans.binding.IntegerBinding;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -32,6 +34,10 @@ public final class FourWayPong extends Game {
     private final HorizontalPaddle playerThreePaddle;
     private final HorizontalPaddle playerFourPaddle;
 
+    private final IntegerBinding victorProperty;
+    private final BooleanBinding stillPlaying;
+    private final BooleanBinding gameOver;
+
     /**
      * Creates a FourWayPong game.
      *
@@ -47,9 +53,14 @@ public final class FourWayPong extends Game {
             scores[i] = new SimpleIntegerProperty();
         }
 
+        victorProperty = Bindings.createIntegerBinding(this::getVictor, scores);
+        stillPlaying = victorProperty.lessThanOrEqualTo(0);
+        gameOver = victorProperty.greaterThan(0);
+
         final FourWayPuck puck = new FourWayPuck(fieldWidth, fieldHeight);
         puck.setID("Four Way");
         addPuck(puck);
+        puck.visibleProperty().bind(stillPlaying);
 
         final double wallWidth = fieldWidth / 5;
         final double wallHeight = fieldHeight / 5;
@@ -221,7 +232,7 @@ public final class FourWayPong extends Game {
         );
         playerOne.setFill(Color.RED);
         addPlayerPaddle(1, playerOne);
-        playerOne.visibleProperty().bind(player1Alive);
+        playerOne.visibleProperty().bind(player1Alive.and(stillPlaying));
 
         final Paddle playerTwo = new Paddle(
                 "Player 2 Paddle",
@@ -231,7 +242,7 @@ public final class FourWayPong extends Game {
         );
         playerTwo.setFill(Color.BLUE);
         addPlayerPaddle(2, playerTwo);
-        playerTwo.visibleProperty().bind(player2Alive);
+        playerTwo.visibleProperty().bind(player2Alive.and(stillPlaying));
 
         playerThreePaddle = new HorizontalPaddle(
                 "Player 3 Paddle",
@@ -241,7 +252,7 @@ public final class FourWayPong extends Game {
         );
         playerThreePaddle.setFill(Color.YELLOW);
         addObject(playerThreePaddle);
-        playerThreePaddle.visibleProperty().bind(player3Alive);
+        playerThreePaddle.visibleProperty().bind(player3Alive.and(stillPlaying));
 
         playerFourPaddle = new HorizontalPaddle(
                 "Player 4 Paddle",
@@ -251,7 +262,7 @@ public final class FourWayPong extends Game {
         );
         playerFourPaddle.setFill(Color.GREEN);
         addObject(playerFourPaddle);
-        playerFourPaddle.visibleProperty().bind(player4Alive);
+        playerFourPaddle.visibleProperty().bind(player4Alive.and(stillPlaying));
     }
 
     @Override
@@ -282,7 +293,7 @@ public final class FourWayPong extends Game {
     }
 
     public boolean isPlayerDead(int player) {
-        if (player < 1 || player > scores.length) return false;
+        if (player < 1 || player > scores.length) return true;
         return scores[player - 1].get() >= getLoseScore();
     }
 
@@ -299,19 +310,35 @@ public final class FourWayPong extends Game {
     @Override
     public int getVictor() {
         int victor = 0;
-        for (int i = 0; i < scores.length; ++i) {
-            final int score = scores[i].get();
-            if (score < getVictoryScore()) {
-                if (victor > 0) {
-                    // More than one player left, so we haven't reached a
-                    // game-over state yet.
-                    return 0;
-                }
-                // Player that hasn't been eliminated yet.
-                victor = i + 1;
-            }
+        for (int player = 1; player <= NUM_PLAYERS; ++player) {
+            if (isPlayerDead(player)) continue;
+            // More than one player left, so we haven't reached a game-over
+            // state yet.
+            if (victor > 0) return 0;
+            // Player that hasn't been eliminated yet.
+            victor = player;
         }
         return victor;
+    }
+
+    public IntegerBinding victorProperty() {
+        return victorProperty;
+    }
+
+    public boolean isGameOver() {
+        return gameOver().get();
+    }
+
+    public BooleanBinding gameOver() {
+        return gameOver;
+    }
+
+    public boolean isStillPlaying() {
+        return stillPlaying().get();
+    }
+
+    public BooleanBinding stillPlaying() {
+        return stillPlaying;
     }
 
     @Override

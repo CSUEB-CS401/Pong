@@ -4,12 +4,14 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Line;
 import javafx.util.Duration;
 
 import java.net.URL;
@@ -25,6 +27,10 @@ public class GameController implements Initializable {
     @FXML
     AnchorPane fieldPane;
     @FXML
+    Line line1;
+    @FXML
+    Line line2;
+    @FXML
     Label playerOneScore;
     @FXML
     Label playerTwoScore;
@@ -32,6 +38,8 @@ public class GameController implements Initializable {
     Label playerThreeScore;
     @FXML
     Label playerFourScore;
+    @FXML
+    Label gameOverLabel;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -55,8 +63,8 @@ public class GameController implements Initializable {
 
     @FXML
     public void keyReleased(KeyEvent event) {
-        game.keyReleased(event.getCode());
         System.out.println("Released: " + event.getCode());
+        game.keyReleased(event.getCode());
     }
 
     private void setUpBindings() {
@@ -64,8 +72,21 @@ public class GameController implements Initializable {
         final Label[] scoreLabels = new Label[]{playerOneScore, playerTwoScore, playerThreeScore, playerFourScore};
         for (int i = 0; i < scoreLabels.length; ++i) {
             scoreLabels[i].textProperty().bind(game.playerScoreProperty(i + 1).asString());
-            scoreLabels[i].visibleProperty().bind(game.playerAlive(i + 1));
+            scoreLabels[i].visibleProperty().bind(game.playerAlive(i + 1).and(game.stillPlaying()));
         }
+
+        // Display victor on game-over.
+        final var victor = game.victorProperty();
+        gameOverLabel.textProperty().bind(Bindings.createStringBinding(() -> {
+            final int value = victor.get();
+            if (value < 1) return "";
+            return "Player " + value + " wins!";
+        }, victor));
+        gameOverLabel.visibleProperty().bind(game.gameOver());
+
+        // Remove divider lines on game-over.
+        line1.visibleProperty().bind(game.stillPlaying());
+        line2.visibleProperty().bind(game.stillPlaying());
     }
 
     private void setUpTimeline() {
@@ -74,5 +95,9 @@ public class GameController implements Initializable {
         );
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
+        // Stop the game on game-over.
+        game.gameOver().addListener((ov, prev, next) -> {
+            if (next) timeline.stop();
+        });
     }
 }

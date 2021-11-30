@@ -1,16 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.shape.Line?>
 
 <AnchorPane fx:id="fieldPane" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyPressed" onKeyReleased="#keyReleased" prefHeight="860.0" prefWidth="1300.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.csueastbay.cs401.thansen.GameController">
    <children>
-      <Line startX="1300.0" startY="860.0" stroke="WHITE" strokeWidth="3.0" />
-      <Line endX="1300.0" startY="860.0" stroke="WHITE" strokeWidth="3.0" />
-      <Label fx:id="playerOneScore" alignment="CENTER_RIGHT" layoutX="530.0" layoutY="392.0" style="-fx-font-size: 64;" text="0" textAlignment="RIGHT" textFill="WHITE" />
-      <Label fx:id="playerTwoScore" layoutX="730.0" layoutY="392.0" style="-fx-font-size: 64;" text="0" textFill="WHITE" />
-      <Label fx:id="playerThreeScore" alignment="CENTER" layoutX="630.0" layoutY="322.0" style="-fx-font-size: 64;" text="0" textAlignment="CENTER" textFill="WHITE" />
-      <Label fx:id="playerFourScore" alignment="CENTER" layoutX="630.0" layoutY="462.0" style="-fx-font-size: 64;" text="0" textAlignment="CENTER" textFill="WHITE" />
+      <Line fx:id="line1" startX="1300.0" startY="860.0" stroke="WHITE" strokeWidth="3.0" />
+      <Line fx:id="line2" endX="1300.0" startY="860.0" stroke="WHITE" strokeWidth="3.0" />
+      <StackPane prefHeight="860.0" prefWidth="1300.0">
+         <children>
+            <BorderPane prefHeight="860.0" prefWidth="1300.0">
+               <bottom>
+                  <Label fx:id="playerFourScore" alignment="CENTER" style="-fx-font-size: 64;" text="0" textAlignment="CENTER" textFill="WHITE" BorderPane.alignment="CENTER">
+                     <padding>
+                        <Insets bottom="300.0" />
+                     </padding>
+                  </Label>
+               </bottom>
+               <top>
+                  <Label fx:id="playerThreeScore" alignment="CENTER" style="-fx-font-size: 64;" text="0" textAlignment="CENTER" textFill="WHITE" BorderPane.alignment="CENTER">
+                     <padding>
+                        <Insets top="300.0" />
+                     </padding>
+                     <BorderPane.margin>
+                        <Insets />
+                     </BorderPane.margin>
+                  </Label>
+               </top>
+               <left>
+                  <Label fx:id="playerOneScore" alignment="CENTER_RIGHT" style="-fx-font-size: 64;" text="0" textAlignment="RIGHT" textFill="WHITE" BorderPane.alignment="CENTER">
+                     <padding>
+                        <Insets left="525.0" />
+                     </padding>
+                  </Label>
+               </left>
+               <right>
+                  <Label fx:id="playerTwoScore" style="-fx-font-size: 64;" text="0" textFill="WHITE" BorderPane.alignment="CENTER">
+                     <padding>
+                        <Insets right="525.0" />
+                     </padding>
+                  </Label>
+               </right>
+            </BorderPane>
+            <BorderPane prefHeight="200.0" prefWidth="200.0">
+               <center>
+                  <Label fx:id="gameOverLabel" alignment="CENTER" style="-fx-font-size: 64;" text="Game Over" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" visible="false" BorderPane.alignment="CENTER" />
+               </center>
+            </BorderPane>
+         </children>
+      </StackPane>
    </children>
 </AnchorPane>
