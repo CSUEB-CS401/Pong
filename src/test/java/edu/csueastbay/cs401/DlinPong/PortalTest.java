@@ -1,6 +1,6 @@
-package edu.csueastbay.cs401.pong;
+package edu.csueastbay.cs401.DlinPong;
 
-import edu.csueastbay.cs401.DlinPong.Portal;
+import edu.csueastbay.cs401.pong.Collision;
 import javafx.scene.shape.Rectangle;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,7 +16,18 @@ class PortalTest {
 
     @Test
     void getID() {
-        assertEquals("Test Portal", testPortal.getID());
+        assertEquals("Test Portal", testPortal.getID(), "Should return 'Test Portal' for the ID");
+    }
+
+    @Test
+    void getType(){ assertEquals("Portal", testPortal.getType(), "Should return 'Portal' for the type");}
+
+    @Test
+    void getDimensions() {
+        assertEquals(10,testPortal.getX());
+        assertEquals(10,testPortal.getY());
+        assertEquals(10,testPortal.getWidth());
+        assertEquals(100,testPortal.getHeight());
     }
 
     @Test

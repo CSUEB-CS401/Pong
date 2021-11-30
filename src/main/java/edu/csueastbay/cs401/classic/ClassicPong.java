@@ -10,8 +10,9 @@ public class ClassicPong extends Game {
     private double fieldWidth;
 
     Random random = new Random();
-    double leftLocation = random.nextDouble(770);
-    double rightLocation = random.nextDouble(770);
+    double leftLocation = random.nextDouble(750);
+    double rightLocation = random.nextDouble(750);
+    double leftYLocation, rightYLocation;
 
     public ClassicPong(int victoryScore, double fieldWidth, double fieldHeight) {
         super(victoryScore);
@@ -19,10 +20,16 @@ public class ClassicPong extends Game {
         this.fieldWidth = fieldWidth;
         this.fieldHeight = fieldHeight;
 
-        Portal leftportal = new Portal("Left Portal", (this.fieldWidth + 2)/3, this.fieldHeight - leftLocation, 5,50);
+        leftYLocation = this.fieldHeight - leftLocation;
+        if(this.fieldHeight - leftLocation > 750) {leftYLocation = 750;}
+
+        rightYLocation = this.fieldHeight - rightLocation;
+        if(this.fieldHeight - rightLocation > 750) {rightYLocation = 750;}
+
+        Portal leftportal = new Portal("Left Portal", (this.fieldWidth + 2)/3, leftYLocation, 5,50);
         addObject(leftportal);
 
-        Portal rightportal = new Portal("Right Portal", (this.fieldWidth+2)*2/3, this.fieldHeight - rightLocation, 5,50);
+        Portal rightportal = new Portal("Right Portal", (this.fieldWidth+2)*2/3, rightYLocation, 5,50);
         addObject(rightportal);
 
         Puck puck = new Puck(this.fieldWidth, this.fieldHeight);
@@ -96,17 +103,19 @@ public class ClassicPong extends Game {
                 puck.setDirection(angle);
                 break;
             case "Portal":
+                if(this.fieldHeight - leftLocation > 700) {leftYLocation = 700;}
+                if(this.fieldHeight - rightLocation > 700) {rightYLocation = 700;}
                 if (collision.getObjectID() == "Left Portal") {
                     if(puck.getDirection() > 90 && puck.getDirection() < 270) {
-                        puck.set((this.fieldWidth + 2)*2/3 - 13, this.fieldHeight - rightLocation);
+                        puck.set((this.fieldWidth + 2)*2/3 - 13, rightYLocation);
                     } else if(puck.getDirection() > 270 || puck.getDirection() < 90){
-                        puck.set((this.fieldWidth+2)*2/3 + 13, this.fieldHeight - rightLocation);
+                        puck.set((this.fieldWidth+2)*2/3 + 13, rightYLocation);
                     }
                 } else if (collision.getObjectID() == "Right Portal") {
                     if(puck.getDirection() > 90 && puck.getDirection() < 270) {
-                        puck.set((this.fieldWidth+2)/ 3 - 13, this.fieldHeight - leftLocation);
+                        puck.set((this.fieldWidth+2)/ 3 - 13, leftYLocation);
                     } else if(puck.getDirection() > 270 || puck.getDirection() < 90){
-                        puck.set((this.fieldWidth+2)/3 + 13, this.fieldHeight - leftLocation);
+                        puck.set((this.fieldWidth+2)/3 + 13, leftYLocation);
                     }
                 }
                 break;
