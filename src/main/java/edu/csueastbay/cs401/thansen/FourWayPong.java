@@ -68,6 +68,8 @@ public final class FourWayPong extends Game {
         final double wallHeight = fieldHeight / 5;
 
         // Corner walls.
+        // These are active as long as the player behind them hasn't been
+        // eliminated yet.
 
         final var player1Alive = playerAlive(1);
         final var player2Alive = playerAlive(2);
@@ -187,6 +189,8 @@ public final class FourWayPong extends Game {
         rightWall.visibleProperty().bind(playerDead(2));
 
         // Goals.
+        // Note: Don't also bind visible property with gameOver since we want to
+        // display the side that won.
 
         final Goal left = new Goal(
                 "Player 1 Goal",
@@ -224,7 +228,7 @@ public final class FourWayPong extends Game {
         addObject(bottom);
         bottom.visibleProperty().bind(player4Alive);
 
-        // Paddles.
+        // Vertical paddles.
 
         final Paddle playerOne = new Paddle(
                 "Player 1 Paddle",
@@ -245,6 +249,8 @@ public final class FourWayPong extends Game {
         playerTwo.setFill(Color.BLUE);
         addPlayerPaddle(2, playerTwo);
         playerTwo.visibleProperty().bind(player2Alive.and(stillPlaying));
+
+        // Horizontal paddles.
 
         playerThreePaddle = new HorizontalPaddle(
                 "Player 3 Paddle",
@@ -273,6 +279,9 @@ public final class FourWayPong extends Game {
         return scores[player - 1].get();
     }
 
+    /**
+     * @return Property version of {@link #getPlayerScore(int)}.
+     */
     public ReadOnlyIntegerProperty playerScoreProperty(int player) {
         if (player < 1 || player > scores.length) return null;
         return scores[player - 1];
@@ -284,26 +293,41 @@ public final class FourWayPong extends Game {
         scores[player - 1].set(scores[player - 1].get() + value);
     }
 
+    /**
+     * @return Whether the given player hasn't been eliminated yet.
+     */
     public boolean isPlayerAlive(int player) {
         if (player < 1 || player > scores.length) return false;
         return scores[player - 1].get() < getLoseScore();
     }
 
+    /**
+     * @return Property binding version of {@link #isPlayerAlive(int)}.
+     */
     public BooleanBinding playerAlive(int player) {
         if (player < 1 || player > scores.length) return null;
         return scores[player - 1].lessThan(getLoseScore());
     }
 
+    /**
+     * @return Whether the given player has been eliminated.
+     */
     public boolean isPlayerDead(int player) {
         if (player < 1 || player > scores.length) return true;
         return scores[player - 1].get() >= getLoseScore();
     }
 
+    /**
+     * @return Property binding version of {@link #isPlayerDead(int)}.
+     */
     public BooleanBinding playerDead(int player) {
         if (player < 1 || player > scores.length) return null;
         return scores[player - 1].greaterThanOrEqualTo(getLoseScore());
     }
 
+    /**
+     * @return The score required to eliminate a player.
+     */
     public int getLoseScore() {
         // Reinterpret victoryScore.
         return getVictoryScore();
@@ -323,22 +347,38 @@ public final class FourWayPong extends Game {
         return victor;
     }
 
+    /**
+     * @return Property binding version of {@link #getVictor()}.
+     */
     public IntegerBinding victorProperty() {
         return victorProperty;
     }
 
+    /**
+     * @return Whether the game has ended and a victor has been decided.
+     */
     public boolean isGameOver() {
         return gameOver().get();
     }
 
+    /**
+     * @return Property binding version of {@link #isGameOver()}.
+     */
     public BooleanBinding gameOver() {
         return gameOver;
     }
 
+    /**
+     * @return Whether the game is still going and a victor hasn't been decided
+     * yet.
+     */
     public boolean isStillPlaying() {
         return stillPlaying().get();
     }
 
+    /**
+     * @return Property binding version of {@link #isStillPlaying()}.
+     */
     public BooleanBinding stillPlaying() {
         return stillPlaying;
     }
@@ -365,7 +405,12 @@ public final class FourWayPong extends Game {
                     case "Top Wall", "Bottom Wall", "Left Wall", "Right Wall" -> false;
                     default -> true;
                 };
-                // Use corner walls if player is alive, otherwise use full wall.
+                // Use corner walls if player is alive, otherwise use the full
+                // wall.
+                // Note: If we instead used the corner walls and the disabled
+                // Goals reinterpreted as walls, we could get a corner case
+                // where the puck collides between thw two causing some weird
+                // behavior with duplicate collisions.
                 if (isPlayerAlive(player) != isCorner) break;
                 final double direction = puck.getDirection();
                 puck.setDirection(switch (player) {
@@ -401,6 +446,7 @@ public final class FourWayPong extends Game {
 
                 final double puckCenter = ((Puck) puck).getCenterY();
                 switch (player) {
+                    // Left: [-60, 60]
                     case 1 -> puck.setDirection(
                             ClassicPong.mapRange(
                                     collision.getTop(), collision.getBottom(),
@@ -408,6 +454,7 @@ public final class FourWayPong extends Game {
                                     puckCenter
                             )
                     );
+                    // Right: [240, 150]
                     case 2 -> puck.setDirection(
                             ClassicPong.mapRange(
                                     collision.getTop(), collision.getBottom(),
@@ -418,16 +465,17 @@ public final class FourWayPong extends Game {
                 }
             }
             case "HorizontalPaddle" -> {
-                // Disable collision handling for dead players.
                 final int player = switch (collision.getObjectID()) {
                     case "Player 3 Paddle" -> 3;
                     case "Player 4 Paddle" -> 4;
                     default -> throw new Error("Unknown HorizontalPaddle " + collision.getObjectID());
                 };
+                // Disable collision handling for dead players.
                 if (!isPlayerAlive(player)) break;
 
                 final double puckCenter = ((Puck) puck).getCenterX();
                 switch (player) {
+                    // Top: [150, 60]
                     case 3 -> puck.setDirection(
                             ClassicPong.mapRange(
                                     collision.getLeft(), collision.getRight(),
@@ -435,6 +483,7 @@ public final class FourWayPong extends Game {
                                     puckCenter
                             )
                     );
+                    // Bottom: [-150, -60]
                     case 4 -> puck.setDirection(
                             ClassicPong.mapRange(
                                     collision.getLeft(), collision.getRight(),

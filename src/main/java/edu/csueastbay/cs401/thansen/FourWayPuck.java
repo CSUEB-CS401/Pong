@@ -36,10 +36,10 @@ public final class FourWayPuck extends Puck {
                 (random.nextDouble() * QUADRANT_ANGLE_RANGE) +
                         QUADRANT_OFFSET +
                         switch (random.nextInt(4)) {
-                            case 0 -> -45.0; // right: [-45, 45]
-                            case 1 -> -135.0; // up: [-135, -45]
-                            case 2 -> 135.0; // left: [135, 225]
-                            case 3 -> 45.0; // down: [45, 135]
+                            case 0 -> -45.0; // Right: [-45, 45]
+                            case 1 -> -135.0; // Up: [-135, -45]
+                            case 2 -> 135.0; // Left: [135, 225]
+                            case 3 -> 45.0; // Down: [45, 135]
                             default -> 0.0;
                         }
         );
