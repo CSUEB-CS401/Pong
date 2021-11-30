@@ -38,20 +38,18 @@ public class Pong2TheSequel extends Game {
     UpgradeablePaddle playerOne;
     UpgradeablePaddle playerTwo;
 
-    //Adding SpeedItem into GameObjects List
-    private UpgradeSpeed SpeedItem = new UpgradeSpeed(
-            "UpgradeSpeed",
-            500.0,
-            500.0,
-            80.0,
-            80.0,
-            (double) this.fieldHeight - 30,
-            (double) this.fieldHeight - 30,
-            (double) this.fieldWidth - 100,
-            (double) this.fieldWidth - 100);
 
-    private Boolean RequestSpawn = false;
-    private Boolean RemoveSpawn = false;
+    //Adding SpeedItem into GameObjects List
+    private UpgradeSpeed SpeedItem;
+    private UpgradeHeight HeightItem;
+
+    private Boolean RequestSpeedSpawn = false;
+    private Boolean RemoveSpeedSpawn = false;
+    private Boolean RequestHeightSpawn = false;
+    private Boolean RemoveHeightSpawn = false;
+
+    private Boolean PaddleOneHit = false;
+    private Boolean PaddleTwoHit = false;
 
 
 
@@ -59,13 +57,34 @@ public class Pong2TheSequel extends Game {
     public Pong2TheSequel(int victoryScore, double fieldWidth, double fieldHeight) {
 
         super(victoryScore);
-
-
-
-
-
         this.fieldWidth = fieldWidth;
         this.fieldHeight = fieldHeight;
+
+        SpeedItem = new UpgradeSpeed(
+                "UpgradeSpeed",
+                500.0,
+                500.0,
+                40.0,
+                40.0,
+                (double) this.fieldHeight - 200,
+                200.0,
+                200.0,
+                (double) this.fieldWidth - 200);
+
+        HeightItem = new UpgradeHeight(
+                "UpgradeHeight",
+                250.0,
+                250.0,
+                40.0,
+                40.0,
+                (double) this.fieldHeight - 200,
+                200.0,
+                200.0,
+                (double) this.fieldWidth - 200);
+
+
+
+
 
         puck = new UpgradeablePuck(this.fieldWidth, this.fieldHeight);
         puck.setID("Classic");
@@ -128,6 +147,7 @@ public class Pong2TheSequel extends Game {
                     addPointsToPlayer(2, 1);
                     puck.reset();
                 }
+                PaddleOneHit = PaddleTwoHit = false;
                 NumberofHits++;
                 break;
             case "Paddle":
@@ -135,8 +155,12 @@ public class Pong2TheSequel extends Game {
                 double angle;
                 if (collision.getObjectID() == "Player 1 Paddle") {
                     angle = mapRange(collision.getTop(), collision.getBottom(), -45, 45, puckCenter);
+                    PaddleOneHit = true;
+                    PaddleTwoHit = false;
                 } else {
                     angle = mapRange(collision.getTop(), collision.getBottom(), 225, 135, puckCenter);
+                    PaddleTwoHit = true;
+                    PaddleOneHit = false;
                 }
                 //Increment Number of hits
                 NumberofHits++;
@@ -144,27 +168,55 @@ public class Pong2TheSequel extends Game {
                 break;
             case "UpgradeSpeed":
               if(GetSpeedState()) {
-                  if (puck.getDirection() < 0) {
+                  if (PaddleOneHit) {
                       System.out.println("Player 1 Obtained Speed Upgrade!");
                       playerOne.ModifySpeed(SpeedItem.SpeedModify());
+                      RemoveSpeedUpgrade();
                   }
-                  if (puck.getDirection() > 0) {
+                  if (PaddleTwoHit) {
                       System.out.println("Player 2 Obtained Speed Upgrade!");
                       playerTwo.ModifySpeed(SpeedItem.SpeedModify());
+                      RemoveSpeedUpgrade();
+
+
                   }
-                  RemoveSpeedUpgrade();
               }
+                break;
+            case "UpgradeHeight":
+                if(GetHeightState()) {
+                    if (PaddleOneHit) {
+                        System.out.println("Player 1 Obtained Height Upgrade!");
+                        playerOne.ModifyHeight(HeightItem.HeightModify());
+                        RemoveHeightUpgrade();
+                    }
+                    if (PaddleTwoHit) {
+                        System.out.println("Player 2 Obtained Height Upgrade!");
+                        playerTwo.ModifyHeight(HeightItem.HeightModify());
+                        RemoveHeightUpgrade();
+
+
+                    }
+                }
                 break;
 
 
+
         }
 
-        //Every 5 hits will spawn an Upgrade Puck
-        if(NumberofHits%5 == 0)
+        //Upgrades will Spawn every 4 hits
+        if(NumberofHits%4 == 0)
         {
-          AddSpeedUpgrade();
-          System.out.println("Speed Upgrade Spawned");
+            if(!GetSpeedState())
+            {
+               AddSpeedUpgrade();
+            }
+            if(!GetHeightState())
+            {
+                AddHeightUpgrade();
+            }
         }
+
+
 
 
 
@@ -179,13 +231,19 @@ public class Pong2TheSequel extends Game {
     public void checkCollision(Puckable puck)
     {
         super.checkCollision(puck);
-        Upgrades.forEach((object) -> {
-            Collision collision = object.getCollision((Shape)puck);
-            if (collision.isCollided()) {
-                collisionHandler(puck, collision);
+            Collision SpeedCollision = SpeedItem.getCollision((Shape)puck);
+            Collision HeightCollision = HeightItem.getCollision((Shape)puck);
+            if (SpeedCollision.isCollided())
+            {
+                collisionHandler(puck, SpeedCollision);
             }
-        });
-    }
+            if(HeightCollision.isCollided())
+            {
+                collisionHandler(puck,HeightCollision);
+            }
+
+        }
+
 
     public static double mapRange(double a1, double a2, double b1, double b2, double s) {
         return b1 + ((s - a1) * (b2 - b1)) / (a2 - a1);
@@ -194,48 +252,46 @@ public class Pong2TheSequel extends Game {
 
 
     //All my Extra Functions will be defined here
-
-    /**
-     * Returns list of upgrades
-     * @return
-     */
-
-    /*
-    public ArrayList<Collidable> getSpeedUpgrades()
-    {
-        return (ArrayList<Collidable>)Upgrades.clone();
-    }
-    */
-
     public UpgradeSpeed getSpeedUpgrades()
     {
         return SpeedItem;
     }
+    public UpgradeHeight getHeightUpgrades()
+    {
+        return HeightItem;
+    }
 
-    /**
-     * object will be added to Upgrades List
-     * @param object
-     */
     public void AddSpeedUpgrade()
     {
-
       if(!SpeedItem.InPlay)
       {
-          RequestSpawn = true;
+          SpeedItem.ResetPosition();
+          RequestSpeedSpawn = true;
           SpeedItem.InPlay();
       }
+    }
+
+    public void AddHeightUpgrade()
+    {
+        if(!HeightItem.InPlay)
+        {
+            HeightItem.ResetPosition();
+            RequestHeightSpawn = true;
+            HeightItem.InPlay();
+        }
 
     }
 
-    /**
-     * Remove Upgrades from List
-     * @param object
-     */
     public void RemoveSpeedUpgrade()
     {
-        RemoveSpawn = true;
+        RemoveSpeedSpawn = true;
         SpeedItem.OutOfPlay();
+    }
 
+    public void RemoveHeightUpgrade()
+    {
+       RemoveHeightSpawn = true;
+       HeightItem.OutOfPlay();
     }
 
     public Boolean GetSpeedState()
@@ -243,20 +299,35 @@ public class Pong2TheSequel extends Game {
         return SpeedItem.PlayState();
     }
 
-    public Boolean SpawnIn()
+    public Boolean GetHeightState()
     {
-       Boolean TempReturn = RequestSpawn;
-       RequestSpawn = false;
+        return HeightItem.PlayState();
+    }
+
+    public Boolean SpawnSpeed()
+    {
+       Boolean TempReturn = RequestSpeedSpawn;
+       RequestSpeedSpawn = false;
        return  TempReturn;
     }
-
-    public Boolean SpawnOut()
+    public Boolean RemoveSpeedSpawn()
     {
-        Boolean TempReturn = RemoveSpawn;
-        RemoveSpawn = false;
+        Boolean TempReturn = RemoveSpeedSpawn;
+        RemoveSpeedSpawn = false;
         return  TempReturn;
     }
-
+    public Boolean SpawnHeight()
+    {
+        Boolean TempReturn = RequestHeightSpawn;
+        RequestHeightSpawn = false;
+        return  TempReturn;
+    }
+    public Boolean RemoveHeightSpawn()
+    {
+        Boolean TempReturn = RemoveHeightSpawn;
+        RemoveHeightSpawn = false;
+        return  TempReturn;
+    }
 
 
 }

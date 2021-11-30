@@ -25,15 +25,22 @@ public class UpgradeablePaddle extends Paddle
   {
     UPGRADE_SPEED += boost;
 
-    if(UPGRADE_SPEED > 15)
+    if(UPGRADE_SPEED > 12)
     {
-      UPGRADE_SPEED = 15;
+      UPGRADE_SPEED = 12;
     }
   }
 
-  public void HeightBoost(int heightboost)
+  public void ModifyHeight(double boost)
   {
-    super.setHeight(heightboost);
+    UPGRADE_HEIGHT += boost;
+
+    if(UPGRADE_HEIGHT > 120)
+    {
+      UPGRADE_HEIGHT = 120;
+
+    }
+    super.setHeight(getHeight()+UPGRADE_HEIGHT);
   }
 
   @Override

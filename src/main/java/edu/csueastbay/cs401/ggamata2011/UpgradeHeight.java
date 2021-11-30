@@ -2,15 +2,13 @@ package edu.csueastbay.cs401.ggamata2011;
 
 import edu.csueastbay.cs401.pong.Collidable;
 import edu.csueastbay.cs401.pong.Collision;
-
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
 import java.util.Random;
 
-
-public class UpgradeSpeed extends Rectangle implements Collidable
+public class UpgradeHeight extends Rectangle implements Collidable
 {
     private String id;
     private double TopBound;
@@ -25,8 +23,8 @@ public class UpgradeSpeed extends Rectangle implements Collidable
     private static final int Default_Width = 5;
     private static final int Default_Height = 5;
 
-    public UpgradeSpeed(String ID, double xcord, double ycord, double width, double height, double TopBound, double BottomBound
-                       , double LeftBound, double RightBound)
+    public UpgradeHeight(String ID, double xcord, double ycord, double width, double height, double TopBound, double BottomBound
+            , double LeftBound, double RightBound)
     {
         super(xcord, ycord, width, height);
         this.id = id;
@@ -36,14 +34,14 @@ public class UpgradeSpeed extends Rectangle implements Collidable
         this.RightBound = RightBound;
         setHeight(height);
         setWidth(width);
-        setFill(Color.GREEN);
+        setFill(Color.YELLOW);
         InPlay = false;
     }
 
     @Override
     public Collision getCollision(Shape shape) {
         return new Collision(
-                "UpgradeSpeed",
+                "UpgradeHeight",
                 this.id,
                 this.getLayoutBounds().intersects(shape.getLayoutBounds()),
                 this.getLayoutBounds().getMinY(),
@@ -60,12 +58,12 @@ public class UpgradeSpeed extends Rectangle implements Collidable
 
     @Override
     public String getType() {
-        return "UpgradeSpeed";
+        return "UpgradeHeight";
     }
 
     public void InPlay()
     {
-       InPlay = true;
+        InPlay = true;
     }
 
     public void OutOfPlay()
@@ -79,17 +77,16 @@ public class UpgradeSpeed extends Rectangle implements Collidable
     }
 
 
-    /**
-     * Returns a random speed modifier for the player that has collided with it
-     * @return
-     */
-    public double SpeedModify()
+
+    public double HeightModify()
     {
         Random rand = new Random();
-        double speedmodifier= rand.nextInt(2)+1;
+        double HeightModifier= rand.nextInt(2)+1;
         OutOfPlay();
-        return speedmodifier;
+        return HeightModifier;
     }
+
+
     /**
      * Reset position on the field of the upgrade puck
      */
@@ -102,8 +99,4 @@ public class UpgradeSpeed extends Rectangle implements Collidable
 
         setX(Xpos);
         setY(Ypos);
-    }
-
-
-
-}
+    }}

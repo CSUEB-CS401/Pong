@@ -61,38 +61,53 @@ public class GameController implements Initializable {
 
     @FXML
     public void keyPressed(KeyEvent event) {
-        System.out.println("Pressed: " + event.getCode());
+        //System.out.println("Pressed: " + event.getCode());
         game.keyPressed(event.getCode());
     }
 
     @FXML
     public void keyReleased(KeyEvent event) {
         game.keyReleased(event.getCode());
-        System.out.println("Released: " + event.getCode() + "hoes");
+        //System.out.println("Released: " + event.getCode());
     }
 
     public void UpdateField()
     {
-        if(game.SpawnIn())
+        if(game.SpawnSpeed())
         {
+            System.out.println("Speed Upgrade Spawned");
           fieldPane.getChildren().add(game.getSpeedUpgrades());
+
         }
-        else if(game.SpawnOut())
+        if(game.RemoveSpeedSpawn())
         {
+            System.out.println("Speed Upgrade Despawned");
             fieldPane.getChildren().remove(game.getSpeedUpgrades());
+
         }
 
+        if(game.SpawnHeight())
+        {
+            System.out.println("Height Upgrade spawned");
+            fieldPane.getChildren().add(game.getHeightUpgrades());
+        }
+        if(game.RemoveHeightSpawn())
+        {
+            System.out.println("Height Upgrade Despawned");
+            fieldPane.getChildren().remove(game.getHeightUpgrades());
 
+        }
 
     }
+
 
     private void setUpTimeline() {
 
         timeline = new Timeline(new KeyFrame(Duration.millis(10), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                game.move();
                 UpdateField();
+                game.move();
                 playerOneScore.setText(Integer.toString(game.getPlayerScore(1)));
                 playerTwoScore.setText(Integer.toString(game.getPlayerScore(2)));
             }
