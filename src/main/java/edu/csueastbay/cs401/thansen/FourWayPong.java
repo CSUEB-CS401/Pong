@@ -56,6 +56,11 @@ public final class FourWayPong extends Game {
 
         // Corner walls.
 
+        final var player1Alive = playerAlive(1);
+        final var player2Alive = playerAlive(2);
+        final var player3Alive = playerAlive(3);
+        final var player4Alive = playerAlive(4);
+
         final Wall topLeft = new Wall(
                 "Top Left Wall",
                 0, 0,
@@ -63,6 +68,7 @@ public final class FourWayPong extends Game {
         );
         topLeft.setFill(Color.WHITE);
         addObject(topLeft);
+        topLeft.visibleProperty().bind(player3Alive);
 
         final Wall leftTop = new Wall(
                 "Left Top Wall",
@@ -71,6 +77,7 @@ public final class FourWayPong extends Game {
         );
         leftTop.setFill(Color.WHITE);
         addObject(leftTop);
+        leftTop.visibleProperty().bind(player1Alive);
 
         final Wall topRight = new Wall(
                 "Top Right Wall",
@@ -79,6 +86,7 @@ public final class FourWayPong extends Game {
         );
         topRight.setFill(Color.WHITE);
         addObject(topRight);
+        topRight.visibleProperty().bind(player3Alive);
 
         final Wall rightTop = new Wall(
                 "Right Top Wall",
@@ -87,6 +95,7 @@ public final class FourWayPong extends Game {
         );
         rightTop.setFill(Color.WHITE);
         addObject(rightTop);
+        rightTop.visibleProperty().bind(player2Alive);
 
         final Wall bottomLeft = new Wall(
                 "Bottom Left Wall",
@@ -95,6 +104,7 @@ public final class FourWayPong extends Game {
         );
         bottomLeft.setFill(Color.WHITE);
         addObject(bottomLeft);
+        bottomLeft.visibleProperty().bind(player4Alive);
 
         final Wall leftBottom = new Wall(
                 "Left Bottom Wall",
@@ -103,6 +113,7 @@ public final class FourWayPong extends Game {
         );
         leftBottom.setFill(Color.WHITE);
         addObject(leftBottom);
+        leftBottom.visibleProperty().bind(player1Alive);
 
         final Wall bottomRight = new Wall(
                 "Bottom Right Wall",
@@ -111,6 +122,7 @@ public final class FourWayPong extends Game {
         );
         bottomRight.setFill(Color.WHITE);
         addObject(bottomRight);
+        bottomRight.visibleProperty().bind(player4Alive);
 
         final Wall rightBottom = new Wall(
                 "Right Bottom Wall",
@@ -119,6 +131,47 @@ public final class FourWayPong extends Game {
         );
         rightBottom.setFill(Color.WHITE);
         addObject(rightBottom);
+        rightBottom.visibleProperty().bind(player2Alive);
+
+        // Side walls.
+        // These replace the corner walls once the corresponding side's player
+        // is eliminated.
+
+        final Wall topWall = new Wall(
+                "Top Wall",
+                0, 0,
+                fieldWidth, WALL_THICKNESS
+        );
+        topWall.setFill(Color.WHITE);
+        addObject(topWall);
+        topWall.visibleProperty().bind(playerDead(3));
+
+        final Wall bottomWall = new Wall(
+                "Bottom Wall",
+                0, fieldHeight - WALL_THICKNESS,
+                fieldWidth, WALL_THICKNESS
+        );
+        bottomWall.setFill(Color.WHITE);
+        addObject(bottomWall);
+        bottomWall.visibleProperty().bind(playerDead(4));
+
+        final Wall leftWall = new Wall(
+                "Left Wall",
+                0, 0,
+                WALL_THICKNESS, fieldHeight
+        );
+        leftWall.setFill(Color.WHITE);
+        addObject(leftWall);
+        leftWall.visibleProperty().bind(playerDead(1));
+
+        final Wall rightWall = new Wall(
+                "Right Wall",
+                fieldWidth - WALL_THICKNESS, 0,
+                WALL_THICKNESS, fieldHeight
+        );
+        rightWall.setFill(Color.WHITE);
+        addObject(rightWall);
+        rightWall.visibleProperty().bind(playerDead(2));
 
         // Goals.
 
@@ -129,6 +182,7 @@ public final class FourWayPong extends Game {
         );
         left.setFill(Color.RED);
         addObject(left);
+        left.visibleProperty().bind(player1Alive);
 
         final Goal right = new Goal(
                 "Player 2 Goal",
@@ -137,6 +191,7 @@ public final class FourWayPong extends Game {
         );
         right.setFill(Color.BLUE);
         addObject(right);
+        right.visibleProperty().bind(player2Alive);
 
         final Goal top = new Goal(
                 "Player 3 Goal",
@@ -145,6 +200,7 @@ public final class FourWayPong extends Game {
         );
         top.setFill(Color.YELLOW);
         addObject(top);
+        top.visibleProperty().bind(player3Alive);
 
         final Goal bottom = new Goal(
                 "Player 4 Goal",
@@ -153,6 +209,7 @@ public final class FourWayPong extends Game {
         );
         bottom.setFill(Color.GREEN);
         addObject(bottom);
+        bottom.visibleProperty().bind(player4Alive);
 
         // Paddles.
 
@@ -164,6 +221,7 @@ public final class FourWayPong extends Game {
         );
         playerOne.setFill(Color.RED);
         addPlayerPaddle(1, playerOne);
+        playerOne.visibleProperty().bind(player1Alive);
 
         final Paddle playerTwo = new Paddle(
                 "Player 2 Paddle",
@@ -173,6 +231,7 @@ public final class FourWayPong extends Game {
         );
         playerTwo.setFill(Color.BLUE);
         addPlayerPaddle(2, playerTwo);
+        playerTwo.visibleProperty().bind(player2Alive);
 
         playerThreePaddle = new HorizontalPaddle(
                 "Player 3 Paddle",
@@ -182,6 +241,7 @@ public final class FourWayPong extends Game {
         );
         playerThreePaddle.setFill(Color.YELLOW);
         addObject(playerThreePaddle);
+        playerThreePaddle.visibleProperty().bind(player3Alive);
 
         playerFourPaddle = new HorizontalPaddle(
                 "Player 4 Paddle",
@@ -191,6 +251,7 @@ public final class FourWayPong extends Game {
         );
         playerFourPaddle.setFill(Color.GREEN);
         addObject(playerFourPaddle);
+        playerFourPaddle.visibleProperty().bind(player4Alive);
     }
 
     @Override
@@ -218,6 +279,16 @@ public final class FourWayPong extends Game {
     public BooleanBinding playerAlive(int player) {
         if (player < 1 || player > scores.length) return null;
         return scores[player - 1].lessThan(getLoseScore());
+    }
+
+    public boolean isPlayerDead(int player) {
+        if (player < 1 || player > scores.length) return false;
+        return scores[player - 1].get() >= getLoseScore();
+    }
+
+    public BooleanBinding playerDead(int player) {
+        if (player < 1 || player > scores.length) return null;
+        return scores[player - 1].greaterThanOrEqualTo(getLoseScore());
     }
 
     public int getLoseScore() {
@@ -253,19 +324,30 @@ public final class FourWayPong extends Game {
     @Override
     public void collisionHandler(Puckable puck, Collision collision) {
         switch (collision.getType()) {
-            case "Wall" -> puck.setDirection(switch (collision.getObjectID()) {
-                // Horizontal wall.
-                case "Top Left Wall",
-                        "Top Right Wall",
-                        "Bottom Left Wall",
-                        "Bottom Right Wall" -> -puck.getDirection();
-                // Vertical wall.
-                case "Left Top Wall",
-                        "Left Bottom Wall",
-                        "Right Top Wall",
-                        "Right Bottom Wall" -> 180 - puck.getDirection();
-                default -> throw new Error("Unknown wall " + collision.getObjectID());
-            });
+            case "Wall" -> {
+                final int player = switch (collision.getObjectID()) {
+                    case "Top Wall", "Top Left Wall", "Top Right Wall" -> 3;
+                    case "Bottom Wall", "Bottom Left Wall", "Bottom Right Wall" -> 4;
+                    case "Left Wall", "Left Top Wall", "Left Bottom Wall" -> 1;
+                    case "Right Wall", "Right Top Wall", "Right Bottom Wall" -> 2;
+                    default -> throw new Error("Unknown wall " + collision.getObjectID());
+                };
+                final boolean isCorner = switch (collision.getObjectID()) {
+                    case "Top Wall", "Bottom Wall", "Left Wall", "Right Wall" -> false;
+                    default -> true;
+                };
+                // Use corner walls if player is alive, otherwise use full wall.
+                if (isPlayerAlive(player) != isCorner) break;
+                final double direction = puck.getDirection();
+                puck.setDirection(switch (player) {
+                            // Vertical wall.
+                            case 1, 2 -> 180 - direction;
+                            // Horizontal wall.
+                            case 3, 4 -> -direction;
+                            default -> direction;
+                        }
+                );
+            }
             case "Goal" -> {
                 final int player = switch (collision.getObjectID()) {
                     case "Player 1 Goal" -> 1;
@@ -274,27 +356,18 @@ public final class FourWayPong extends Game {
                     case "Player 4 Goal" -> 4;
                     default -> 0;
                 };
-                if (isPlayerAlive(player)) {
-                    addPointsToPlayer(player, 1);
-                    puck.reset();
-                } else {
-                    // Treat inactive goal as a wall instead.
-                    puck.setDirection(switch (player) {
-                        // Vertical wall.
-                        case 1, 2 -> 180 - puck.getDirection();
-                        // Horizontal wall.
-                        case 3, 4 -> -puck.getDirection();
-                        default -> puck.getDirection();
-                    });
-                }
+                // Disable collision handling for dead players.
+                if (!isPlayerAlive(player)) break;
+                addPointsToPlayer(player, 1);
+                puck.reset();
             }
             case "Paddle" -> {
-                // Disable collision handling for dead players.
                 final int player = switch (collision.getObjectID()) {
                     case "Player 1 Paddle" -> 1;
                     case "Player 2 Paddle" -> 2;
                     default -> throw new Error("Unknown Paddle " + collision.getObjectID());
                 };
+                // Disable collision handling for dead players.
                 if (!isPlayerAlive(player)) break;
 
                 final double puckCenter = ((Puck) puck).getCenterY();
