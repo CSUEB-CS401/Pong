@@ -27,7 +27,7 @@ public class FourWayPongTest {
     }
 
     @Test
-    void shouldHaveEightWalls() {
+    void shouldHaveTwelveWalls() {
         ArrayList<Collidable> game_objects = game.getObjects();
         int counter = 0;
         for (Collidable object : game_objects) {
@@ -35,7 +35,7 @@ public class FourWayPongTest {
                 counter++;
             }
         }
-        assertEquals(8, counter, "Should have eight Walls");
+        assertEquals(12, counter, "Should have twelve Walls");
     }
 
     @Test
