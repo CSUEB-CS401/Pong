@@ -1,5 +1,6 @@
-package edu.csueastbay.cs401.classic;
+package edu.csueastbay.cs401.StarWars;
 
+import edu.csueastbay.cs401.classic.ClassicPong;
 import edu.csueastbay.cs401.pong.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -7,9 +8,8 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class ClassicPongTest {
+class PongWarsTest {
 
     ClassicPong game;
 
@@ -185,8 +185,10 @@ class ClassicPongTest {
                 110);
 
         game.collisionHandler(puck, bang);
-        assertEquals(1, game.getPlayerScore(2));
+        assertEquals(2, game.getPlayerScore(1));
     }
+
+
 
     @Test
     void mapRange0to10and30to50() {

@@ -6,4 +6,5 @@ public interface Collidable {
     public Collision getCollision(Shape shape);
     public String getID();
     public String getType();
+
 }
