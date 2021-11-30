@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
 public class GameController implements Initializable {
     public static final int FIELD_WIDTH = 1300;
     public static final int FIELD_HEIGHT = 860;
-    public static final int LOSE_SCORE = 10;
+    public static final int LOSE_SCORE = 5;
 
     private FourWayPong game;
 
