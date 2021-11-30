@@ -13,5 +13,8 @@ public interface Puckable {
     public void setDirection(double angle);
     public void set(double x, double y);
 
+    public double getCenterX();
+    public double getCenterY();
+
     void reset();
 }

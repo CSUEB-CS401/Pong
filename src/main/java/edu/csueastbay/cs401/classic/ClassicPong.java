@@ -2,35 +2,18 @@ package edu.csueastbay.cs401.classic;
 
 import edu.csueastbay.cs401.pong.*;
 import javafx.scene.paint.Color;
-import java.util.Random;
 
 public class ClassicPong extends Game {
-    
+
     private double fieldHeight;
     private double fieldWidth;
 
-    Random random = new Random();
-    double leftLocation = random.nextDouble(750);
-    double rightLocation = random.nextDouble(750);
-    double leftYLocation, rightYLocation;
 
     public ClassicPong(int victoryScore, double fieldWidth, double fieldHeight) {
         super(victoryScore);
 
         this.fieldWidth = fieldWidth;
         this.fieldHeight = fieldHeight;
-
-        leftYLocation = this.fieldHeight - leftLocation;
-        if(this.fieldHeight - leftLocation > 750) {leftYLocation = 750;}
-
-        rightYLocation = this.fieldHeight - rightLocation;
-        if(this.fieldHeight - rightLocation > 750) {rightYLocation = 750;}
-
-        Portal leftportal = new Portal("Left Portal", (this.fieldWidth + 2)/3, leftYLocation, 5,50);
-        addObject(leftportal);
-
-        Portal rightportal = new Portal("Right Portal", (this.fieldWidth+2)*2/3, rightYLocation, 5,50);
-        addObject(rightportal);
 
         Puck puck = new Puck(this.fieldWidth, this.fieldHeight);
         puck.setID("Classic");
@@ -101,24 +84,6 @@ public class ClassicPong extends Game {
                     angle = mapRange(collision.getTop(), collision.getBottom(), 225, 135, puckCenter);
                 }
                 puck.setDirection(angle);
-                break;
-            case "Portal":
-                if(this.fieldHeight - leftLocation > 700) {leftYLocation = 700;}
-                if(this.fieldHeight - rightLocation > 700) {rightYLocation = 700;}
-                if (collision.getObjectID() == "Left Portal") {
-                    if(puck.getDirection() > 90 && puck.getDirection() < 270) {
-                        puck.set((this.fieldWidth + 2)*2/3 - 13, rightYLocation);
-                    } else if(puck.getDirection() > 270 || puck.getDirection() < 90){
-                        puck.set((this.fieldWidth+2)*2/3 + 13, rightYLocation);
-                    }
-                } else if (collision.getObjectID() == "Right Portal") {
-                    if(puck.getDirection() > 90 && puck.getDirection() < 270) {
-                        puck.set((this.fieldWidth+2)/ 3 - 13, leftYLocation);
-                    } else if(puck.getDirection() > 270 || puck.getDirection() < 90){
-                        puck.set((this.fieldWidth+2)/3 + 13, leftYLocation);
-                    }
-                }
-                break;
 
         }
     }

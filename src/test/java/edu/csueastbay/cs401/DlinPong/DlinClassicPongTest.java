@@ -1,21 +1,22 @@
-package edu.csueastbay.cs401.classic;
+package edu.csueastbay.cs401.DlinPong;
 
 import edu.csueastbay.cs401.pong.*;
+import javafx.scene.layout.AnchorPane;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-class ClassicPongTest {
+class DlinClassicPongTest {
 
-    ClassicPong game;
+    DlinClassicPong game;
 
     @BeforeEach
     void setUp() {
-        game = new ClassicPong(10, 1300, 860);
+        game = new DlinClassicPong(10, 1300, 860, new AnchorPane());
     }
 
     @Test
@@ -185,21 +186,137 @@ class ClassicPongTest {
                 110);
 
         game.collisionHandler(puck, bang);
-        assertEquals(2, game.getPlayerScore(1));
+        assertEquals(1, game.getPlayerScore(2));
     }
 
 
 
     @Test
     void mapRange0to10and30to50() {
-        double result = ClassicPong.mapRange(0,10,30,50, 5);
+        double result = DlinClassicPong.mapRange(0,10,30,50, 5);
         assertEquals(40, result);
 
     }
 
     @Test
     void mapRange100to200and20to50() {
-        double result = ClassicPong.mapRange(200,300,20,50, 225);
+        double result = DlinClassicPong.mapRange(200,300,20,50, 225);
         assertEquals(27.5, result);
     }
+
+    @Test
+    void shouldHaveLeftPortal(){
+        ArrayList<Collidable> game_objects = game.getObjects();
+        Portal leftPortal = null;
+        for (Collidable object : game_objects) {
+            if (object.getID() == "Left Portal") {
+                leftPortal = (Portal)object;
+            }
+        }
+        assertNotEquals(null, game_objects);
+        assertEquals(434, leftPortal.getX());
+        assertEquals(5, leftPortal.getWidth());
+        assertEquals(50, leftPortal.getHeight());
+    }
+
+    @Test
+    void shouldHaveRightPortal(){
+        ArrayList<Collidable> game_objects = game.getObjects();
+        Portal rightPortal = null;
+        for (Collidable object : game_objects) {
+            if (object.getID() == "Right Portal") {
+                rightPortal = (Portal)object;
+            }
+        }
+        assertNotEquals(null, game_objects);
+        assertEquals(868, rightPortal.getX());
+        assertEquals(5, rightPortal.getWidth());
+        assertEquals(50, rightPortal.getHeight());
+    }
+
+    @Test
+    void hittingLeftPortalShouldTeleportToRightPortal(){
+        Puck puck = new Puck(500, 500);
+        puck.setCenterX(100);
+        puck.setCenterY(100);
+        puck.setDirection(45);
+        Collision bang = new Collision(
+                "Portal",
+                "Left Portal",
+                true,
+                0,
+                500,
+                90,
+                110);
+
+        game.collisionHandler(puck, bang);
+        assertEquals(891, puck.getCenterX());
+        assertEquals(6, puck.getSpeed());
+        assertEquals(45, puck.getDirection());
+    }
+
+    @Test
+    void hittingRightPortalShouldTeleportToLeftPortal(){
+        Puck puck = new Puck(500, 500);
+        puck.setDirection(115);
+        Collision bang = new Collision(
+                "Portal",
+                "Right Portal",
+                true,
+                0,
+                500,
+                90,
+                110);
+
+        game.collisionHandler(puck, bang);
+        assertEquals(411, puck.getCenterX());
+        assertEquals(6, puck.getSpeed());
+        assertEquals(115, puck.getDirection());
+    }
+
+    @Test
+    void shouldHaveAPlayerOneSubPaddle(){
+        ArrayList<Collidable> game_objects = game.getObjects();
+        SubPaddle player_1_subpaddle = null;
+        for (Collidable object : game_objects) {
+            if (object.getID() == "Player 1 SubPaddle") {
+                player_1_subpaddle = (SubPaddle)object;
+            }
+        }
+        assertNotEquals(null, game_objects);
+        assertEquals(550, player_1_subpaddle.getX());
+        assertEquals(5, player_1_subpaddle.getWidth());
+        assertEquals(50, player_1_subpaddle.getHeight());
+    }
+
+    @Test
+    void shouldHaveAPlayerTwoSubPaddle(){
+        ArrayList<Collidable> game_objects = game.getObjects();
+        SubPaddle player_2_subpaddle = null;
+        for (Collidable object : game_objects) {
+            if (object.getID() == "Player 2 SubPaddle") {
+                player_2_subpaddle = (SubPaddle)object;
+            }
+        }
+        assertNotEquals(null, game_objects);
+        assertEquals(750, player_2_subpaddle.getX());
+        assertEquals(5, player_2_subpaddle.getWidth());
+        assertEquals(50, player_2_subpaddle.getHeight());
+    }
+
+    @Test
+    void shouldHaveSpeedBall(){
+        ArrayList<Collidable> game_objects = game.getObjects();
+        SpeedBall speedBall = null;
+        for (Collidable object : game_objects) {
+            if (object.getID() == "SpeedBall") {
+                speedBall = (SpeedBall) object;
+            }
+        }
+        assertNotEquals(null, game_objects);
+        assertEquals(645, speedBall.getX());
+        assertEquals(10, speedBall.getWidth());
+        assertEquals(30, speedBall.getHeight());
+    }
+
 }
