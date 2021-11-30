@@ -187,7 +187,7 @@ class ClassicPongTest {
                 110);
 
         game.collisionHandler(puck, bang);
-        assertEquals(2, game.getPlayerScore(1));
+        assertEquals(1, game.getPlayerScore(2));
     }
 
 
