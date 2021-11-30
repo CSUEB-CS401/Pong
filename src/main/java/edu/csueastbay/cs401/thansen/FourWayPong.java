@@ -2,6 +2,7 @@ package edu.csueastbay.cs401.thansen;
 
 import edu.csueastbay.cs401.classic.ClassicPong;
 import edu.csueastbay.cs401.pong.*;
+import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -52,6 +53,8 @@ public final class FourWayPong extends Game {
 
         final double wallWidth = fieldWidth / 5;
         final double wallHeight = fieldHeight / 5;
+
+        // Corner walls.
 
         final Wall topLeft = new Wall(
                 "Top Left Wall",
@@ -117,6 +120,8 @@ public final class FourWayPong extends Game {
         rightBottom.setFill(Color.WHITE);
         addObject(rightBottom);
 
+        // Goals.
+
         final Goal left = new Goal(
                 "Player 1 Goal",
                 0, wallHeight,
@@ -148,6 +153,8 @@ public final class FourWayPong extends Game {
         );
         bottom.setFill(Color.GREEN);
         addObject(bottom);
+
+        // Paddles.
 
         final Paddle playerOne = new Paddle(
                 "Player 1 Paddle",
@@ -203,6 +210,21 @@ public final class FourWayPong extends Game {
         scores[player - 1].set(scores[player - 1].get() + value);
     }
 
+    public boolean isPlayerAlive(int player) {
+        if (player < 1 || player > scores.length) return false;
+        return scores[player - 1].get() < getLoseScore();
+    }
+
+    public BooleanBinding playerAlive(int player) {
+        if (player < 1 || player > scores.length) return null;
+        return scores[player - 1].lessThan(getLoseScore());
+    }
+
+    public int getLoseScore() {
+        // Reinterpret victoryScore.
+        return getVictoryScore();
+    }
+
     @Override
     public int getVictor() {
         int victor = 0;
@@ -232,10 +254,12 @@ public final class FourWayPong extends Game {
     public void collisionHandler(Puckable puck, Collision collision) {
         switch (collision.getType()) {
             case "Wall" -> puck.setDirection(switch (collision.getObjectID()) {
+                // Horizontal wall.
                 case "Top Left Wall",
                         "Top Right Wall",
                         "Bottom Left Wall",
                         "Bottom Right Wall" -> -puck.getDirection();
+                // Vertical wall.
                 case "Left Top Wall",
                         "Left Bottom Wall",
                         "Right Top Wall",
@@ -243,49 +267,80 @@ public final class FourWayPong extends Game {
                 default -> throw new Error("Unknown wall " + collision.getObjectID());
             });
             case "Goal" -> {
-                addPointsToPlayer(
-                        switch (collision.getObjectID()) {
-                            case "Player 1 Goal" -> 1;
-                            case "Player 2 Goal" -> 2;
-                            case "Player 3 Goal" -> 3;
-                            case "Player 4 Goal" -> 4;
-                            default -> 0;
-                        },
-                        1
-                );
-                puck.reset();
+                final int player = switch (collision.getObjectID()) {
+                    case "Player 1 Goal" -> 1;
+                    case "Player 2 Goal" -> 2;
+                    case "Player 3 Goal" -> 3;
+                    case "Player 4 Goal" -> 4;
+                    default -> 0;
+                };
+                if (isPlayerAlive(player)) {
+                    addPointsToPlayer(player, 1);
+                    puck.reset();
+                } else {
+                    // Treat inactive goal as a wall instead.
+                    puck.setDirection(switch (player) {
+                        // Vertical wall.
+                        case 1, 2 -> 180 - puck.getDirection();
+                        // Horizontal wall.
+                        case 3, 4 -> -puck.getDirection();
+                        default -> puck.getDirection();
+                    });
+                }
             }
             case "Paddle" -> {
-                final double puckCenter = ((Puck) puck).getCenterY();
-                puck.setDirection(switch (collision.getObjectID()) {
-                    case "Player 1 Paddle" -> ClassicPong.mapRange(
-                            collision.getTop(), collision.getBottom(),
-                            -PADDLE_COLLISION_ANGLE, PADDLE_COLLISION_ANGLE,
-                            puckCenter
-                    );
-                    case "Player 2 Paddle" -> ClassicPong.mapRange(
-                            collision.getTop(), collision.getBottom(),
-                            180 + PADDLE_COLLISION_ANGLE, 90 + PADDLE_COLLISION_ANGLE,
-                            puckCenter
-                    );
+                // Disable collision handling for dead players.
+                final int player = switch (collision.getObjectID()) {
+                    case "Player 1 Paddle" -> 1;
+                    case "Player 2 Paddle" -> 2;
                     default -> throw new Error("Unknown Paddle " + collision.getObjectID());
-                });
+                };
+                if (!isPlayerAlive(player)) break;
+
+                final double puckCenter = ((Puck) puck).getCenterY();
+                switch (player) {
+                    case 1 -> puck.setDirection(
+                            ClassicPong.mapRange(
+                                    collision.getTop(), collision.getBottom(),
+                                    -PADDLE_COLLISION_ANGLE, PADDLE_COLLISION_ANGLE,
+                                    puckCenter
+                            )
+                    );
+                    case 2 -> puck.setDirection(
+                            ClassicPong.mapRange(
+                                    collision.getTop(), collision.getBottom(),
+                                    180 + PADDLE_COLLISION_ANGLE, 90 + PADDLE_COLLISION_ANGLE,
+                                    puckCenter
+                            )
+                    );
+                }
             }
             case "HorizontalPaddle" -> {
-                final double puckCenter = ((Puck) puck).getCenterX();
-                puck.setDirection(switch (collision.getObjectID()) {
-                    case "Player 3 Paddle" -> ClassicPong.mapRange(
-                            collision.getLeft(), collision.getRight(),
-                            90 + PADDLE_COLLISION_ANGLE, PADDLE_COLLISION_ANGLE,
-                            puckCenter
-                    );
-                    case "Player 4 Paddle" -> ClassicPong.mapRange(
-                            collision.getLeft(), collision.getRight(),
-                            -90 - PADDLE_COLLISION_ANGLE, -PADDLE_COLLISION_ANGLE,
-                            puckCenter
-                    );
+                // Disable collision handling for dead players.
+                final int player = switch (collision.getObjectID()) {
+                    case "Player 3 Paddle" -> 3;
+                    case "Player 4 Paddle" -> 4;
                     default -> throw new Error("Unknown HorizontalPaddle " + collision.getObjectID());
-                });
+                };
+                if (!isPlayerAlive(player)) break;
+
+                final double puckCenter = ((Puck) puck).getCenterX();
+                switch (player) {
+                    case 3 -> puck.setDirection(
+                            ClassicPong.mapRange(
+                                    collision.getLeft(), collision.getRight(),
+                                    90 + PADDLE_COLLISION_ANGLE, PADDLE_COLLISION_ANGLE,
+                                    puckCenter
+                            )
+                    );
+                    case 4 -> puck.setDirection(
+                            ClassicPong.mapRange(
+                                    collision.getLeft(), collision.getRight(),
+                                    -90 - PADDLE_COLLISION_ANGLE, -PADDLE_COLLISION_ANGLE,
+                                    puckCenter
+                            )
+                    );
+                }
             }
         }
     }
