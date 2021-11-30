@@ -40,8 +40,9 @@ public class MainMenuController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         registry = new Registry();
         registry.register("Classic Pong", "classic", "Classic Pong Game");
+        registry.register("Joshua Rodriguez", "StarWarsPong", "A simple Star Wars themed" +
+                " ping pong game that is fast paced with power small power zones that make the game experience interesting. ");
         registry.register("Jonathan Zepeda", "jzepeda", "Pong Game");
-
         registry.reset();
 
         prefWidth = new SimpleDoubleProperty(scalePane.getPrefWidth());
