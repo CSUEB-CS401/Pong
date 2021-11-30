@@ -6,6 +6,9 @@ import javafx.scene.shape.Rectangle;
 
 import java.util.Random;
 
+/**
+ * This Creates A Square Puck
+ */
 public class SquarePuck extends Rectangle implements Puckable {
 
     public static final double STARTING_SPEED = 5.0;

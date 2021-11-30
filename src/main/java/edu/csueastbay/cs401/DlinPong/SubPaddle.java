@@ -9,6 +9,9 @@ import javafx.scene.shape.Shape;
 
 import java.util.Random;
 
+/**
+ * This is used to create a second stationary paddle
+ */
 public class SubPaddle extends Rectangle implements Collidable {
     public static final double STARTING_SPEED = 5.0;
     private String id;

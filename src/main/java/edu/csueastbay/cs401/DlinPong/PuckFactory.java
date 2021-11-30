@@ -5,6 +5,9 @@ import edu.csueastbay.cs401.pong.Puckable;
 
 import java.util.Random;
 
+/**
+ * This will allow the creation of different pucks
+ */
 public class PuckFactory {
     private double fieldWidth;
     private double fieldHeight;
