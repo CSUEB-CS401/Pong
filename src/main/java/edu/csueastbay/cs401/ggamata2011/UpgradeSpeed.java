@@ -38,6 +38,7 @@ public class UpgradeSpeed extends Rectangle implements Collidable
         setWidth(width);
         setFill(Color.GREEN);
         InPlay = false;
+        setVisible(false);
     }
 
     @Override
@@ -66,11 +67,13 @@ public class UpgradeSpeed extends Rectangle implements Collidable
     public void InPlay()
     {
        InPlay = true;
+       setVisible(true);
     }
 
     public void OutOfPlay()
     {
         InPlay = false;
+        setVisible(false);
     }
 
     public Boolean PlayState()

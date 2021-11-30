@@ -35,6 +35,7 @@ public class UpgradeHeight extends Rectangle implements Collidable
         setHeight(height);
         setWidth(width);
         setFill(Color.YELLOW);
+        setVisible(false);
         InPlay = false;
     }
 
@@ -64,11 +65,13 @@ public class UpgradeHeight extends Rectangle implements Collidable
     public void InPlay()
     {
         InPlay = true;
+        setVisible(true);
     }
 
     public void OutOfPlay()
     {
         InPlay = false;
+        setVisible(false);
     }
 
     public Boolean PlayState()
@@ -81,7 +84,7 @@ public class UpgradeHeight extends Rectangle implements Collidable
     public double HeightModify()
     {
         Random rand = new Random();
-        double HeightModifier= rand.nextInt(2)+1;
+        double HeightModifier= rand.nextInt(5)+1;
         OutOfPlay();
         return HeightModifier;
     }

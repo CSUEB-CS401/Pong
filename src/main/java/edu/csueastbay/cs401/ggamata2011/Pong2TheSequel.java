@@ -3,27 +3,10 @@ package edu.csueastbay.cs401.ggamata2011;
 import edu.csueastbay.cs401.pong.*;
 import javafx.scene.paint.Color;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.control.Label;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Shape;
-import javafx.util.Duration;
 
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
 
 
 public class Pong2TheSequel extends Game {
@@ -38,15 +21,10 @@ public class Pong2TheSequel extends Game {
     UpgradeablePaddle playerOne;
     UpgradeablePaddle playerTwo;
 
-
     //Adding SpeedItem into GameObjects List
     private UpgradeSpeed SpeedItem;
     private UpgradeHeight HeightItem;
-
-    private Boolean RequestSpeedSpawn = false;
-    private Boolean RemoveSpeedSpawn = false;
-    private Boolean RequestHeightSpawn = false;
-    private Boolean RemoveHeightSpawn = false;
+    private Debuff DebuffItem;
 
     private Boolean PaddleOneHit = false;
     private Boolean PaddleTwoHit = false;
@@ -62,8 +40,8 @@ public class Pong2TheSequel extends Game {
 
         SpeedItem = new UpgradeSpeed(
                 "UpgradeSpeed",
-                500.0,
-                500.0,
+                250.0,
+                250.0,
                 40.0,
                 40.0,
                 (double) this.fieldHeight - 200,
@@ -82,12 +60,19 @@ public class Pong2TheSequel extends Game {
                 200.0,
                 (double) this.fieldWidth - 200);
 
-
-
-
+        DebuffItem = new Debuff(
+                "Debuff",
+                250.0,
+                250.0,
+                40.0,
+                40.0,
+                (double) this.fieldHeight - 200,
+                200.0,
+                200.0,
+                (double) this.fieldWidth - 200);
 
         puck = new UpgradeablePuck(this.fieldWidth, this.fieldHeight);
-        puck.setID("Classic");
+        puck.setID("Pong2TheSequel");
         addPuck(puck);
 
         Wall top = new Wall("Top Wall", 0, 0, this.fieldWidth, 10);
@@ -167,58 +152,72 @@ public class Pong2TheSequel extends Game {
                 puck.setDirection(angle);
                 break;
             case "UpgradeSpeed":
-              if(GetSpeedState()) {
+              if(SpeedItem.PlayState()) {
                   if (PaddleOneHit) {
                       System.out.println("Player 1 Obtained Speed Upgrade!");
                       playerOne.ModifySpeed(SpeedItem.SpeedModify());
-                      RemoveSpeedUpgrade();
                   }
                   if (PaddleTwoHit) {
                       System.out.println("Player 2 Obtained Speed Upgrade!");
                       playerTwo.ModifySpeed(SpeedItem.SpeedModify());
-                      RemoveSpeedUpgrade();
-
-
                   }
               }
                 break;
             case "UpgradeHeight":
-                if(GetHeightState()) {
+                if(HeightItem.PlayState()) {
                     if (PaddleOneHit) {
                         System.out.println("Player 1 Obtained Height Upgrade!");
                         playerOne.ModifyHeight(HeightItem.HeightModify());
-                        RemoveHeightUpgrade();
+                        break;
                     }
                     if (PaddleTwoHit) {
                         System.out.println("Player 2 Obtained Height Upgrade!");
                         playerTwo.ModifyHeight(HeightItem.HeightModify());
-                        RemoveHeightUpgrade();
+                        break;
+                    }
+                }
 
+                break;
+            case "Debuff":
+                if(DebuffItem.PlayState()) {
+                    if (PaddleOneHit)
+                    {
+                        System.out.println("Player 1 Debuffed Player 2");
+                        if(DebuffItem.DebuffRandomizer() == 1)
+                        {
+                            playerTwo.ModifyHeight(DebuffItem.DebuffHeight());
+                        }
+                        else
+                        {
+                            playerTwo.ModifyHeight(DebuffItem.DebuffSpeed());
+                        }
 
+                    }
+                    if(PaddleTwoHit)
+                    {
+
+                        System.out.println("Player 2 Debuffed Player 1");
+                        if(DebuffItem.DebuffRandomizer() == 1)
+                        {
+                            playerOne.ModifyHeight(DebuffItem.DebuffHeight());
+                        }
+                        else
+                        {
+                            playerOne.ModifyHeight(DebuffItem.DebuffSpeed());
+                        }
                     }
                 }
                 break;
 
-
-
         }
 
         //Upgrades will Spawn every 4 hits
-        if(NumberofHits%4 == 0)
+        if(NumberofHits%4 == 0 && NumberofHits >= 4)
         {
-            if(!GetSpeedState())
-            {
-               AddSpeedUpgrade();
-            }
-            if(!GetHeightState())
-            {
-                AddHeightUpgrade();
-            }
+               //AddSpeedUpgrade();
+               //AddHeightUpgrade();
+               AddDebuff();
         }
-
-
-
-
 
     }
 
@@ -233,6 +232,8 @@ public class Pong2TheSequel extends Game {
         super.checkCollision(puck);
             Collision SpeedCollision = SpeedItem.getCollision((Shape)puck);
             Collision HeightCollision = HeightItem.getCollision((Shape)puck);
+            Collision DebuffCollision = DebuffItem.getCollision((Shape)puck);
+
             if (SpeedCollision.isCollided())
             {
                 collisionHandler(puck, SpeedCollision);
@@ -241,6 +242,10 @@ public class Pong2TheSequel extends Game {
             {
                 collisionHandler(puck,HeightCollision);
             }
+            if(HeightCollision.isCollided())
+            {
+                collisionHandler(puck,DebuffCollision);
+            }
 
         }
 
@@ -248,7 +253,6 @@ public class Pong2TheSequel extends Game {
     public static double mapRange(double a1, double a2, double b1, double b2, double s) {
         return b1 + ((s - a1) * (b2 - b1)) / (a2 - a1);
     }
-
 
 
     //All my Extra Functions will be defined here
@@ -261,12 +265,26 @@ public class Pong2TheSequel extends Game {
         return HeightItem;
     }
 
+    public Debuff getDebuff()
+    {
+        return DebuffItem;
+    }
+
+    public void AddDebuff()
+    {
+        if(!DebuffItem.InPlay)
+        {
+            DebuffItem.ResetPosition();
+            DebuffItem.InPlay();
+        }
+
+    }
+
     public void AddSpeedUpgrade()
     {
       if(!SpeedItem.InPlay)
       {
           SpeedItem.ResetPosition();
-          RequestSpeedSpawn = true;
           SpeedItem.InPlay();
       }
     }
@@ -276,58 +294,11 @@ public class Pong2TheSequel extends Game {
         if(!HeightItem.InPlay)
         {
             HeightItem.ResetPosition();
-            RequestHeightSpawn = true;
             HeightItem.InPlay();
         }
 
     }
 
-    public void RemoveSpeedUpgrade()
-    {
-        RemoveSpeedSpawn = true;
-        SpeedItem.OutOfPlay();
-    }
-
-    public void RemoveHeightUpgrade()
-    {
-       RemoveHeightSpawn = true;
-       HeightItem.OutOfPlay();
-    }
-
-    public Boolean GetSpeedState()
-    {
-        return SpeedItem.PlayState();
-    }
-
-    public Boolean GetHeightState()
-    {
-        return HeightItem.PlayState();
-    }
-
-    public Boolean SpawnSpeed()
-    {
-       Boolean TempReturn = RequestSpeedSpawn;
-       RequestSpeedSpawn = false;
-       return  TempReturn;
-    }
-    public Boolean RemoveSpeedSpawn()
-    {
-        Boolean TempReturn = RemoveSpeedSpawn;
-        RemoveSpeedSpawn = false;
-        return  TempReturn;
-    }
-    public Boolean SpawnHeight()
-    {
-        Boolean TempReturn = RequestHeightSpawn;
-        RequestHeightSpawn = false;
-        return  TempReturn;
-    }
-    public Boolean RemoveHeightSpawn()
-    {
-        Boolean TempReturn = RemoveHeightSpawn;
-        RemoveHeightSpawn = false;
-        return  TempReturn;
-    }
 
 
 }
