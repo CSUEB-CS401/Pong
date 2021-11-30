@@ -13,6 +13,8 @@ import javafx.scene.paint.Color;
 
 import edu.csueastbay.cs401.pong.Game;
 
+import java.util.Random;
+
 /**
  * Pong game with 4 paddles on each side of the screen. Here, paddles are
  * removed from the game if their goals have been hit multiple times, with the
@@ -57,7 +59,7 @@ public final class FourWayPong extends Game {
         stillPlaying = victorProperty.lessThanOrEqualTo(0);
         gameOver = victorProperty.greaterThan(0);
 
-        final FourWayPuck puck = new FourWayPuck(fieldWidth, fieldHeight);
+        final FourWayPuck puck = new FourWayPuck(fieldWidth, fieldHeight, new Random());
         puck.setID("Four Way");
         addPuck(puck);
         puck.visibleProperty().bind(stillPlaying);

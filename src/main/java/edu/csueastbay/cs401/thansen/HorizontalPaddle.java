@@ -8,7 +8,7 @@ import javafx.scene.shape.Shape;
 /**
  * Paddle that is oriented horizontally rather than vertically.
  */
-public class HorizontalPaddle extends Rectangle implements Collidable {
+public final class HorizontalPaddle extends Rectangle implements Collidable {
     public static final double STARTING_SPEED = 5.0;
     private final String id;
     private final double speed;
