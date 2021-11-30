@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.effect.GaussianBlur?>
+<?import javafx.scene.effect.Reflection?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -15,7 +17,7 @@
    <center>
       <AnchorPane prefHeight="845.0" prefWidth="1300.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fx:id="imageView" fitHeight="860.0" fitWidth="853.0" layoutX="-141.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imageView" fitHeight="854.0" fitWidth="848.0" layoutX="-138.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
                <effect>
                   <GaussianBlur radius="17.79" />
                </effect>
@@ -25,10 +27,16 @@
             </ImageView>
             <Line endX="-98.99993896484375" endY="846.0" layoutX="704.0" layoutY="2.0" startX="-99.0" startY="10.0" stroke="WHITE" strokeWidth="3.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" height="860.0" layoutX="605.0" layoutY="-1.0" stroke="BLACK" strokeType="INSIDE" width="695.0" />
-            <Button layoutX="919.0" layoutY="413.0" mnemonicParsing="false" onAction="#goBack" text="Play!">
+            <Button layoutX="913.0" layoutY="338.0" mnemonicParsing="false" onAction="#playPong" text="Play!">
                <font>
-                  <Font size="20.0" />
-               </font></Button>
+                  <Font name="Arial" size="22.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <Reflection />
+               </effect></Button>
             <ImageView fx:id="imageLogo" fitHeight="273.0" fitWidth="317.0" layoutX="149.0" layoutY="298.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@BWspacewave.gif" />
@@ -36,7 +44,7 @@
             </ImageView>
             <Text fill="WHITE" layoutX="157.0" layoutY="228.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Pong Game">
                <font>
-                  <Font size="50.0" />
+                  <Font name="System Italic" size="50.0" />
                </font>
             </Text>
             <Text fill="WHITE" layoutX="272.0" layoutY="639.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="by">
@@ -49,6 +57,37 @@
                   <Font size="31.0" />
                </font>
             </Text>
+            <Text fill="WHITE" layoutX="903.0" layoutY="273.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ready?">
+               <font>
+                  <Font name="HoloLens MDL2 Assets" size="32.0" />
+               </font>
+            </Text>
+            <Line endX="133.2099609375" endY="-3.0517578125E-5" layoutX="959.0" layoutY="459.0" startX="-150.0" stroke="#b2b1b1" strokeLineCap="ROUND" />
+            <Text fill="WHITE" layoutX="862.0" layoutY="537.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rules/Addons :">
+               <font>
+                  <Font name="HoloLens MDL2 Assets" size="27.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="924.0" layoutY="580.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- TBD">
+               <font>
+                  <Font name="System Italic" size="22.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="924.0" layoutY="619.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- TBD">
+               <font>
+                  <Font name="System Italic" size="22.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="924.0" layoutY="660.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- TBD">
+               <font>
+                  <Font name="System Italic" size="22.0" />
+               </font>
+            </Text>
+            <ImageView fx:id="pongLOGO" fitHeight="245.0" fitWidth="437.0" layoutX="734.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@mnmlLOGO.jpg" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </center>

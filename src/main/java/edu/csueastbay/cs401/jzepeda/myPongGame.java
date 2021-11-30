@@ -22,19 +22,19 @@ public class myPongGame extends Game {
         addPuck(puck);
 
         Wall top = new Wall("Top Wall", 0,0, this.fieldWidth, 10);
-        top.setFill(Color.WHITE);
+        top.setFill(Color.GRAY);
         addObject(top);
 
         Wall bottom = new Wall("Bottom Wall", 0, this.fieldHeight -10, this.fieldWidth, 10 );
-        bottom.setFill(Color.WHITE);
+        bottom.setFill(Color.GRAY);
         addObject(bottom);
 
         Goal left = new Goal("Player 1 Goal", this.fieldWidth -10, 10, 10, this.fieldHeight - 20);
-        left.setFill(Color.RED);
+        left.setFill(Color.LIGHTGRAY);
         addObject(left);
 
         Goal right = new Goal("Player 2 Goal", 0, 10, 10, this.fieldHeight - 20);
-        right.setFill(Color.BLUE);
+        right.setFill(Color.LIGHTGRAY);
         addObject(right);
 
         Paddle playerOne = new Paddle(
@@ -45,7 +45,7 @@ public class myPongGame extends Game {
                 100,
                 10,
                 this.fieldHeight - 10);
-        playerOne.setFill(Color.RED);
+        playerOne.setFill(Color.SILVER);
         addPlayerPaddle(1, playerOne);
 
         Paddle playerTwo = new Paddle(
@@ -56,7 +56,7 @@ public class myPongGame extends Game {
                 100,
                 10,
                 this.fieldHeight - 10);
-        playerTwo.setFill(Color.BLUE);
+        playerTwo.setFill(Color.SILVER);
         addPlayerPaddle(2, playerTwo);
 
     }
@@ -93,6 +93,4 @@ public class myPongGame extends Game {
     public static double mapRange(double a1, double a2, double b1, double b2, double s) {
         return b1 + ((s - a1)*(b2 - b1))/(a2 - a1);
     }
-
-    
 }
