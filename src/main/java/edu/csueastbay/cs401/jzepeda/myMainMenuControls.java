@@ -21,10 +21,13 @@ public class myMainMenuControls {
     ImageView imageView;
 
     @FXML
-    void goBack(ActionEvent event) {
+    ImageView pongLOGO;
+
+    @FXML
+    void playPong(ActionEvent event) {
         try {
             Parent root;
-            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/csueastbay/cs401/jzepeda/login.fxml")));
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/csueastbay/cs401/jzepeda/myPongField.fxml")));
             baseBorderPane.setCenter(root);
         } catch (IOException e) {
             e.printStackTrace();

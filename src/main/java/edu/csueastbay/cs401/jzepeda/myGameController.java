@@ -8,20 +8,17 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Duration;
-
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class myGameController implements Initializable {
@@ -40,6 +37,8 @@ public class myGameController implements Initializable {
     Label playerOneScore;
     @FXML
     Label playerTwoScore;
+    @FXML
+    ImageView backgroundImage;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -91,15 +90,5 @@ public class myGameController implements Initializable {
         timeline.play();
     }
 
-    @FXML
-    void mainMenuScene() {
-        try {
-            Parent root;
-            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/edu/csueastbay/cs401/jzepeda/field.fxml")));
-            baseBorderPane.setCenter(root);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        timeline.stop();
-    }
+
 }
