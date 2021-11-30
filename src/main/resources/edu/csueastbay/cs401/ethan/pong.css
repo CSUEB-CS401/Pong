@@ -1,0 +1,79 @@
+* {
+    glow-color: white;
+    glow-effect: dropshadow(two-pass-box, glow-color, 7, .5, 0, 0);
+}
+
+.text {
+    -fx-font-smoothing-type: gray;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: black;
+}
+
+.background {
+    -fx-background-color: radial-gradient(center 50% 50%, radius 100%, black, #202040);
+    -fx-background-image: url("grid.png");
+    -fx-background-position: center;
+}
+
+.neon-shape {
+    color: white;
+    -fx-fill: transparent;
+    -fx-stroke: derive(color, 80%);
+    -fx-stroke-width: 1px;
+    -fx-effect: dropshadow(two-pass-box, color, 4, 0.25, 0, 0);
+}
+
+.pause-pane {
+    -fx-background-color: #101020c0
+}
+
+.pause-menu {
+    -fx-background-color: #101020;
+    -fx-background-radius: 15;
+    -fx-border-width: 1;
+    -fx-border-color: #4a4a95;
+    -fx-border-radius: 15;
+    -fx-effect: glow-effect;
+}
+
+.pause-menu .label {
+    -fx-max-height: infinity;
+    -fx-max-width: infinity;
+    -fx-font-size: 36;
+    -fx-text-fill: #ffffffe0;
+    -fx-font-family: Calibri;
+    -fx-font-smoothing-type: gray;
+}
+
+.pause-menu .title {
+    -fx-alignment: center;
+    -fx-font-size: 48px;
+    -fx-text-fill: white;
+}
+
+.pause-menu .button {
+    -fx-pref-height: 50;
+    -fx-min-width: 150;
+    -fx-background-color: transparent;
+    -fx-fill: transparent;
+    -fx-font-size: 36;
+    -fx-text-fill: #ffffffc0;
+    -fx-padding: 0;
+}
+
+.pause-menu .button:disabled {
+    -fx-text-fill: #ffffff80;
+}
+
+.pause-menu .button:hover {
+    -fx-effect: glow-effect;
+    -fx-text-fill: white;
+}
+
+.pause-menu .button:armed {
+    glow-color: #ffffffc0;
+    -fx-text-fill: #ffffffc0;
+    -fx-translate-y: 3;
+}

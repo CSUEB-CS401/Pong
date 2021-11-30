@@ -15,8 +15,6 @@ class PaddleTest {
         testPaddle = new Paddle("Test Paddle", 10, 50, 10, 50, 10, 200);
     }
 
-
-
     @Test
     void getID() {
         assertEquals("Test Paddle", testPaddle.getID(),
@@ -28,8 +26,6 @@ class PaddleTest {
         assertEquals("Paddle", testPaddle.getType(),
                 "Should return 'Paddle' for the type.");
     }
-
-
 
     @Test
     void moveUp() {
@@ -56,21 +52,23 @@ class PaddleTest {
                 "Should have a Y of 65 after moving down 3 times.");
     }
 
+    @Test
     void dontMoveOffTop() {
         testPaddle.moveUp();
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < 20; i++) {
             testPaddle.move();
         }
         assertEquals(10, testPaddle.getY(),
                 "Should not move off the top of the field");
     }
 
+    @Test
     void dontMoveOffBottom() {
         testPaddle.moveDown();
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < 20; i++) {
             testPaddle.move();
         }
-        assertEquals(50, testPaddle.getY(),
+        assertEquals(150, testPaddle.getY(),
                 "Should not move off the bottom of the field");
     }
 
@@ -84,7 +82,6 @@ class PaddleTest {
         assertEquals(55, testPaddle.getY(),
                 "Paddle should stop moving after stop is called.");
     }
-
 
     @Test
     void getCollision() {
