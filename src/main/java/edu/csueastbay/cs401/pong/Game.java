@@ -20,9 +20,7 @@ public abstract class Game {
         this.pucks = new ArrayList<>();
         this.playerOneScore = 0;
         this.playerTwoScore = 0;
-
     }
-
 
     public int getPlayerScore(int player) {
         if (player == 1) return playerOneScore;
@@ -31,8 +29,32 @@ public abstract class Game {
     }
 
     public void addPointsToPlayer(int player, int value) {
-        if (player == 1)  playerOneScore += value;
-        else if (player == 2) playerTwoScore += value;
+
+        Puckable puck = pucks.get(0);
+
+        System.out.println( "Game: addPointsToPlayer: " + player );
+        if (player == 1)
+        {
+            playerOneScore += value;
+
+            System.out.println( "Game: player: " + player + " Points: " + playerOneScore );
+
+            if ( playerOneScore % 5 == 0 ) {
+                playOnePaddle.reducePaddleHeight();
+                ((Puck) puck).reduceRadius();
+            }
+        }
+        else if (player == 2)
+        {
+            playerTwoScore += value;
+
+            System.out.println( "Game: player: " + player + " Points: " + playerTwoScore );
+
+            if ( playerTwoScore % 5 == 0 ) {
+                playTwoPaddle.reducePaddleHeight();
+                ((Puck) puck).reduceRadius();
+            }
+        }
     }
 
     public void setVictoryScore(int score) {
@@ -46,6 +68,7 @@ public abstract class Game {
     public int getVictor() {
         int victor = 0;
         if (playerOneScore >= victoryScore) victor = 1;
+        else if (playerOneScore >= victoryScore) victor = 2;
         return victor;
     }
 
