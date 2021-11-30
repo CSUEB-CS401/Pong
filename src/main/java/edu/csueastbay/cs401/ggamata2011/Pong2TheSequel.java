@@ -64,8 +64,8 @@ public class Pong2TheSequel extends Game {
                 "Debuff",
                 250.0,
                 250.0,
-                40.0,
-                40.0,
+                80.0,
+                80.0,
                 (double) this.fieldHeight - 200,
                 200.0,
                 200.0,
@@ -185,10 +185,12 @@ public class Pong2TheSequel extends Game {
                         System.out.println("Player 1 Debuffed Player 2");
                         if(DebuffItem.DebuffRandomizer() == 1)
                         {
+                            System.out.println("Player 2 Height Debuff");
                             playerTwo.ModifyHeight(DebuffItem.DebuffHeight());
                         }
                         else
                         {
+                            System.out.println("Player 2 Speed Debuff");
                             playerTwo.ModifyHeight(DebuffItem.DebuffSpeed());
                         }
 
@@ -242,7 +244,7 @@ public class Pong2TheSequel extends Game {
             {
                 collisionHandler(puck,HeightCollision);
             }
-            if(HeightCollision.isCollided())
+            if(DebuffCollision.isCollided())
             {
                 collisionHandler(puck,DebuffCollision);
             }
