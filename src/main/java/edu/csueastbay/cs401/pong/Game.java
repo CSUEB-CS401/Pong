@@ -45,7 +45,8 @@ public abstract class Game {
 
     public int getVictor() {
         int victor = 0;
-        if (playerOneScore >= victoryScore) victor = 1;
+        if (playerOneScore >= victoryScore){ victor = 1;}
+        else victor = 2; // Added a check to return victor in the case of a player 2 victory
         return victor;
     }
 
