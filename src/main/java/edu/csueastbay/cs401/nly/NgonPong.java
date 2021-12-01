@@ -10,6 +10,7 @@ public class NgonPong extends Game {
     private double fieldH;
     private double fieldW;
 
+
     /**
      * This method is the main constructor for the class NgonPong.
      * Initializes all objects within the game.
@@ -22,6 +23,7 @@ public class NgonPong extends Game {
 
         this.fieldH = fieldHeight;
         this.fieldW = fieldWidth;
+      
         // Add puck object to the field
         SizeablePuck puck = new SizeablePuck(this.fieldW, this.fieldH);
         puck.setID("Ngon");
@@ -43,6 +45,19 @@ public class NgonPong extends Game {
         G2.setFill(Color.RED);
         addObject(G2);
 
+        
+        SizeablePuck puck = new SizeablePuck(this.fieldW, this.fieldH);
+        puck.setID("Ngon");
+        addPuck(puck);
+
+        RandomObject L2 = new RandomObject(this.fieldW, this.fieldH);
+        L2.setId("Lost 2");
+        L2.setCenterX(725);
+        L2.setCenterY(620);
+        L2.setRadius(5);
+        L2.setFill(Color.BROWN);
+        addObject(L2);
+
         // Set the boundaries of the field
         Wall top = new Wall("Top Wall", 0,0, this.fieldW, 10);
         top.setFill(Color.BLACK);
@@ -51,6 +66,7 @@ public class NgonPong extends Game {
         Wall bottom = new Wall("Bottom Wall", 0, this.fieldH -10, this.fieldW, 10 );
         bottom.setFill(Color.BLACK);
         addObject(bottom);
+
         // Set the goals onto the field
         Goal left = new Goal("Player 1 Goal", this.fieldW -10, 10, 10, this.fieldH - 20);
         left.setFill(Color.TEAL);
@@ -59,6 +75,7 @@ public class NgonPong extends Game {
         Goal right = new Goal("Player 2 Goal", 0, 10, 10, this.fieldH - 20);
         right.setFill(Color.ORANGE);
         addObject(right);
+
         // Set the paddles onto the field
         Paddle playerOne = new Paddle(
                 "Player 1 Paddle",
@@ -131,6 +148,8 @@ public class NgonPong extends Game {
                 addPointsToPlayer(q, 5);    // Add 5 free points to a random player if the puck passes through it
         }
     }
+
+
 
     /**
      * This method will handle the two possible game changes/modes. If playerOneScore is even, on every collision of

@@ -36,6 +36,7 @@ public class GameController implements Initializable {
     @FXML
     Label playerTwoScore;
 
+
     /**
      * This method will initialize a new game, add the elements to the field, and set duration/points.
      * @param url string for the correct package name
@@ -49,6 +50,7 @@ public class GameController implements Initializable {
         setUpTimeline();
 
     }
+
 
     /**
      * This method will add all the elements onto the game field
@@ -66,6 +68,7 @@ public class GameController implements Initializable {
 
     }
 
+
     /**
      * This method will handle the case there a control key is pressed down and will move the element(s) accordingly
      * @param event the key input from external keyboard
@@ -76,6 +79,7 @@ public class GameController implements Initializable {
         game.keyPressed(event.getCode());
     }
 
+
     /**
      * This method will handle the case there a control key is released and will move the element(s) accordingly
      * @param event the key input from external keyboard
@@ -85,6 +89,7 @@ public class GameController implements Initializable {
         game.keyReleased(event.getCode());
         System.out.println("Released: " + event.getCode());
     }
+
 
     /**
      * This method will initialize the game duration and display the player points
