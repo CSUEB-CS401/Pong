@@ -10,4 +10,6 @@ module edu.csueastbay.cs401.pong {
     opens edu.csueastbay.cs401.StarWarsPong to javafx.fxml;
     opens edu.csueastbay.cs401.DlinPong to javafx.fxml;
     exports edu.csueastbay.cs401.pong;
+    opens edu.csueastbay.cs401.DlinPong to javafx.fxml;
+    exports edu.csueastbay.cs401.DlinPong;
 }
