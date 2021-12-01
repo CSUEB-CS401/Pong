@@ -47,7 +47,7 @@ public class MainMenuController implements Initializable {
         registry.register("Ngon Ly", "nly", "Get Closer to the monitor...");
         registry.register("Joshua Rodriguez", "StarWarsPong", "A simple Star Wars themed" +
                 " ping pong game that is fast paced with power small power zones that make the game experience interesting. ");
-        registry.register("Kabir Dhillon", "kabir", "Pong, Kabir's version");
+        registry.register("Kabir Dhillon", "kabir", "Pong, Kabir's Version");
         registry.register("Ethan Ketell", "ethan", "Neon Pong+");
 
         registry.reset();

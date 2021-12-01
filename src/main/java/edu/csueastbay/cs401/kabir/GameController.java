@@ -20,12 +20,16 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+/**
+ * This class implements Initializable. It provides input and structure to the field.fxml
+ */
+
 public class GameController implements Initializable {
     public static final int FIELD_WIDTH = 1300;
     public static final int FIELD_HEIGHT = 860;
     public static final int VICTORY_SCORE = 10;
 
-    private ClassicPong game;
+    private Pong game;
     private Timeline timeline;
 
     @FXML
@@ -34,16 +38,18 @@ public class GameController implements Initializable {
     Label playerOneScore;
     @FXML
     Label playerTwoScore;
+    @FXML
+    private Label scoreMessage;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        game = new ClassicPong(VICTORY_SCORE, FIELD_WIDTH, FIELD_HEIGHT);
+        game = new Pong(VICTORY_SCORE, FIELD_WIDTH, FIELD_HEIGHT);
         Platform.runLater(()->fieldPane.requestFocus());
         addGameElementsToField();
         setUpTimeline();
-
+        scoreMessage.setText("");
     }
-
 
     private void addGameElementsToField() {
         //adding the game objects to the game
@@ -86,5 +92,8 @@ public class GameController implements Initializable {
         timeline.play();
     }
 
-
+    public void setScoreMessage(String message) {
+        // Used to update out scoreMessage label
+        scoreMessage.setText(String.valueOf(scoreMessage));
+    }
 }

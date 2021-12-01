@@ -1,15 +1,28 @@
 package edu.csueastbay.cs401.kabir;
 
 import edu.csueastbay.cs401.pong.*;
+import javafx.scene.control.Label;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 
-public class ClassicPong extends Game {
+/**
+ * This class extend the Game class.
+ */
+
+public class Pong extends Game {
     
     private double fieldHeight;
     private double fieldWidth;
-    
-    
-    public ClassicPong(int victoryScore, double fieldWidth, double fieldHeight) {
+
+    /**
+     * This method does not return an object, however it does initialize the puck, the parameters of the wall, and player paddles.
+     *
+     * @param  victoryScore
+     * @param  fieldWidth
+     * @param  fieldHeight
+     */
+
+    public Pong(int victoryScore, double fieldWidth, double fieldHeight) {
         super(victoryScore);
 
         this.fieldWidth = fieldWidth;
@@ -62,6 +75,9 @@ public class ClassicPong extends Game {
     @Override
     public void collisionHandler(Puckable puck, Collision collision) {
 //        System.out.println(puck.getDirection());
+
+        GameController sendScore = new GameController();
+
         switch(collision.getType()) {
             case "Wall":
                 puck.setDirection(0 - puck.getDirection());
@@ -69,9 +85,13 @@ public class ClassicPong extends Game {
             case "Goal":
                 if (collision.getObjectID() == "Player 1 Goal") {
                     addPointsToPlayer(1, 1);
+                    sendScore.setScoreMessage("Player 1 scored!");
+                    playMusic();
                     puck.reset();
                 } else if (collision.getObjectID() == "Player 2 Goal") {
                     addPointsToPlayer(2, 1);
+                    sendScore.setScoreMessage("Player 2 scored!");
+                    playMusic();
                     puck.reset();
                 }
                 break;
@@ -90,6 +110,11 @@ public class ClassicPong extends Game {
 
     public static double mapRange(double a1, double a2, double b1, double b2, double s) {
         return b1 + ((s - a1)*(b2 - b1))/(a2 - a1);
+    }
+
+    public void playMusic() {
+        AudioClip song = new AudioClip(getClass().getResource("score_sound.wav").toExternalForm());
+        song.play();
     }
 
 }
