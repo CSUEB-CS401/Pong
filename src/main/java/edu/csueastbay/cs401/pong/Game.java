@@ -1,6 +1,7 @@
 package edu.csueastbay.cs401.pong;
 
 import javafx.scene.input.KeyCode;
+import javafx.scene.media.AudioClip;
 import javafx.scene.shape.Shape;
 
 import java.util.ArrayList;
@@ -20,8 +21,9 @@ public abstract class Game {
         this.pucks = new ArrayList<>();
         this.playerOneScore = 0;
         this.playerTwoScore = 0;
-
     }
+
+
 
 
     public int getPlayerScore(int player) {
@@ -49,7 +51,7 @@ public abstract class Game {
     public int getVictor() {
         int victor = 0;
         if (playerOneScore >= victoryScore) victor = 1;
-        else if (playerTwoScore>= victoryScore) victor =2;
+        else if (playerTwoScore >= victoryScore) victor = 2;
         return victor;
     }
 
@@ -109,16 +111,17 @@ public abstract class Game {
 
     public void keyPressed(KeyCode code) {
         switch (code) {
-            case W:
+            case E:
                 playOnePaddle.moveUp();
                 break;
-            case S:
+            case D:
                 playOnePaddle.moveDown();
                 break;
-            case UP:
+
+            case I:
                 playTwoPaddle.moveUp();
                 break;
-            case DOWN:
+            case K:
                 playTwoPaddle.moveDown();
                 break;
         }
@@ -126,12 +129,14 @@ public abstract class Game {
 
     public void keyReleased(KeyCode code) {
         switch (code) {
-            case W, S:
+            case E, D:
                 playOnePaddle.stop();
                 break;
-            case UP, DOWN:
+            case I, K:
                 playTwoPaddle.stop();
                 break;
         }
     }
+
 }
+
