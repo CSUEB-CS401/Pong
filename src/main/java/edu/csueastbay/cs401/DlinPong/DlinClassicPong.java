@@ -17,7 +17,7 @@ import java.util.Random;
  * @see PuckFactory
  * @see PongMenuController
  */
-public class DlinClassicPong extends Game{
+public class DlinClassicPong extends Game2{
 
     private double fieldHeight;
     private double fieldWidth;
@@ -59,7 +59,7 @@ public class DlinClassicPong extends Game{
             addObject(rightportal);
         }
 
-        Puckable puck = puckFactory.createPuck();
+        Puckable2 puck = puckFactory.createPuck();
         puck.setID("Classic");
         addPuck(puck);
 
@@ -114,7 +114,7 @@ public class DlinClassicPong extends Game{
         subPlayerTwo.setFill(Color.BLUE);
         addObject(subPlayerTwo);
 
-        Paddle playerOne = new Paddle(
+        Paddle2 playerOne = new Paddle2(
                 "Player 1 Paddle",
                 50,
                 (this.fieldHeight/2) - 50,
@@ -125,7 +125,7 @@ public class DlinClassicPong extends Game{
         playerOne.setFill(Color.RED);
         addPlayerPaddle(1, playerOne);
 
-        Paddle playerTwo = new Paddle(
+        Paddle2 playerTwo = new Paddle2(
                 "Player 2 Paddle",
                 this.fieldWidth - 50,
                 (this.fieldHeight/2) - 50,
@@ -145,7 +145,7 @@ public class DlinClassicPong extends Game{
      * @param collision
      */
     @Override
-    public void collisionHandler(Puckable puck, Collision collision) {
+    public void collisionHandler(Puckable2 puck, Collision collision) {
         switch(collision.getType()) {
             case "Wall":
                 puck.setDirection(0 - puck.getDirection());
@@ -195,13 +195,13 @@ public class DlinClassicPong extends Game{
             case "SpeedBall":
                 int temp = random.nextInt(4);
                 if(temp == 0)
-                    puck.setSpeed(puck.getSpeed() + 4);
+                    puck.setSpeed(puck.getSpeed() + 1);
                 else if(temp == 1)
-                    puck.setSpeed(puck.getSpeed() - 4);
+                    puck.setSpeed(puck.getSpeed() - 1);
                 else if(temp == 2)
-                    puck.setSpeed(puck.getSpeed() + 2);
+                    puck.setSpeed(puck.getSpeed() + .5);
                 else
-                    puck.setSpeed(puck.getSpeed() - 2);
+                    puck.setSpeed(puck.getSpeed() - .5);
                 break;
 
         }
@@ -212,13 +212,13 @@ public class DlinClassicPong extends Game{
      * Great use for the Puck Factory
      */
     public void newPuck(){
-        ArrayList<Puckable> pucks = getPucks();
+        ArrayList<Puckable2> pucks = getPucks();
         pucks.forEach((old_puck) -> {
             field.getChildren().remove((Node) old_puck);
         });
         clearPucks();
 
-        Puckable puck = puckFactory.createPuck();
+        Puckable2 puck = puckFactory.createPuck();
         puck.setID("Random");
         addPuck(puck);
 
