@@ -5,26 +5,19 @@ import edu.csueastbay.cs401.ethan.game.Game;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.SetChangeListener;
-import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
+/**
+ * PongGame has two {@link Paddle Paddles} and various {@link Ball Balls}, and adds {@link Upgrade Upgrades} to the
+ * field intermittently.
+ */
 public class PongGame extends Game {
 
-    private static final Map<String, KeyCode> controls;
-    static {
-        controls = new LinkedHashMap<>();
-        controls.put("Player 1 Up",   KeyCode.W);
-        controls.put("Player 1 Down", KeyCode.S);
-        controls.put("Player 2 Up",   KeyCode.UP);
-        controls.put("Player 2 Down", KeyCode.DOWN);
-    }
-
+    /** The player's score */
     public final IntegerProperty p1Score, p2Score;
 
+    /** The current number of balls in play */
     private int ballCount;
 
     public PongGame() {
@@ -33,7 +26,8 @@ public class PongGame extends Game {
         p1Score = new SimpleIntegerProperty(0);
         p2Score = new SimpleIntegerProperty(0);
 
-        getEntities().addListener((SetChangeListener<? super Entity>) change->{
+        getEntities().addListener((SetChangeListener<Entity>) change->{
+            // Count balls as they're added or removed, add one if the last ball was removed
             if(change.wasAdded() && change.getElementAdded() instanceof Ball) {
                 ballCount++;
             } else if(change.wasRemoved() && change.getElementRemoved() instanceof Ball) {
@@ -45,6 +39,7 @@ public class PongGame extends Game {
         });
 
 
+        // Create the Paddles
         Entity temp;
         temp = new Paddle("Player 1 Up", "Player 1 Down", Color.MAGENTA);
         temp.x = 50;
@@ -57,6 +52,7 @@ public class PongGame extends Game {
         temp.rotation = 180;
         add(temp);
 
+        // Create the Goals
         temp = new Goal(new Rectangle(-50, 0, 50, height), p2Score);
         add(temp);
 
@@ -65,16 +61,18 @@ public class PongGame extends Game {
 
         addBall();
         schedule(10, this::addRandomUpgrade);
-        commit();
     }
 
+    /** Add a ball to the center of the screen, and launch it after a delay */
     private void addBall() {
         Ball ball = new Ball(5, width/2, height/2);
         add(ball);
         schedule(1, ball::launch);
     }
 
+    /** Adds a random {@link Upgrade} to the game, and {@link Game#schedule(double, Runnable) schedules} the next call. */
     private void addRandomUpgrade() {
+        // TODO more upgrade variety
         Upgrade upgrade = new Upgrade.SplitUpgrade();
         upgrade.x = (0.33+0.33*Math.random())*bounds.getWidth();
         upgrade.y = (0.1+0.8*Math.random())*bounds.getHeight();

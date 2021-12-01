@@ -4,7 +4,7 @@ import edu.csueastbay.cs401.pong.*;
 import javafx.scene.paint.Color;
 
 public class ClassicPong extends Game {
-
+    
     private double fieldHeight;
     private double fieldWidth;
 
@@ -84,6 +84,7 @@ public class ClassicPong extends Game {
                     angle = mapRange(collision.getTop(), collision.getBottom(), 225, 135, puckCenter);
                 }
                 puck.setDirection(angle);
+                break;
 
         }
     }

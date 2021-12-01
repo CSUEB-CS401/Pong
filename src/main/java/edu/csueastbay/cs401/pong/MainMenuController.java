@@ -40,15 +40,20 @@ public class MainMenuController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         registry = new Registry();
         registry.register("Classic Pong", "classic", "Classic Pong Game");
+        registry.register("Tiffany Truong", "ttruong", "Pongo Pongo Pongo in the Congo");
+        registry.register("Dillon Lin", "DlinPong", "Dillon's Pong Game");
+        registry.register("Samuel Celli", "frantic", "Frantic Pong Game");
+        registry.register("Jamdar Pong", "ejamdar", "My Version of Pong");
+        registry.register("Felix Choy's Pong", "felixchoypong", "Modified Pong Game");
+        registry.register("Katherine Hettick-Leir", "khlPong", "Small quality of life upgrades and additions.");
         registry.register("Srishti's Pong", "srishti", "Srishti's Pong Game");
-
-
         registry.register("Taylor Hansen", "thansen", "Four Way Pong Game");
-        registry.register("Ngon Ly", "nly", "Get Closer to the monitor...");
         registry.register("Joshua Rodriguez", "StarWarsPong", "A simple Star Wars themed" +
                 " ping pong game that is fast paced with power small power zones that make the game experience interesting. ");
         registry.register("Kabir Dhillon", "kabir", "Pong, Kabir's Version");
+        registry.register("Jonathan Zepeda", "jzepeda", "Pong Game");
         registry.register("Ethan Ketell", "ethan", "Neon Pong+");
+
 
         registry.reset();
 

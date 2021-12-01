@@ -1,19 +1,14 @@
 package edu.csueastbay.cs401.ethan;
 
-import edu.csueastbay.cs401.ethan.game.Entity;
-import javafx.beans.binding.Bindings;
-import javafx.collections.SetChangeListener;
-import javafx.collections.WeakSetChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.shape.Rectangle;
 
 import java.io.IOException;
 
+/** Simple class to display a {@link PongGame} */
 public class PongPane extends StackPane {
 
     @FXML
@@ -25,6 +20,10 @@ public class PongPane extends StackPane {
     @FXML
     private Label p2Score;
 
+    /**
+     * Creates a new PongPane and loads the appropriate layout
+     * @see PongPane#setGame(PongGame)
+     */
     public PongPane() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("pong_pane.fxml"));
@@ -36,11 +35,10 @@ public class PongPane extends StackPane {
         }
     }
 
-    public PongPane(PongGame game) {
-        this();
-        setGame(game);
-    }
-
+    /**
+     * Sets the {@link PongGame} this PongPane should display
+     * @param game the game to display
+     */
     public void setGame(PongGame game) {
         entityGroup.getChildren().setAll(game.pane);
         p1Score.textProperty().bind(game.p1Score.asString());

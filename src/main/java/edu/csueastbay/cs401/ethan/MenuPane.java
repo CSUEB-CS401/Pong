@@ -25,9 +25,18 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 
+/**
+ * MenuPanes handle the creation of and transitions between different {@link Menu Menus}
+ */
 public class MenuPane extends StackPane {
+    /**
+     * A floating menu with a title and buttons.
+     * @see MenuPane#getMenu(String)
+     */
     public static class Menu extends VBox {
+        /** The title of this Menu */
         public final StringProperty title = new SimpleStringProperty();
+        /** The rows of this Menu */
         public final ObservableList<Node> entries;
 
         @FXML
@@ -36,7 +45,11 @@ public class MenuPane extends StackPane {
         @FXML
         private VBox buttonVBox;
 
-        public Menu() {
+        /**
+         * Creates a Menu with the default title.
+         * @see MenuPane#createMenu(String)
+         */
+        private Menu() {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("menu.fxml"));
                 loader.setController(this);
@@ -46,19 +59,32 @@ public class MenuPane extends StackPane {
                 e.printStackTrace();
             }
             titleLabel.textProperty().bind(title);
-            buttonVBox.getChildren().clear();
             entries = buttonVBox.getChildren();
+            entries.clear();
         }
 
-        public Menu(@NamedArg("title") String title) {
+        /**
+         * Creates a Menu with the given title.
+         * @see MenuPane#createMenu(String)
+         */
+        private Menu(@NamedArg("title") String title) {
             this();
             this.title.set(title);
         }
 
+        /**
+         * Adds the given button as a row by itself.
+         * @param button the button to add
+         */
         public void addButton(Button button) {
             getChildren().add(button);
         }
 
+        /**
+         * Adds a row to the menu with the given button and a label with the given text
+         * @param labelText the text for the label
+         * @param button the button to add
+         */
         public void addLabelledButton(String labelText, Button button) {
             HBox row = new HBox();
             Label label = new Label(labelText);
@@ -69,16 +95,21 @@ public class MenuPane extends StackPane {
         }
     }
 
-    private Menu current;
-    private final Map<String, Menu> menus;
-    private final Stack<Menu> prevMenus;
+    private Menu current;                   // the current menu, defaults to the first one created
+    private final Map<String, Menu> menus;  // all the menus, stored by string id
+    private final Stack<Menu> prevMenus;    // the stack of menus "previousMenu()" will cycle through
 
+    /** Creates a MenuPane */
     public MenuPane() {
         getStyleClass().add("pause-pane");
         menus = new HashMap<>();
         prevMenus = new Stack<>();
     }
 
+    /**
+     * Creates a {@link Menu Menu} with the given id. If one already exists, does nothing.
+     * @param id the identifier for the new Menu
+     */
     public void createMenu(String id) {
         if(menus.containsKey(id)) return;
 
@@ -90,11 +121,20 @@ public class MenuPane extends StackPane {
         menus.put(id, menu);
     }
 
+    /**
+     * Returns the {@link Menu Menu} with the given id. If one does not exist, {@link MenuPane#createMenu(String) creates} it.
+     * @param id the identifier of the menu
+     * @return the menu with the given id
+     */
     public Menu getMenu(String id) {
         if(!menus.containsKey(id)) createMenu(id);
         return menus.get(id);
     }
 
+    /**
+     * Switches to the {@link Menu Menu} with the given id immediately, with no transition.
+     * @param id the identifier for the new Menu
+     */
     public void setActiveMenu(String id) {
         if(!menus.containsKey(id)) {
             System.err.println("Invalid id: "+id);
@@ -107,6 +147,10 @@ public class MenuPane extends StackPane {
         getChildren().add(current);
     }
 
+    /**
+     * Transitions right to the {@link Menu Menu} with the given id.
+     * @param id the identifier for the new Menu
+     */
     public void nextMenu(String id) {
         if(!menus.containsKey(id)){
             System.err.println("Invalid id: "+id);
@@ -116,12 +160,21 @@ public class MenuPane extends StackPane {
         transition(menus.get(id), true);
     }
 
+    /**
+     * Transitions left to the previous {@link Menu Menu}.
+     * @return whether there was a previous menu
+     */
     public boolean previousMenu() {
         if(prevMenus.empty()) return false;
         transition(prevMenus.pop(), false);
         return true;
     }
 
+    /**
+     * Helper method for transitions. Smoothly transitions to the given menu, in the specified direction.
+     * @param menu the new menu
+     * @param right if the new menu should be to the right of the current menu
+     */
     private void transition(Menu menu, boolean right) {
         if(menu == current) return;
         double offset = right ? getWidth() : -getWidth();
