@@ -1,20 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="baseBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.csueastbay.cs401.pong.MainMenuController">
+<BorderPane fx:id="baseBorderPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.csueastbay.cs401.pong.MainMenuController">
    <top>
       <Label fx:id="titleLabel" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" style="-fx-font-size: 30;" text="Main Menu" BorderPane.alignment="CENTER" />
    </top>
    <center>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="860.0" prefWidth="1300.0" BorderPane.alignment="CENTER" />
+      <StackPane fx:id="scalePane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="860.0" prefWidth="1300.0" BorderPane.alignment="CENTER">
+         <children>
+            <Group fx:id="gameGroup" />
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </StackPane>
    </center>
    <left>
-      <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="860.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <ScrollPane focusTraversable="false" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="860.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <content>
             <VBox fx:id="studentGameList" prefWidth="100.0">
                <children>

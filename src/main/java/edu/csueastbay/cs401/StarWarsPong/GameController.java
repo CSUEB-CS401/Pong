@@ -1,0 +1,112 @@
+package edu.csueastbay.cs401.StarWarsPong;
+
+import edu.csueastbay.cs401.pong.Collidable;
+import edu.csueastbay.cs401.pong.Puckable;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
+
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+
+public class GameController implements Initializable {
+    public static final int FIELD_WIDTH = 1300;
+    public static final int FIELD_HEIGHT = 860;
+    public static final int VICTORY_SCORE = 10;
+    public Label ScorePoint;
+    public Label GoalL;
+    public Label GoalR;
+
+    private PongWars game;
+    private Timeline timeline;
+    public int n;
+    @FXML
+    AnchorPane fieldPane;
+    @FXML
+    Label playerOneScore;
+    @FXML
+    Label playerTwoScore;
+
+    @FXML
+    Label playerOneStreak;
+    @FXML
+    Label playerTwoStreak;
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        game = new PongWars(VICTORY_SCORE, FIELD_WIDTH, FIELD_HEIGHT);
+
+        addGameElementsToField();
+        setUpTimeline();
+
+    }
+
+
+    private void addGameElementsToField() {
+        //adding the game objects to the game
+        ArrayList<Puckable> pucks = game.getPucks();
+        pucks.forEach((puck) -> {
+            fieldPane.getChildren().add((Node) puck);
+        });
+
+        ArrayList<Collidable> objects = game.getObjects();
+        objects.forEach((object)-> {
+            fieldPane.getChildren().add((Node) object);
+        });
+
+    }
+
+    @FXML
+    public void keyPressed(KeyEvent event) {
+        System.out.println("Pressed: " + event.getCode());
+        game.keyPressed(event.getCode());
+    }
+
+    @FXML
+    public void keyReleased(KeyEvent event) {
+        game.keyReleased(event.getCode());
+        System.out.println("Released: " + event.getCode());
+    }
+
+    private void setUpTimeline() {
+
+        timeline = new Timeline(new KeyFrame(Duration.millis(10), new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                fieldPane.requestFocus();
+                game.move();
+                playerOneScore.setText(Integer.toString(game.getPlayerScore(1)));
+                playerTwoScore.setText(Integer.toString(game.getPlayerScore(2)));
+
+                //Adding streak count display here
+                playerOneStreak.setText(Integer.toString(game.getPlayerStreak(1)));
+                playerTwoStreak.setText(Integer.toString(game.getPlayerStreak(2)));
+
+                // Victory Score Point
+                ScorePoint.setText(Integer.toString(game.getVictoryScore()));
+
+                // Set Goal for players
+                GoalL.setText(String.valueOf(game.getMessage()));
+                GoalR.setText(String.valueOf(game.getMessage2()));
+
+            }
+        }));
+
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
+    }
+
+
+}
+

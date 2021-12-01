@@ -7,12 +7,12 @@ import java.util.ArrayList;
 
 public abstract class Game {
     private int playerOneScore;
-    private Paddle playOnePaddle;
+    protected Paddle playOnePaddle;
     private int playerTwoScore;
-    private Paddle playTwoPaddle;
+    protected Paddle playTwoPaddle;
     private int victoryScore;
-    private ArrayList<Collidable> objects;
-    private ArrayList<Puckable> pucks;
+    protected ArrayList<Collidable> objects;
+    protected ArrayList<Puckable> pucks;
 
     public Game(int victoryScore) {
         this.victoryScore = victoryScore;
@@ -20,7 +20,6 @@ public abstract class Game {
         this.pucks = new ArrayList<>();
         this.playerOneScore = 0;
         this.playerTwoScore = 0;
-
     }
 
 
@@ -45,8 +44,8 @@ public abstract class Game {
 
     public int getVictor() {
         int victor = 0;
-        if (playerOneScore >= victoryScore){ victor = 1;}
-        else victor = 2; // Added a check to return victor in the case of a player 2 victory
+        if (playerOneScore >= victoryScore) victor = 1;
+        else if (playerTwoScore >= victoryScore) victor = 2;
         return victor;
     }
 

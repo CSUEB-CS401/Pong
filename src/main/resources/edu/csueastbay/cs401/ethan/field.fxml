@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.SubScene?>
+<?import javafx.scene.layout.Region?>
+
+<!-- This error is fake! Everything works fine, and this is how you are supposed to refer to inner classes in .fxml -->
+<Group xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.csueastbay.cs401.ethan.PongController$Landing">
+  <SubScene fx:id="subScene" fill="BLACK" height="860.0" width="1300.0">
+    <root>
+      <Region />
+    </root>
+  </SubScene>
+</Group>
