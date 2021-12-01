@@ -1,6 +1,9 @@
 package edu.csueastbay.cs401.felixchoypong;
 import javafx.scene.media.AudioClip;
 
+/**
+ * Sounds class, used to play sound effects
+ */
 public class Sounds {
     private AudioClip paddleOneSound;
     private AudioClip paddleTwoSound;
@@ -11,7 +14,7 @@ public class Sounds {
     private AudioClip deniedSound;
 
     /**
-     * Constructor for sounds
+     * Constructor for sounds class
      */
     public Sounds() {
         paddleOneSound = new AudioClip(this.getClass().getResource("Player1paddlesoundeffect.wav").toExternalForm());

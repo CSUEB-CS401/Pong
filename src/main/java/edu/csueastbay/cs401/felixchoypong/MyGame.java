@@ -79,7 +79,7 @@ public abstract class MyGame {
     /**
      * Adds points to the specified player's score
      * @param player the current player
-     * @param value, the current score of the current player
+     * @param value the current score of the current player
      */
     public void addPointsToPlayer(int player, int value) {
         if (player == 1)  playerOneScore += value;
@@ -113,7 +113,7 @@ public abstract class MyGame {
     }
 
     /**
-     * @param object, a collidable object
+     * @param object a collidable object
      */
     public void addObject(Collidable object) {
         objects.add(object);
@@ -131,7 +131,7 @@ public abstract class MyGame {
 
     /**
      * Adds a ball to the puck ArrayList
-     * @param ball, an object that implements Puckable
+     * @param ball an object that implements Puckable
      */
     public void addPuck(Puckable ball) {
         this.pucks.add(ball);
@@ -148,8 +148,8 @@ public abstract class MyGame {
 
     /**
      * Adds a paddle for each player to the arrayList
-     * @param player, the player specified
-     * @param paddle, a paddle for the player
+     * @param player the player specified
+     * @param paddle a paddle for the player
      */
     protected void addPlayerPaddle(int player, Paddle paddle) {
         if (player == 1) {
@@ -177,7 +177,7 @@ public abstract class MyGame {
 
     /**
      * Checks for collisions
-     * @param puck, a puckable object
+     * @param puck a puckable object
      */
     public void checkCollision(Puckable puck) {
         objects.forEach((object) -> {
@@ -198,14 +198,14 @@ public abstract class MyGame {
 
     /**
      * Handles collisions
-     * @param puck, a puckable object
-     * @param collision, collision between two objects
+     * @param puck a puckable object
+     * @param collision collision between two objects
      */
     public abstract void collisionHandler(Puckable puck, Collision collision);
 
     /**
      * Handles actions based on what key is pressed by either player
-     * @param code, a keycode
+     * @param code the key pressed on the player's keyboard
      */
     public void keyPressed(KeyCode code) {
         switch (code) {
@@ -250,7 +250,7 @@ public abstract class MyGame {
 
     /**
      * Detects when a key is released
-     * @param code, a keycode
+     * @param code the key released on the player's keyboard
      */
     public void keyReleased(KeyCode code) {
         switch (code) {

@@ -4,6 +4,10 @@ import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
+
+/**
+ * MyPong class, used to set up the pong game
+ */
 public class MyPong extends MyGame {
 
     private double fieldHeight;
@@ -11,12 +15,20 @@ public class MyPong extends MyGame {
     private Sounds soundClip;
 
     @FXML
-    Label playerOneVictoryText;
+    private Label playerOneVictoryText;
     @FXML
-    Label playerTwoVictoryText;
+    private Label playerTwoVictoryText;
 
     private Timeline timeLine;
 
+    /**
+     * Constructor for pong game, sets all private fields to default values, and creates puck, wall, goal, and paddle objects for the game
+     * @param victoryScore the score limit
+     * @param fieldWidth the width of the game screen
+     * @param fieldHeight the height of the game screen
+     * @param playerOneVictoryText text to be displayed if player one wins
+     * @param playerTwoVictoryText text to be displayed if player two wins
+     */
     public MyPong(int victoryScore, double fieldWidth, double fieldHeight, Label playerOneVictoryText, Label playerTwoVictoryText) {
         super(victoryScore); ///first to 10 points wins, can be changed.
         soundClip = new Sounds();
@@ -72,6 +84,11 @@ public class MyPong extends MyGame {
 
     }
 
+    /**
+     * Handles the collision between the puck and a wall, goal, or paddle.
+     * @param puck a puckable object
+     * @param collision collision between two objects
+     */
     @Override
     public void collisionHandler(Puckable puck, Collision collision) {
         switch(collision.getType()) {
@@ -161,6 +178,15 @@ public class MyPong extends MyGame {
         this.timeLine = timeline;
     }
 
+    /**
+     * Gets the range of the map
+     * @param a1
+     * @param a2
+     * @param b1
+     * @param b2
+     * @param s
+     * @return a double
+     */
     public static double mapRange(double a1, double a2, double b1, double b2, double s) {
         return b1 + ((s - a1)*(b2 - b1))/(a2 - a1);
     }

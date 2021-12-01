@@ -20,6 +20,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+/**
+ * Game Controller class, handles the interaction between scene builder and the game logic
+ */
 public class MyGameController implements Initializable {
     public static final int FIELD_WIDTH = 1300;
     public static final int FIELD_HEIGHT = 860;
@@ -38,6 +41,11 @@ public class MyGameController implements Initializable {
     @FXML
     Label playerTwoVictoryText;
 
+    /**
+     * Initializes a new Pong game and sets up the timeline of the game
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         game = new MyPong(VICTORY_SCORE, FIELD_WIDTH, FIELD_HEIGHT, playerOneVictoryText, playerTwoVictoryText);
@@ -47,7 +55,9 @@ public class MyGameController implements Initializable {
         game.setTimeLine(timeline);
     }
 
-
+    /**
+     * Adds game elements to the field view
+     */
     private void addGameElementsToField() {
         ArrayList<Puckable> pucks = game.getPucks();
         pucks.forEach((puck) -> {
@@ -61,18 +71,29 @@ public class MyGameController implements Initializable {
 
     }
 
+    /**
+     * Gets the keyboard key that was pressed
+     * @param event
+     */
     @FXML
     public void keyPressed(KeyEvent event) {
         System.out.println("Pressed: " + event.getCode());
         game.keyPressed(event.getCode());
     }
 
+    /**
+     * Gets the keyboard key that was released
+     * @param event
+     */
     @FXML
     public void keyReleased(KeyEvent event) {
         game.keyReleased(event.getCode());
         System.out.println("Released: " + event.getCode());
     }
 
+    /**
+     * Creates and sets up the timeline for the pong game
+     */
     private void setUpTimeline() {
 
         timeline = new Timeline(new KeyFrame(Duration.millis(10), new EventHandler<ActionEvent>() {
