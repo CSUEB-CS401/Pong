@@ -93,6 +93,8 @@ public class GameController implements Initializable {
     }
 
     public void setScoreMessage(String message) {
+        this.scoreMessage = scoreMessage;
+
         // Used to update out scoreMessage label
         scoreMessage.setText(String.valueOf(scoreMessage));
     }
