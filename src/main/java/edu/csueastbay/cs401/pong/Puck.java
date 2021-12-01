@@ -1,15 +1,18 @@
 package edu.csueastbay.cs401.pong;
 
-import edu.csueastbay.cs401.pong.Puckable;
+import javafx.fxml.FXML;
+import javafx.geometry.Bounds;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.stage.PopupWindow;
 
 import java.util.Random;
 
 public class Puck extends Circle implements Puckable {
 
-    public static final double STARTING_SPEED = 5.0;
-    public static final int STARTING_RADIOUS = 5;
+    public static final double STARTING_SPEED = 5;
+    public static final int STARTING_RADIUS = 5;
     private final double fieldWidth;
     private final double fieldHeight;
     private String id;
@@ -28,7 +31,7 @@ public class Puck extends Circle implements Puckable {
         Random random = new Random();
         setCenterX(fieldWidth / 2);
         setCenterY(fieldHeight / 2);
-        setRadius(STARTING_RADIOUS);
+        setRadius(STARTING_RADIUS);
         setFill(Color.WHITE);
 
         speed = STARTING_SPEED;
