@@ -4,11 +4,11 @@ import edu.csueastbay.cs401.pong.*;
 import javafx.scene.paint.Color;
 
 public class ClassicPong extends Game {
-    
+
     private double fieldHeight;
     private double fieldWidth;
-    
-    
+
+
     public ClassicPong(int victoryScore, double fieldWidth, double fieldHeight) {
         super(victoryScore);
 
