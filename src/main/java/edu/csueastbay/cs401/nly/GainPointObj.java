@@ -5,27 +5,35 @@ import edu.csueastbay.cs401.pong.Collision;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 
-public class RandomObject extends Circle implements Collidable {
+public class GainPointObj extends Circle implements Collidable {
 
     public static final double STARTING_SPEED = 5.0;
     private final double fieldWidth;
     private final double fieldHeight;
     private Double radius;
     private String id;
-    private Double speed;
-    private Double direction;
 
-    public RandomObject(double fieldWidth, double fieldHeight) {
+    /**
+     * This method is the main constructor
+     * @param fieldWidth
+     * @param fieldHeight
+     */
+    public GainPointObj(double fieldWidth, double fieldHeight) {
         super();
         this.fieldWidth = fieldWidth;
         this.fieldHeight = fieldHeight;
     }
 
 
+    /**
+     * This method will return the bounds of the shape
+     * @param shape the object passed with said properties
+     * @return the properties of the object shape
+     */
     @Override
     public Collision getCollision(Shape shape) {
         return new Collision(
-                "Lost2",
+                "Gain2",
                 this.id,
                 this.getLayoutBounds().intersects(shape.getLayoutBounds()),
                 this.getLayoutBounds().getMinY(),
@@ -35,13 +43,19 @@ public class RandomObject extends Circle implements Collidable {
         );
     }
 
+    /**
+     * This method will return the id of object
+     * @return the id of object
+     */
     @Override
     public String getID() { return id; }
 
+    /**
+     * This method will return the type of object
+     * @return the string type of object
+     */
     @Override
     public String getType() {
-        return "Lost2";
+        return "Gain2";
     }
 }
-
-//random object who will -2 from score of random
