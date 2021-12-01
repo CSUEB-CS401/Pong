@@ -25,7 +25,7 @@ public class GameController implements Initializable {
     public static final int FIELD_HEIGHT = 860;
     public static final int VICTORY_SCORE = 10;
 
-    private FranticGame game;
+    private FranticPong game;
     private Timeline timeline;
 
     @FXML
@@ -37,7 +37,7 @@ public class GameController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        game = new FranticGame(VICTORY_SCORE, FIELD_WIDTH, FIELD_HEIGHT);
+        game = new FranticPong(VICTORY_SCORE, FIELD_WIDTH, FIELD_HEIGHT);
         Platform.runLater(()->fieldPane.requestFocus());
         addGameElementsToField();
         setUpTimeline();

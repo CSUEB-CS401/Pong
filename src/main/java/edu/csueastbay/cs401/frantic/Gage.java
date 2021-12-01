@@ -2,48 +2,46 @@ package edu.csueastbay.cs401.frantic;
 
 import edu.csueastbay.cs401.pong.Collidable;
 import edu.csueastbay.cs401.pong.Collision;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
-
-// basically a wall with a different ID
-//It's invisible in the middle of the game area and is for detecting when the
-//puck has passed the midway point to assist barriers
+// a rectangle which shows how much boost your paddle has
 
 /**
- *  A wall with a different ID. Used to Signal to other classes
- *
+ * Gage is a rectangle that calculates its desired current size
  * @see FranticPong
- * @see edu.csueastbay.cs401.pong.Wall
- * @see Collidable
+ * @see Rectangle
  */
-public class Sensor extends Rectangle implements Collidable {
-
-    private final String id;
+public class Gage extends Rectangle implements Collidable {
+    public static final double GUAGE_SIZE = 20;
+    private String id;
 
     /**
      * Constructor
-     * @param id Identifier
-     * @param x  X coordinate
-     * @param y  Y coordinate
+     * @param id
+     * @param x x coordinate
+     * @param y y coordinate
      * @param width
      * @param height
      */
-    public Sensor(String id, double x, double y, double width, double height){
+    public Gage(String id, double x, double y, double width, double height){
         super(x, y, width, height);
         this.id = id;
+        setFill(Color.MAGENTA);
+        setOpacity(0.75);
     }
 
     /**
-     * collision behavior
      * @see edu.csueastbay.cs401.pong.Collidable
+     * @see edu.csueastbay.cs401.pong.Collision
      * @param shape
-     * @return
+     * @return collision
      */
     @Override
     public Collision getCollision(Shape shape) {
         return new Collision(
-                "Sensor",
+                "None",
                 this.id,
                 this.getLayoutBounds().intersects(shape.getLayoutBounds()),
                 this.getLayoutBounds().getMinY(),
@@ -54,8 +52,8 @@ public class Sensor extends Rectangle implements Collidable {
     }
 
     /**
-     * get function
-     * @return the ID
+     * get Id
+     * @return String ID
      */
     @Override
     public String getID() {
@@ -63,11 +61,17 @@ public class Sensor extends Rectangle implements Collidable {
     }
 
     /**
-     * get function
-     * @return the type "Sensor"
+     * get Type
+     * @return String "Gage"
      */
     @Override
     public String getType() {
-        return "Sensor";
+        return "Gage";
     }
+
+    /**
+     * sets width to a multiple of given parameter
+     * @param x double
+     */
+    public void grow(double x){setWidth((x*GUAGE_SIZE)+1);}
 }

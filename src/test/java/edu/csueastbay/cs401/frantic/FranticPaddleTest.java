@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
         @BeforeEach
         void setUP() {
-            testFranticPaddle = new FranticPaddle("Test Paddle", 10, 50, 10, 50, 10, 200);
+            testFranticPaddle = new FranticPaddle("Test Paddle", 10, 50, 10, 50, 10, 200, 1);
         }
 
 
@@ -38,12 +38,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
         void moveUp() {
             testFranticPaddle.moveUp();
             testFranticPaddle.move();
-            assertEquals(45, testFranticPaddle.getY(),
-                    "Should have a Y of 45 after moving up once.");
+            assertEquals(40, testFranticPaddle.getY(),
+                    "Should have a Y of 40 after moving up once.");
             testFranticPaddle.move();
             testFranticPaddle.move();
-            assertEquals(35, testFranticPaddle.getY(),
-                    "Should have a Y of 35 after moving up 3 times.");
+            assertEquals(20, testFranticPaddle.getY(),
+                    "Should have a Y of 20 after moving up 3 times.");
 
         }
 
@@ -51,12 +51,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
         void moveDown() {
             testFranticPaddle.moveDown();
             testFranticPaddle.move();
-            assertEquals(55, testFranticPaddle.getY(),
-                    "Should have a Y of 55 after moving down once.");
+            assertEquals(60, testFranticPaddle.getY(),
+                    "Should have a Y of 60 after moving down once.");
             testFranticPaddle.move();
             testFranticPaddle.move();
-            assertEquals(65, testFranticPaddle.getY(),
-                    "Should have a Y of 65 after moving down 3 times.");
+            assertEquals(80, testFranticPaddle.getY(),
+                    "Should have a Y of 80 after moving down 3 times.");
         }
 
         void dontMoveOffTop() {
@@ -84,7 +84,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
             testFranticPaddle.stop();
             testFranticPaddle.move();
             testFranticPaddle.move();
-            assertEquals(55, testFranticPaddle.getY(),
+            assertEquals(60, testFranticPaddle.getY(),
                     "Paddle should stop moving after stop is called.");
         }
 
@@ -122,16 +122,31 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
         @Test
         void shrink(){
             testFranticPaddle.shrink();
-            assertEquals(40, testFranticPaddle.getHeight());
-            assertEquals(9,testFranticPaddle.getShrinkFactor());
+            assertEquals(40, testFranticPaddle.getHeight(),"After Shrink height should be 40");
+            assertEquals(9,testFranticPaddle.getShrinkFactor(),"After shrink, shrink factor should be 9");
         }
 
         @Test
         void resetSize(){
             testFranticPaddle.shrink();
             testFranticPaddle.resetHeight();
-            assertEquals(50, testFranticPaddle.getHeight());
-            assertEquals(10,testFranticPaddle.getShrinkFactor());
+            assertEquals(50, testFranticPaddle.getHeight(),"after reset, height should be 50");
+            assertEquals(10,testFranticPaddle.getShrinkFactor(), "after reset shrink factor should be 10");
+        }
+        @Test
+        void testBonus(){
+            assertEquals(0,testFranticPaddle.getTotalBonus(), "bonus should start at 0");
+            testFranticPaddle.stop();
+            testFranticPaddle.move();
+            assertNotEquals(0,testFranticPaddle.getTotalBonus(),"bonus should not be 0 after 1 move");
+        }
+        @Test
+        void noBonus(){
+            testFranticPaddle.stop();
+            testFranticPaddle.move();
+            testFranticPaddle.moveUp();
+            testFranticPaddle.move();
+            assertEquals(0,testFranticPaddle.getTotalBonus(),"bonus should be 0 after moving");
         }
 
     }

@@ -1,7 +1,6 @@
 package edu.csueastbay.cs401.frantic;
 
 import edu.csueastbay.cs401.pong.Collision;
-import edu.csueastbay.cs401.pong.Sensor;
 import edu.csueastbay.cs401.pong.Wall;
 import javafx.scene.shape.Rectangle;
 import org.junit.jupiter.api.BeforeEach;
