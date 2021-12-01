@@ -1,7 +1,7 @@
 package edu.csueastbay.cs401.DlinPong;
 
-import edu.csueastbay.cs401.pong.Puck;
-import edu.csueastbay.cs401.pong.Puckable;
+import edu.csueastbay.cs401.DlinPong.Puck2;
+import edu.csueastbay.cs401.DlinPong.Puckable2;
 
 import java.util.Random;
 
@@ -17,12 +17,12 @@ public class PuckFactory {
         this.fieldWidth = fieldWidth;
     }
 
-    public Puckable createPuck() {
+    public Puckable2 createPuck() {
         Random random = new Random();
-        Puckable puck = null;
+        Puckable2 puck = null;
         switch (random.nextInt(2)){
             case 0:
-                puck = new Puck(fieldWidth,fieldHeight);
+                puck = new Puck2(fieldWidth,fieldHeight);
                 break;
             case 1:
                 puck = new SquarePuck(fieldWidth,fieldHeight);

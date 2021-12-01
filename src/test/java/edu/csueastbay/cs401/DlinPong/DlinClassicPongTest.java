@@ -21,7 +21,7 @@ class DlinClassicPongTest {
 
     @Test
     void ShouldHaveOnePuckAtStart () {
-        ArrayList<Puckable> pucks = game.getPucks();
+        ArrayList<Puckable2> pucks = game.getPucks();
         assertEquals(1, pucks.size(), "There should be one puck");
     }
 
@@ -136,7 +136,7 @@ class DlinClassicPongTest {
 
     @Test
     void HittingAWallShouldMakePuckReverseDirection() {
-        Puck puck = new Puck(500, 500);
+        Puck2 puck = new Puck2(500, 500);
         puck.setCenterX(100);
         puck.setCenterY(100);
         puck.setDirection(45);
@@ -155,7 +155,7 @@ class DlinClassicPongTest {
 
     @Test
     void HittingPlayer1GoalAddAPointToPlayer1() {
-        Puck puck = new Puck(500, 500);
+        Puck2 puck = new Puck2(500, 500);
         puck.setCenterX(100);
         puck.setCenterY(100);
         Collision bang = new Collision(
@@ -173,7 +173,7 @@ class DlinClassicPongTest {
 
     @Test
     void HittingPlayer2GoalAddAPointToPlayer2() {
-        Puck puck = new Puck(500, 500);
+        Puck2 puck = new Puck2(500, 500);
         puck.setCenterX(100);
         puck.setCenterY(100);
         Collision bang = new Collision(
@@ -236,7 +236,7 @@ class DlinClassicPongTest {
 
     @Test
     void hittingLeftPortalShouldTeleportToRightPortal(){
-        Puck puck = new Puck(500, 500);
+        Puck2 puck = new Puck2(500, 500);
         puck.setCenterX(100);
         puck.setCenterY(100);
         puck.setDirection(45);
@@ -257,7 +257,7 @@ class DlinClassicPongTest {
 
     @Test
     void hittingRightPortalShouldTeleportToLeftPortal(){
-        Puck puck = new Puck(500, 500);
+        Puck2 puck = new Puck2(500, 500);
         puck.setDirection(115);
         Collision bang = new Collision(
                 "Portal",

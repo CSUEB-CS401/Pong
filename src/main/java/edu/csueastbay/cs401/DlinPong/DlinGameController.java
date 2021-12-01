@@ -47,7 +47,7 @@ public class DlinGameController implements Initializable {
     }
 
     private void addGameElementsToField() {
-        ArrayList<Puckable> pucks = game.getPucks();
+        ArrayList<Puckable2> pucks = game.getPucks();
         pucks.forEach((puck) -> {
             fieldPane.getChildren().add((Node) puck);
         });
