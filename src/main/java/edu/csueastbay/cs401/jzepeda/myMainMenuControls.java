@@ -9,6 +9,10 @@ import javafx.scene.layout.BorderPane;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * Class Controller For The Starting Main Menu Screen.
+ * Shown Before The Game Starts Upon Clicking 'play' Button.
+ */
 public class myMainMenuControls {
 
     @FXML
@@ -23,6 +27,11 @@ public class myMainMenuControls {
     @FXML
     ImageView pongLOGO;
 
+    /**
+     * Scene Changer Method For Main Menu -> Game Field FXML Files.
+     *
+     * @param event On Button Press.
+     */
     @FXML
     void playPong(ActionEvent event) {
         try {
