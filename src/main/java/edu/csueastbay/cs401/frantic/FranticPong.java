@@ -296,7 +296,6 @@ public class FranticPong extends Game {
                 booster.setIsBoosted(true);
                 puck.setSpeed(booster.boost(puck.getSpeed()));
                 break;
-
         }
     }
 
