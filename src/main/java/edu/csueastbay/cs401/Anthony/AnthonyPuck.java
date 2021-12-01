@@ -1,4 +1,4 @@
-package edu.csueastbay.cs401.pong;
+package edu.csueastbay.cs401.Anthony;
 
 import edu.csueastbay.cs401.pong.Puckable;
 import javafx.scene.paint.Color;
@@ -6,7 +6,7 @@ import javafx.scene.shape.Circle;
 
 import java.util.Random;
 
-public class Puck extends Circle implements Puckable {
+public class AnthonyPuck extends Circle implements Puckable {
 
     public static final double STARTING_SPEED = 5.0;
     public static final int STARTING_RADIOUS = 20;
@@ -18,22 +18,35 @@ public class Puck extends Circle implements Puckable {
     private Color color;
     private int radius;
 
-    public Puck(double fieldWidth, double fieldHeight) {
+    public AnthonyPuck(double fieldWidth, double fieldHeight) {
         super();
         this.fieldWidth = fieldWidth;
         this.fieldHeight = fieldHeight;
         this.color = Color.WHITE;
         this.radius = STARTING_RADIOUS;
-        reset();
+        //reset();
+
+
+        //super( fieldWidth, fieldHeight);
+
+        // Randomly assign a color to the puck
+
+        //Color[] newColors = { Color.RED, Color.RED, Color.RED };
+
+        //int colorIndex = (int) (Math.random() * newColors.length);
+
+        //this.setColor( newColors[ colorIndex ] );
+        //this.reset();
+
     }
 
-    public Puck( Color color, double fieldWidth, double fieldHeight) {
+    public AnthonyPuck(Color color, double fieldWidth, double fieldHeight) {
         super();
         this.fieldWidth = fieldWidth;
         this.fieldHeight = fieldHeight;
         this.color = color;
         this.radius = STARTING_RADIOUS;
-        reset();
+        //reset();
     }
 
     @Override
@@ -50,21 +63,6 @@ public class Puck extends Circle implements Puckable {
         } else {
             direction = (random.nextDouble() * 90) + 115;
         }
-    }
-
-    public int getPuckRadius()
-    {
-        return this.radius;
-    }
-
-    public void setPuckRadius( int radius )
-    {
-        this.radius = radius;
-    }
-
-    public void reduceRadius()
-    {
-        this.radius = (int) ( 0.75 * this.radius );
     }
 
     public void setColor( Color color ) {
