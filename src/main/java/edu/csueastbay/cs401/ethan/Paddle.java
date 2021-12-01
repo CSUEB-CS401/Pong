@@ -8,23 +8,39 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 
+/**
+ * Paddles are the player-controlled Entities in Pong.
+ */
 public class Paddle extends NeonEntity implements Collidable {
 
-    private final Path visual, collision;
+    /** This paddle's {@link Paddle#getCollisionShape() collision shape} */
+    private final Path collision;
+    /** A control this paddle checks to move */
     private final String up, down;
 
+    /** The vertical span of this Paddle */
     public final DoubleProperty height;
+    /** The rate this paddle moves */
     public double speed;
 
+    /**
+     * Creates a Paddle which uses the given inputs to move, and has the given color.
+     * @param upInput the control for this paddle to move up
+     * @param downInput the control for this paddle to move down
+     * @param color the color of this paddle
+     * @see PongGame#input
+     */
     public Paddle(String upInput, String downInput, Color color) {
         this.up = upInput;
         this.down = downInput;
         this.height = new SimpleDoubleProperty(75);
         this.speed = 250;
 
+        // fillColor should be brighter, to look more neon
         this.fillColor.set(color.interpolate(Color.WHITE, 0.5));
         this.glowColor.set(color);
-        this.visual = generateShape();
+
+        Path visual = generateShape();
         this.collision = new Path(visual.getElements());
         collision.setVisible(false);
         this.bindStyle(visual);
@@ -32,6 +48,10 @@ public class Paddle extends NeonEntity implements Collidable {
         addNode(collision);
     }
 
+    /**
+     * Creates a semi-rounded rectangle shape, with dimensions bound to {@link Paddle#height}
+     * @return the generated shape
+     */
     private Path generateShape() {
         Path path = new Path();
         NumberBinding halfHeight, negHalfHeight;
@@ -67,6 +87,10 @@ public class Paddle extends NeonEntity implements Collidable {
         return collision;
     }
 
+    /**
+     * Returns the signed vertical speed of the paddle based on {@link Paddle#speed} and the current {@link PongGame#input}
+     * @return the paddle's vertical speed
+     */
     public double getYSpeed() {
         int yInput = Boolean.compare(
                 game.input.isHeld(down),
@@ -75,6 +99,7 @@ public class Paddle extends NeonEntity implements Collidable {
         return speed*yInput;
     }
 
+    /** Paddle's update just moves based on input and clamps to {@link PongGame#bounds bounds}. */
     @Override
     public void update(double delta) {
         y += getYSpeed()*delta;

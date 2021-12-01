@@ -5,7 +5,6 @@ import edu.csueastbay.cs401.pong.Puckable;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -37,8 +36,9 @@ public class GameController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        System.out.println("p[eeee");
         game = new ClassicPong(VICTORY_SCORE, FIELD_WIDTH, FIELD_HEIGHT);
-        Platform.runLater(() -> fieldPane.requestFocus());
+
         addGameElementsToField();
         setUpTimeline();
 
@@ -46,14 +46,13 @@ public class GameController implements Initializable {
 
 
     private void addGameElementsToField() {
-        //adding the game objects to the game
         ArrayList<Puckable> pucks = game.getPucks();
         pucks.forEach((puck) -> {
             fieldPane.getChildren().add((Node) puck);
         });
 
         ArrayList<Collidable> objects = game.getObjects();
-        objects.forEach((object) -> {
+        objects.forEach((object)-> {
             fieldPane.getChildren().add((Node) object);
         });
 
@@ -76,6 +75,7 @@ public class GameController implements Initializable {
         timeline = new Timeline(new KeyFrame(Duration.millis(10), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
+                fieldPane.requestFocus();
                 game.move();
                 playerOneScore.setText(Integer.toString(game.getPlayerScore(1)));
                 playerTwoScore.setText(Integer.toString(game.getPlayerScore(2)));
@@ -85,4 +85,6 @@ public class GameController implements Initializable {
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
     }
+
+
 }

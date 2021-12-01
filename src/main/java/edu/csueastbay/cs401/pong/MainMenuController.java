@@ -40,12 +40,21 @@ public class MainMenuController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         registry = new Registry();
         registry.register("Classic Pong", "classic", "Classic Pong Game");
+        registry.register("Tiffany Truong", "ttruong", "Pongo Pongo Pongo in the Congo");
+        registry.register("Dillon Lin", "DlinPong", "Dillon's Pong Game");
+        registry.register("Samuel Celli", "frantic", "Frantic Pong Game");
+        registry.register("Jamdar Pong", "ejamdar", "My Version of Pong");
+        registry.register("Felix Choy's Pong", "felixchoypong", "Modified Pong Game");
+        registry.register("Katherine Hettick-Leir", "khlPong", "Small quality of life upgrades and additions.");
         registry.register("Srishti's Pong", "srishti", "Srishti's Pong Game");
+        registry.register("Pyae Maung", "pyae", "Organic Pong");
         registry.register("Taylor Hansen", "thansen", "Four Way Pong Game");
         registry.register("Ngon Ly", "nly", "Get Closer to the monitor...");
         registry.register("Joshua Rodriguez", "StarWarsPong", "A simple Star Wars themed" +
                 " ping pong game that is fast paced with power small power zones that make the game experience interesting. ");
+        registry.register("Jonathan Zepeda", "jzepeda", "Pong Game");
         registry.register("Ethan Ketell", "ethan", "Neon Pong+");
+
 
         registry.reset();
 
@@ -62,7 +71,7 @@ public class MainMenuController implements Initializable {
         while (registry.next()) {
             Button gameButton = new Button();
             gameButton.setText(registry.getStudentName());
-            gameButton.setPrefWidth(180);
+            gameButton.setPrefWidth(280);
             gameButton.setOnAction(new EventHandler<ActionEvent>() {
                 private final String packageName = registry.getPackageName();
                 @Override
@@ -73,7 +82,6 @@ public class MainMenuController implements Initializable {
             studentGameList.getChildren().add(gameButton);
         }
     }
-
 
     private void loadGamePane(String template) {
         try {
@@ -87,7 +95,6 @@ public class MainMenuController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
 }

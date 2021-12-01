@@ -5,17 +5,14 @@ import javafx.scene.Node;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 
-import java.util.Objects;
-
+/**
+ * Abstract class representing all objects within the {@link Game}.
+ */
 public abstract class Entity {
 
-    private static long next_id = 0;
-
-    public final long id;
-
-    protected final Group root;
-    final Translate posTform;
-    final Rotate rotTform;
+    final Group root;
+    private final Translate posTform;
+    private final Rotate rotTform;
 
     /** The {@link Game} containing this entity. */
     public Game game;
@@ -27,18 +24,29 @@ public abstract class Entity {
     /** The rotation of this Entity about its center */
     public double rotation;
 
+    /**
+     * Constructs an Entity at the origin with no rotation.
+     */
     public Entity() {
-        id = next_id++;
         root = new Group();
         root.setAutoSizeChildren(true);
         posTform = new Translate();
         rotTform = new Rotate();
     }
 
+    /**
+     * Adds a {@link Node} to this Entity's root. This is necessary if the node should inherit the Entity's position
+     * (such as {@link Collidable#getCollisionShape() collision shapes} or visible nodes).
+     * @param node the node to add
+     */
     public final void addNode(Node node) {
         root.getChildren().add(node);
     }
 
+    /**
+     * Removes a {@link Node} from this Entity.
+     * @param node the node to remove
+     */
     public final void removeNode(Node node) {
         root.getChildren().remove(node);
     }
@@ -58,16 +66,4 @@ public abstract class Entity {
      */
     public abstract void update(double delta);
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Entity entity = (Entity) o;
-        return id == entity.id;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
 }

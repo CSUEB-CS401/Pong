@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="fieldPane" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyPressed" onKeyReleased="#keyReleased" prefHeight="860.0" prefWidth="1300.0" styleClass="bg" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.csueastbay.cs401.pyae.PGameController">
+   <children>
+      <Line endX="650.0" startX="650.0" startY="860.0" stroke="WHITE" strokeWidth="10.0" />
+      <Label fx:id="playerOneScore" layoutX="61.0" layoutY="38.0" style="-fx-font-size: 64;" text="0" textFill="WHITE" />
+      <Label fx:id="playerTwoScore" layoutX="1207.0" layoutY="38.0" style="-fx-font-size: 64;" text="0" textFill="WHITE" />
+      <Label alignment="TOP_LEFT" layoutX="471.0" layoutY="744.0" mouseTransparent="true" opacity="0.2" prefHeight="46.0" prefWidth="150.0" style="-fx-background-color: #000000;" text="UP     : Q" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Roboto Light" size="33.0" />
+         </font>
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+      </Label>
+      <Label alignment="TOP_LEFT" layoutX="471.0" layoutY="790.0" mouseTransparent="true" opacity="0.2" prefHeight="46.0" prefWidth="150.0" style="-fx-background-color: #000000;" text="Down: C" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Roboto Light" size="33.0" />
+         </font>
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+      </Label>
+      <Label alignment="TOP_LEFT" layoutX="676.0" layoutY="744.0" mouseTransparent="true" opacity="0.2" prefHeight="46.0" prefWidth="150.0" style="-fx-background-color: #000000;" text="UP     : P" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Roboto Light" size="33.0" />
+         </font>
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+      </Label>
+      <Label alignment="TOP_LEFT" layoutX="676.0" layoutY="790.0" mouseTransparent="true" opacity="0.2" prefHeight="46.0" prefWidth="150.0" style="-fx-background-color: #000000;" text="Down: M" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Roboto Light" size="33.0" />
+         </font>
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+      </Label>
+   </children>
+</AnchorPane>
