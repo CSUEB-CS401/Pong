@@ -8,13 +8,11 @@ module edu.csueastbay.cs401.pong {
     opens edu.csueastbay.cs401.pong to javafx.fxml, javafx.graphics, javafx.media;
     opens edu.csueastbay.cs401.classic to javafx.fxml;
     opens edu.csueastbay.cs401.felixchoypong to javafx.fxml, javafx.graphics, javafx.media;
-    exports edu.csueastbay.cs401.pong to javafx.fxml;
-    exports edu.csueastbay.cs401.felixchoypong to javafx.fxml;
     opens edu.csueastbay.cs401.thansen to javafx.fxml;
     opens edu.csueastbay.cs401.ethan to javafx.fxml;
     opens edu.csueastbay.cs401.ethan.game to javafx.base;
     opens edu.csueastbay.cs401.nly to javafx.fxml;
     opens edu.csueastbay.cs401.StarWarsPong to javafx.fxml;
 
-    exports edu.csueastbay.cs401.pong;
+    exports edu.csueastbay.cs401.pong to javafx.fxml;
 }
