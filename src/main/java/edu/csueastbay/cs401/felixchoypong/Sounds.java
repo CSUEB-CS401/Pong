@@ -10,7 +10,9 @@ public class Sounds {
     private AudioClip powerUpSound;
     private AudioClip deniedSound;
 
-
+    /**
+     * Constructor for sounds
+     */
     public Sounds() {
         paddleOneSound = new AudioClip(this.getClass().getResource("Player1paddlesoundeffect.wav").toExternalForm());
         paddleTwoSound = new AudioClip(this.getClass().getResource("Player2paddlesoundeffect.wav").toExternalForm());
@@ -42,34 +44,58 @@ public class Sounds {
         deniedSound.setCycleCount(1);
     }
 
+    /**
+     * Plays a sound when the puck collides with player one's paddle
+     */
     public void playPaddleOneSound(){
         paddleOneSound.play();
     }
 
+    /**
+     * Plays a sound when the puck collides with player two's paddle
+     */
     public void playPaddleTwoSound(){
         paddleTwoSound.play();
     }
 
+    /**
+     * Plays a sound when the puck hits a wall
+     */
     public void playWallSound(){
         wallSound.play();
     }
 
+    /**
+     * Plays a sound when the puck hits a player's goal
+     */
     public void playGoalSound(){
         goalSound.play();
     }
 
+    /**
+     * PLays a sound when a player wins
+     */
     public void playCelebrationSound(){
         CelebrationSound.play();
     }
 
+    /**
+     * Plays a sound when the play successfully activates their power up using their power up key
+     */
     public void playPowerUpSound(){
         powerUpSound.play();
     }
 
+    /**
+     * Plays a sound when a player tries to activate their power up but does not meet the requirements to do so
+     */
     public void playDeniedSound(){
         deniedSound.play();
     }
 
+    /**
+     * Stops playing all sounds (except for the denied and power up sound)
+     */
     public void stopPlayingSound(){
         paddleOneSound.stop();
         paddleTwoSound.stop();
@@ -78,11 +104,17 @@ public class Sounds {
         CelebrationSound.stop();
     }
 
+    /**
+     * Stops playing the denied sound
+     */
     public void stopPlayingDeniedSound(){
         deniedSound.stop();
 
     }
 
+    /**
+     * Stops playing the power up sound
+     */
     public void stopPlayingPowerUpSound(){
         powerUpSound.stop();
     }

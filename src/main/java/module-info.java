@@ -10,5 +10,4 @@ module edu.csueastbay.cs401.pong {
     opens edu.csueastbay.cs401.felixchoypong to javafx.fxml, javafx.graphics, javafx.media;
 
     exports edu.csueastbay.cs401.pong to javafx.fxml;
-    exports edu.csueastbay.cs401.felixchoypong to javafx.fxml;
 }
