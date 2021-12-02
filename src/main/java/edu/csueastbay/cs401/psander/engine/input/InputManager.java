@@ -201,9 +201,13 @@ public class InputManager {
      * @param keycode The keycode to set.
      */
     public void setKeycodeForInput(InputEvent input, KeyCode keycode) {
-        // If not already in use, we can set it and leave
+        // If not already in use, we can set it, remve the old binding, and leave
         if (!_keycodeToInputMapping.containsKey(keycode)) {
             _keycodeToInputMapping.put(keycode, input);
+
+            var oldKeycode = _inputToKeycodeMapping.get(input);
+            oldKeycode.ifPresent(_keycodeToInputMapping::remove);
+
             _inputToKeycodeMapping.put(input, Optional.of(keycode));
             return;
         }
@@ -216,7 +220,7 @@ public class InputManager {
         _inputToKeycodeMapping.put(oldInput, Optional.empty());
 
         var oldKeycode = _inputToKeycodeMapping.get(input);
-        _keycodeToInputMapping.remove(oldKeycode);
+        oldKeycode.ifPresent(_keycodeToInputMapping::remove);
 
         _keycodeToInputMapping.put(keycode, input);
         _inputToKeycodeMapping.put(input, Optional.of(keycode));
