@@ -65,13 +65,13 @@ public class BasicGameManager extends Script {
         double center, min, max;
 
         if (message.playerOwner() == 1) { // Go rightwards
-            center = 0.0;
-            min = center - _launchRange/2;
-            max = center + _launchRange/2;
-        } else {
             center = 180;
             min = center + _launchRange/2;
             max = center - _launchRange/2;
+        } else {
+            center = 0.0;
+            min = center - _launchRange/2;
+            max = center = _launchRange/2;
         }
 
         var newAngle = Utility.MapRange(rand, 0.0, 1.0, min, max) * Math.PI / 180;
