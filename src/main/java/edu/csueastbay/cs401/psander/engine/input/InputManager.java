@@ -201,27 +201,17 @@ public class InputManager {
      * @param keycode The keycode to set.
      */
     public void setKeycodeForInput(InputEvent input, KeyCode keycode) {
-        // If not already in use, we can set it, remve the old binding, and leave
-        if (!_keycodeToInputMapping.containsKey(keycode)) {
-            _keycodeToInputMapping.put(keycode, input);
-
-            var oldKeycode = _inputToKeycodeMapping.get(input);
-            oldKeycode.ifPresent(_keycodeToInputMapping::remove);
-
-            _inputToKeycodeMapping.put(input, Optional.of(keycode));
-            return;
-        }
-
-        // Here it is in use, first check if it already belongs to the input
-        if (_keycodeToInputMapping.get(keycode) == input) return; // Nothing to do if they match
-
-        // Otherwise we first blank whoever is using it, then set the new owner of the input.
-        var oldInput = _keycodeToInputMapping.get(keycode);
-        _inputToKeycodeMapping.put(oldInput, Optional.empty());
-
+        // Clear the old key mapping for the input
         var oldKeycode = _inputToKeycodeMapping.get(input);
         oldKeycode.ifPresent(_keycodeToInputMapping::remove);
 
+        // Check if the new keycode belongs to another input already and remove it
+        if (_keycodeToInputMapping.containsKey(keycode)) {
+            var oldInput = _keycodeToInputMapping.get(keycode);
+            _inputToKeycodeMapping.put(oldInput, Optional.empty());
+        }
+
+        // Now set the new keycode
         _keycodeToInputMapping.put(keycode, input);
         _inputToKeycodeMapping.put(input, Optional.of(keycode));
     }
