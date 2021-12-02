@@ -45,18 +45,6 @@ public class NgonPong extends Game {
         G2.setFill(Color.RED);
         addObject(G2);
 
-        
-        SizeablePuck puck = new SizeablePuck(this.fieldW, this.fieldH);
-        puck.setID("Ngon");
-        addPuck(puck);
-
-        RandomObject L2 = new RandomObject(this.fieldW, this.fieldH);
-        L2.setId("Lost 2");
-        L2.setCenterX(725);
-        L2.setCenterY(620);
-        L2.setRadius(5);
-        L2.setFill(Color.BROWN);
-        addObject(L2);
 
         // Set the boundaries of the field
         Wall top = new Wall("Top Wall", 0,0, this.fieldW, 10);
