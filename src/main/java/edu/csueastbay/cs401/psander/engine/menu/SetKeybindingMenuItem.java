@@ -27,10 +27,12 @@ public class SetKeybindingMenuItem extends MenuItem {
     @Override
     public void update(double delta) {
         if (_currentlyBinding) {
-            _renderer.setText("" + _input + ": " + "<press any key, escape to cancel>");
-
             var opt = InputManager.getInstance().getCapturedKeystroke();
-            if (opt.isEmpty()) return;
+            if (opt.isEmpty()) {
+                _renderer.setText("" + _input + ": " + "<press any key, escape to cancel>");
+                return;
+            }
+
             _currentlyBinding = false;
             var code = opt.get();
             if (code != KeyCode.ESCAPE)
