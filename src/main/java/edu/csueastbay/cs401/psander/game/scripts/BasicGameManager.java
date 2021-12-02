@@ -74,7 +74,7 @@ public class BasicGameManager extends Script {
             max = center - _launchRange/2;
         }
 
-        var newAngle = Utility.MapRange(rand, 0.0, 1.0, min, max);
+        var newAngle = Utility.MapRange(rand, 0.0, 1.0, min, max) * Math.PI / 180;
         var h = col.getVelocity().length();
 
         var newX = h * Math.cos(newAngle);
