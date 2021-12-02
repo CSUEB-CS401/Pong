@@ -2,6 +2,7 @@ package edu.csueastbay.cs401.srishti;
 
 
 import edu.csueastbay.cs401.pong.*;
+import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
@@ -18,6 +19,8 @@ public class ClassicPongEXT extends GameEXT {
 
 	private double fieldHeight;
 	private double fieldWidth;
+
+	private AudioClip hitSound;
 
 	public ClassicPongEXT(int victoryScore, double fieldWidth, double fieldHeight) {
 		//super(victoryScore, fieldWidth, fieldHeight);
@@ -57,6 +60,7 @@ public class ClassicPongEXT extends GameEXT {
 		playerTwo.setFill(Color.WHITE);
 		addPlayerPaddle(2, playerTwo);
 
+		hitSound = new AudioClip(getClass().getResource("pongMusic\\hitAudio.mp3").toExternalForm());
 	}
 
 	@Override
@@ -80,26 +84,28 @@ public class ClassicPongEXT extends GameEXT {
 				double angle;
 				if (collision.getObjectID() == "Player 1 Paddle") {
 					// Added Path for audio file
-					String path = "C:\\Users\\14082\\IdeaProjects\\Pong\\src\\main\\resources\\edu\\csueastbay\\cs401\\srishti\\pongMusic\\hitAudio.mp3";
+//					String path = "C:\\Users\\14082\\IdeaProjects\\Pong\\src\\main\\resources\\edu\\csueastbay\\cs401\\srishti\\pongMusic\\hitAudio.mp3";
 					// Instantiating Media class
-					Media media = new Media(new File(path).toURI().toString());
+//					Media media = new Media(new File(path).toURI().toString());
 					// Instantiating MediaPlayer class
-					MediaPlayer mediaPlayer = new MediaPlayer(media);
+//					MediaPlayer mediaPlayer = new MediaPlayer(media);
 					// by setting this property to true, the audio will be played
-					mediaPlayer.setAutoPlay(false);
-					mediaPlayer.setAutoPlay(true);
-					System.out.println(" Player 1 goal ");
+//					mediaPlayer.setAutoPlay(false);
+//					mediaPlayer.setAutoPlay(true);
+//					System.out.println(" Player 1 goal ");
+					hitSound.play();
 					angle = mapRange(collision.getTop(), collision.getBottom(), -45, 45, puckCenter);
 				} else {
-					String path = "C:\\Users\\14082\\IdeaProjects\\Pong\\src\\main\\resources\\edu\\csueastbay\\cs401\\srishti\\pongMusic\\hitAudio.mp3";
+//					String path = "C:\\Users\\14082\\IdeaProjects\\Pong\\src\\main\\resources\\edu\\csueastbay\\cs401\\srishti\\pongMusic\\hitAudio.mp3";
 					// Instantiating Media class
-					Media media = new Media(new File(path).toURI().toString());
+//					Media media = new Media(new File(path).toURI().toString());
 					// Instantiating MediaPlayer class
-					MediaPlayer mediaPlayer = new MediaPlayer(media);
+//					MediaPlayer mediaPlayer = new MediaPlayer(new Media(getClass().getResource("pongMusic\\hitAudio.mp3").toExternalForm()));
 					// by setting this property to true, the audio will be played
-					mediaPlayer.setAutoPlay(false);
-					mediaPlayer.setAutoPlay(true);
-					System.out.println(" Player 2 goal ");
+//					mediaPlayer.setAutoPlay(false);
+//					mediaPlayer.setAutoPlay(true);
+//					System.out.println(" Player 2 goal ");
+					hitSound.play();
 					angle = mapRange(collision.getTop(), collision.getBottom(), 225, 135, puckCenter);
 				}
 				puck.setDirection(angle);

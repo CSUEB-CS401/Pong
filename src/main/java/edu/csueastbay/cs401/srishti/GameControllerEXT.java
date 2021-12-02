@@ -49,13 +49,13 @@ public class GameControllerEXT implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Added Path for audio file
-        String path = "C:\\Users\\14082\\IdeaProjects\\Pong\\src\\main\\resources\\edu\\csueastbay\\cs401\\srishti\\pongMusic\\pongMusic.mp3";
+//        String path = "C:\\Users\\14082\\IdeaProjects\\Pong\\src\\main\\resources\\edu\\csueastbay\\cs401\\srishti\\pongMusic\\pongMusic.mp3";
         // Instantiating Media class
-        Media media = new Media(new File(path).toURI().toString());
+//        Media media = new Media(new File(path).toURI().toString());
         // Instantiating MediaPlayer class
-        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        MediaPlayer mediaPlayer = new MediaPlayer(new Media(getClass().getResource("pongMusic\\pongMusic.mp3").toExternalForm()));
         // by setting this property to true, the audio will be played
-        mediaPlayer.setAutoPlay(false);
+//        mediaPlayer.setAutoPlay(false);
         mediaPlayer.setAutoPlay(true);
         game = new ClassicPongEXT(VICTORY_SCORE, FIELD_WIDTH, FIELD_HEIGHT);
         Platform.runLater(() -> fieldPane.requestFocus());
