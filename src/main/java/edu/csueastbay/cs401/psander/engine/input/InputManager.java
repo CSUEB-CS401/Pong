@@ -251,6 +251,17 @@ public class InputManager {
     }
 
     /**
+     * Cancels the capturing of a keycode and clears the buffer
+     * if a keycode had been captured.
+     */
+    public void cancelCaptureKeystroke() {
+        synchronized (_keyEventQueue) {
+            _capturingKeycode = false;
+            _capturedKeycode = Optional.empty();
+        }
+    }
+
+    /**
      * Processes a key up event.
      * @param k The keycode to process.
      */

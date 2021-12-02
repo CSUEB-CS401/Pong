@@ -54,7 +54,7 @@ public class SetKeybindingMenuItem extends MenuItem {
                 InputManager.getInstance().captureNextKeycode();
             } else if (_currentlyBinding && event == MenuInputEvent.MENU_CANCEL) {
                 _currentlyBinding = false;
-                InputManager.getInstance().getCapturedKeystroke(); // Clear this buffer.
+                InputManager.getInstance().cancelCaptureKeystroke();
             }
         }
     }
