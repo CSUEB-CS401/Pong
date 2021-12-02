@@ -53,7 +53,7 @@ public class GameControllerEXT implements Initializable {
         // Instantiating Media class
 //        Media media = new Media(new File(path).toURI().toString());
         // Instantiating MediaPlayer class
-        MediaPlayer mediaPlayer = new MediaPlayer(new Media(getClass().getResource("pongMusic\\pongMusic.mp3").toExternalForm()));
+        MediaPlayer mediaPlayer = new MediaPlayer(new Media(getClass().getResource("pongMusic/pongMusic.mp3").toExternalForm()));
         // by setting this property to true, the audio will be played
 //        mediaPlayer.setAutoPlay(false);
         mediaPlayer.setAutoPlay(true);

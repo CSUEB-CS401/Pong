@@ -60,7 +60,7 @@ public class ClassicPongEXT extends GameEXT {
 		playerTwo.setFill(Color.WHITE);
 		addPlayerPaddle(2, playerTwo);
 
-		hitSound = new AudioClip(getClass().getResource("pongMusic\\hitAudio.mp3").toExternalForm());
+		hitSound = new AudioClip(getClass().getResource("pongMusic/hitAudio.mp3").toExternalForm());
 	}
 
 	@Override
