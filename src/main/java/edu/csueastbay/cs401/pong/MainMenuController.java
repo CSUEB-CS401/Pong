@@ -66,8 +66,8 @@ public class MainMenuController implements Initializable {
         registry.register("Vi Nguyen", "vnguyen", "Ping Pong Game");
         registry.register("Matthew Jelonek", "mattsPong", "Classic Pong Gam");
         registry.register("Lovejit's Game", "LSingh", "Classic Pong Game");
+        registry.register("Martin Le's Game", "martinle", "RPG Themed Pong");
         registry.register("Paul Sander", "psander", "Randomized Pong Modes");
-
 
         registry.reset();
 
