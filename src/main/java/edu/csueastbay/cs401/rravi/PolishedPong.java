@@ -93,7 +93,7 @@ public class PolishedPong extends Game {
                 break;
             case "Paddle":
                 playAudio("Hit");
-                double puckCenter = ((Puck) puck).getCenterY();
+                double puckCenter = puck.getCenterY();
                 double angle;
                 if (collision.getObjectID() == "Player 1 Paddle") {
                     angle = mapRange(collision.getTop(), collision.getBottom(), -45, 45, puckCenter);
