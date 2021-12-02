@@ -105,7 +105,6 @@ public class MenuContainer extends Script {
 
     private void setCursorPosition() {
         if (_cursor == null) return;
-        System.out.println("Current index is " + _index);
         var menuItemPos = _menuItems.get(_index).Transform().getWorldPosition();
         var newCursorPos = Vector2D.add(menuItemPos, _cursorOffset);
         _cursor.Transform().Position().set(newCursorPos);
