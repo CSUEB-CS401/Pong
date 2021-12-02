@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+
+<AnchorPane fx:id="fieldPane" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyPressed" onKeyReleased="#keyReleased" prefHeight="860.0" prefWidth="1300.0" style="-fx-background-color: LIGHTGREEN;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.csueastbay.cs401.HanishPatel.GameController">
+    <children>
+        <Line endX="650.0" startX="650.0" startY="860.0" stroke="#c9ff4c" strokeWidth="0.0" />
+        <Label fx:id="playerOneScore" layoutX="61.0" layoutY="38.0" style="-fx-font-size: 64;" text="0" textFill="RED" />
+        <Label fx:id="playerTwoScore" layoutX="1207.0" layoutY="38.0" style="-fx-font-size: 64;" text="0" textFill="RED" />
+    </children>
+</AnchorPane>

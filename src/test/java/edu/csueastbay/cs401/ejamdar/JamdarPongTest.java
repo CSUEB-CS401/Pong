@@ -104,35 +104,35 @@ class JamdarPongTest {
     @Test
     void shouldHavePlayer1Paddle() {
         ArrayList<Collidable> game_objects = game.getObjects();
-        Paddle player_1_paddle = null;
+        JamdarPaddle player_1_Jamdar_paddle = null;
         for (Collidable object : game_objects) {
             if (object.getID() == "Player 1 Paddle") {
-                player_1_paddle = (Paddle)object;
+                player_1_Jamdar_paddle = (JamdarPaddle)object;
             }
         }
         //paddle values are randomized therefore, test was modified to relect that
         assertNotEquals(null, game_objects);
-        assertEquals(50, player_1_paddle.getX());
-        assertEquals(380, player_1_paddle.getY());
-        assertEquals(player_1_paddle.getWidth(), player_1_paddle.getWidth());
-        assertEquals(player_1_paddle.getHeight(), player_1_paddle.getHeight());
+        assertEquals(50, player_1_Jamdar_paddle.getX());
+        assertEquals(380, player_1_Jamdar_paddle.getY());
+        assertEquals(player_1_Jamdar_paddle.getWidth(), player_1_Jamdar_paddle.getWidth());
+        assertEquals(player_1_Jamdar_paddle.getHeight(), player_1_Jamdar_paddle.getHeight());
     }
 
     @Test
     void shouldHavePlayer2Paddle() {
         ArrayList<Collidable> game_objects = game.getObjects();
-        Paddle player_2_paddle = null;
+        JamdarPaddle player_2_Jamdar_paddle = null;
         for (Collidable object : game_objects) {
             if (object.getID() == "Player 2 Paddle") {
-                player_2_paddle = (Paddle)object;
+                player_2_Jamdar_paddle = (JamdarPaddle)object;
             }
         }
         assertNotEquals(null, game_objects);
-        assertEquals(1250, player_2_paddle.getX());
-        assertEquals(380, player_2_paddle.getY());
+        assertEquals(1250, player_2_Jamdar_paddle.getX());
+        assertEquals(380, player_2_Jamdar_paddle.getY());
         //width and height are randomly generated so changed to reflect that
-        assertEquals(player_2_paddle.getWidth(), player_2_paddle.getWidth());
-        assertEquals(player_2_paddle.getHeight(), player_2_paddle.getHeight());
+        assertEquals(player_2_Jamdar_paddle.getWidth(), player_2_Jamdar_paddle.getWidth());
+        assertEquals(player_2_Jamdar_paddle.getHeight(), player_2_Jamdar_paddle.getHeight());
     }
 
 

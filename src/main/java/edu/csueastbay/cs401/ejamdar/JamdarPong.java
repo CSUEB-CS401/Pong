@@ -25,11 +25,11 @@ public class JamdarPong extends Game {
     /**
      * playerOne is a paddle for the left side
      */
-    public Paddle playerOne;
+    public JamdarPaddle playerOne;
     /**
      * playerOne is a paddle for the right side
      */
-    public Paddle playerTwo;
+    public JamdarPaddle playerTwo;
     /**
      * game is a instance of the GameController class
      */
@@ -101,7 +101,7 @@ public class JamdarPong extends Game {
         right.setFill(Color.BLUE);
         addObject(right);
 
-        playerOne = new Paddle(
+        playerOne = new JamdarPaddle(
                 "Player 1 Paddle",
                 50,
                 (this.fieldHeight/2) - 50,
@@ -112,7 +112,7 @@ public class JamdarPong extends Game {
         playerOne.setFill(Color.color(r,g,b));
         addPlayerPaddle(1, playerOne);
 
-        playerTwo = new Paddle(
+        playerTwo = new JamdarPaddle(
                 "Player 2 Paddle",
                 this.fieldWidth - 50,
                 (this.fieldHeight/2) - 50,

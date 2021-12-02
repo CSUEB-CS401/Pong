@@ -4,7 +4,6 @@ import edu.csueastbay.cs401.classic.ClassicPong;
 import edu.csueastbay.cs401.pong.*;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
-import javafx.beans.binding.IntegerBinding;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;

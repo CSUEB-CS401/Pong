@@ -42,6 +42,7 @@ public class GameController implements Initializable {
         addGameElementsToField();
         setUpTimeline();
 
+
     }
 
 

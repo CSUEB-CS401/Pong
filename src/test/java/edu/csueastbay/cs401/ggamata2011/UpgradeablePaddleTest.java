@@ -1,92 +1,103 @@
-package edu.csueastbay.cs401.pong;
-
+import edu.csueastbay.cs401.ggamata2011.UpgradeablePaddle;
+import edu.csueastbay.cs401.pong.Collision;
+import edu.csueastbay.cs401.pong.Paddle;
 import javafx.scene.shape.Rectangle;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class PaddleTest {
+class UpgradeablePaddleTest {
 
-    Paddle testPaddle;
+    UpgradeablePaddle UpdatedPaddleTest;
 
     @BeforeEach
-    void setUP() {
-        testPaddle = new Paddle("Test Paddle", 10, 50, 10, 50, 10, 200);
+    void setUp() { UpdatedPaddleTest = new UpgradeablePaddle("Test Paddle", 10, 50, 10, 50, 10, 200);
+    }
+
+    @Test
+    void TestUpgradeModifiers()
+    {
+        UpdatedPaddleTest.ModifySpeed(5);
+        UpdatedPaddleTest.ModifyHeight(5);
+
+        assertEquals(5.0,UpdatedPaddleTest.GetSpeedModifier(),"Should return 5.0");
+        assertEquals(5.0,UpdatedPaddleTest.GetHeightModifier(),"Should return 5.0");
+
     }
 
     @Test
     void getID() {
-        assertEquals("Test Paddle", testPaddle.getID(),
+        assertEquals("Test Paddle", UpdatedPaddleTest.getID(),
                 "Should return the paddle ID.");
     }
 
     @Test
     void getType() {
-        assertEquals("Paddle", testPaddle.getType(),
+        assertEquals("Paddle", UpdatedPaddleTest.getType(),
                 "Should return 'Paddle' for the type.");
     }
 
     @Test
     void moveUp() {
-        testPaddle.moveUp();
-        testPaddle.move();
-        assertEquals(45, testPaddle.getY(),
+        UpdatedPaddleTest.moveUp();
+        UpdatedPaddleTest.move();
+        assertEquals(45, UpdatedPaddleTest.getY(),
                 "Should have a Y of 45 after moving up once.");
-        testPaddle.move();
-        testPaddle.move();
-        assertEquals(35, testPaddle.getY(),
+        UpdatedPaddleTest.move();
+        UpdatedPaddleTest.move();
+        assertEquals(35, UpdatedPaddleTest.getY(),
                 "Should have a Y of 35 after moving up 3 times.");
 
     }
 
     @Test
     void moveDown() {
-        testPaddle.moveDown();
-        testPaddle.move();
-        assertEquals(55, testPaddle.getY(),
+        UpdatedPaddleTest.moveDown();
+        UpdatedPaddleTest.move();
+        assertEquals(55, UpdatedPaddleTest.getY(),
                 "Should have a Y of 55 after moving down once.");
-        testPaddle.move();
-        testPaddle.move();
-        assertEquals(65, testPaddle.getY(),
+        UpdatedPaddleTest.move();
+        UpdatedPaddleTest.move();
+        assertEquals(65, UpdatedPaddleTest.getY(),
                 "Should have a Y of 65 after moving down 3 times.");
     }
 
     @Test
     void dontMoveOffTop() {
-        testPaddle.moveUp();
+        UpdatedPaddleTest.moveUp();
         for (int i = 0; i < 20; i++) {
-            testPaddle.move();
+            UpdatedPaddleTest.move();
         }
-        assertEquals(10, testPaddle.getY(),
+        assertEquals(10, UpdatedPaddleTest.getY(),
                 "Should not move off the top of the field");
     }
 
     @Test
     void dontMoveOffBottom() {
-        testPaddle.moveDown();
+        UpdatedPaddleTest.moveDown();
         for (int i = 0; i < 20; i++) {
-            testPaddle.move();
+            UpdatedPaddleTest.move();
         }
-        assertEquals(150, testPaddle.getY(),
+        assertEquals(150, UpdatedPaddleTest.getY(),
                 "Should not move off the bottom of the field");
     }
 
     @Test
     void stop() {
-        testPaddle.moveDown();
-        testPaddle.move();
-        testPaddle.stop();
-        testPaddle.move();
-        testPaddle.move();
-        assertEquals(55, testPaddle.getY(),
+        UpdatedPaddleTest.moveDown();
+        UpdatedPaddleTest.move();
+        UpdatedPaddleTest.stop();
+        UpdatedPaddleTest.move();
+        UpdatedPaddleTest.move();
+        assertEquals(55, UpdatedPaddleTest.getY(),
                 "Paddle should stop moving after stop is called.");
     }
 
     @Test
     void getCollision() {
         Rectangle rect = new Rectangle(10, 50, 10, 10);
-        Collision bang = testPaddle.getCollision(rect);
+        Collision bang = UpdatedPaddleTest.getCollision(rect);
         assertTrue(bang.isCollided());
         assertEquals("Paddle", bang.getType());
         assertEquals("Test Paddle", bang.getObjectID());
@@ -101,7 +112,7 @@ class PaddleTest {
     @Test
     void getNoCollision() {
         Rectangle rect = new Rectangle(50, 50, 10, 10);
-        Collision bang = testPaddle.getCollision(rect);
+        Collision bang = UpdatedPaddleTest.getCollision(rect);
         assertFalse(bang.isCollided());
         assertEquals("Paddle", bang.getType());
         assertEquals("Test Paddle", bang.getObjectID());

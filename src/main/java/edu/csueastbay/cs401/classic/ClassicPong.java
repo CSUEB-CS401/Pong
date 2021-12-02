@@ -19,6 +19,7 @@ public class ClassicPong extends Game {
         puck.setID("Classic");
         addPuck(puck);
 
+
         Wall top = new Wall("Top Wall", 0,0, this.fieldWidth, 10);
         top.setFill(Color.WHITE);
         addObject(top);
@@ -84,6 +85,9 @@ public class ClassicPong extends Game {
                     angle = mapRange(collision.getTop(), collision.getBottom(), 225, 135, puckCenter);
                 }
                 puck.setDirection(angle);
+                break;
+            case "Restart":
+                puck.reset();
                 break;
 
         }

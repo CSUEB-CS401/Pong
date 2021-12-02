@@ -54,6 +54,19 @@ public class MainMenuController implements Initializable {
                 " ping pong game that is fast paced with power small power zones that make the game experience interesting. ");
         registry.register("Jonathan Zepeda", "jzepeda", "Pong Game");
         registry.register("Ethan Ketell", "ethan", "Neon Pong+");
+        registry.register("Rahul Ravi", "rravi", "The regular pong game with additions that" +
+                " that make the experience feel like a full fledged Pong game! ");
+        registry.register("Lucas Bernard", "lbernard", "Pong");
+        registry.register("Ronan Lépée", "ronan", "A football themed pong");
+        registry.register("Chan Saeteurn", "csaeteurn", "Background image, Victory message " +
+                "and restart button");
+        registry.register("Hanish Patel","HanishPatel","Pong Ball");
+        registry.register("Pyush Pong", "psinha", "Pong with Adjustments");
+        registry.register("Guiller Gamata", "ggamata2011", "ClassicPong");
+        registry.register("Vi Nguyen", "vnguyen", "Ping Pong Game");
+        registry.register("Matthew Jelonek", "mattsPong", "Classic Pong Gam");
+        registry.register("Lovejit's Game", "LSingh", "Classic Pong Game");
+        registry.register("Paul Sander", "psander", "Randomized Pong Modes");
 
 
         registry.reset();

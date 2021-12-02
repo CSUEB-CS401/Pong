@@ -1,0 +1,7 @@
+.body {
+	-fx-background-image: url(PongBackground.gif);
+	-fx-background-size: 1300 860;
+	-fx-background-position: center;
+
+
+}

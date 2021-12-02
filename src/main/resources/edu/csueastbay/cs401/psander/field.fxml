@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.canvas.Canvas?>
+<AnchorPane fx:id="_fieldPane" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyPressed" onKeyReleased="#keyReleased" prefHeight="860.0" prefWidth="1300.0" style="-fx-background-color: #404040;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.csueastbay.cs401.psander.GameController">
+   <children>
+      <Canvas fx:id="_canvas" width="1280" height="720" layoutX="10" layoutY="70" />
+   </children>
+</AnchorPane>

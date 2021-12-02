@@ -1,7 +1,6 @@
 package edu.csueastbay.cs401.pong;
 
 import javafx.scene.input.KeyCode;
-import javafx.scene.media.AudioClip;
 import javafx.scene.shape.Shape;
 
 import java.util.ArrayList;
@@ -33,11 +32,8 @@ public abstract class Game {
     }
 
     public void addPointsToPlayer(int player, int value) {
-        if (player == 1)  {
-            playerOneScore += value;
-        }
+        if (player == 1)  playerOneScore += value;
         else if (player == 2) playerTwoScore += value;
-
     }
 
     public void setVictoryScore(int score) {
