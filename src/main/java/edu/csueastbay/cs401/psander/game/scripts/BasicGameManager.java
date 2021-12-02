@@ -13,7 +13,7 @@ import edu.csueastbay.cs401.psander.game.messages.GoalHitMessage;
 import edu.csueastbay.cs401.psander.game.scenes.GameOverScene;
 
 public class BasicGameManager extends Script {
-    private final double _launchRange = 45;
+    private final double _launchRange = 145;
     private GameObject _ball;
     private TextRenderer _player1ScoreText;
     private TextRenderer _player2ScoreText;
