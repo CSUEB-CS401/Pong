@@ -9,6 +9,7 @@ import edu.csueastbay.cs401.psander.engine.menu.MenuContainer;
 import edu.csueastbay.cs401.psander.engine.render.RectangleRenderer;
 import edu.csueastbay.cs401.psander.engine.render.TextRenderer;
 import edu.csueastbay.cs401.psander.engine.scenes.Scene;
+import edu.csueastbay.cs401.psander.game.scripts.InstructionDisplayScript;
 import edu.csueastbay.cs401.psander.game.scripts.TitleScreenManager;
 import javafx.scene.paint.Color;
 
@@ -57,5 +58,14 @@ public class TitleScreenScene extends Scene {
         menuContainer.setOffset(new Vector2D(-15, 5));
         menuController.addComponent(menuContainer);
         addGameObject(menuController);
+
+        // Instructions
+        var instructions = new GameObject("instructions");
+        instructions.Transform().Position().set(900, 500);
+        var textRenderer = new TextRenderer("", Color.WHITE);
+        var instructionScript = new InstructionDisplayScript(textRenderer);
+        instructions.addComponent(instructionScript);
+        instructions.addComponent(textRenderer);
+        addGameObject(instructions);
     }
 }

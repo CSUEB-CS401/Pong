@@ -4,6 +4,7 @@ import edu.csueastbay.cs401.psander.engine.input.InputEvent;
 import edu.csueastbay.cs401.psander.engine.input.InputManager;
 import edu.csueastbay.cs401.psander.engine.input.MenuInputEvent;
 import edu.csueastbay.cs401.psander.engine.render.TextRenderer;
+import javafx.scene.input.KeyCode;
 
 import java.util.List;
 
@@ -26,14 +27,16 @@ public class SetKeybindingMenuItem extends MenuItem {
     @Override
     public void update(double delta) {
         if (_currentlyBinding) {
-            _renderer.setText("" + _input + ": " + "<press any key, escape to cancel>");
-
             var opt = InputManager.getInstance().getCapturedKeystroke();
-            if (opt.isEmpty()) return;
+            if (opt.isEmpty()) {
+                _renderer.setText("" + _input + ": " + "<press any key, escape to cancel>");
+                return;
+            }
+
             _currentlyBinding = false;
             var code = opt.get();
-
-            InputManager.getInstance().setKeycodeForInput(_input, code);
+            if (code != KeyCode.ESCAPE)
+                InputManager.getInstance().setKeycodeForInput(_input, code);
         }
 
         var code = InputManager.getInstance().getKeycodeForInput(_input);
@@ -54,7 +57,7 @@ public class SetKeybindingMenuItem extends MenuItem {
                 InputManager.getInstance().captureNextKeycode();
             } else if (_currentlyBinding && event == MenuInputEvent.MENU_CANCEL) {
                 _currentlyBinding = false;
-                InputManager.getInstance().getCapturedKeystroke(); // Clear this buffer.
+                InputManager.getInstance().cancelCaptureKeystroke();
             }
         }
     }

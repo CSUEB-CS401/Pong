@@ -13,7 +13,7 @@ import edu.csueastbay.cs401.psander.game.messages.GoalHitMessage;
 import edu.csueastbay.cs401.psander.game.scenes.GameOverScene;
 
 public class BasicGameManager extends Script {
-    private final double _launchRange = 45;
+    private final double _launchRange = 145;
     private GameObject _ball;
     private TextRenderer _player1ScoreText;
     private TextRenderer _player2ScoreText;
@@ -74,7 +74,7 @@ public class BasicGameManager extends Script {
             max = center - _launchRange/2;
         }
 
-        var newAngle = Utility.MapRange(rand, 0.0, 1.0, min, max);
+        var newAngle = Utility.MapRange(rand, 0.0, 1.0, min, max) * Math.PI / 180;
         var h = col.getVelocity().length();
 
         var newX = h * Math.cos(newAngle);
