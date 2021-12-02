@@ -4,6 +4,7 @@ import edu.csueastbay.cs401.psander.engine.input.InputEvent;
 import edu.csueastbay.cs401.psander.engine.input.InputManager;
 import edu.csueastbay.cs401.psander.engine.input.MenuInputEvent;
 import edu.csueastbay.cs401.psander.engine.render.TextRenderer;
+import javafx.scene.input.KeyCode;
 
 import java.util.List;
 
@@ -32,8 +33,8 @@ public class SetKeybindingMenuItem extends MenuItem {
             if (opt.isEmpty()) return;
             _currentlyBinding = false;
             var code = opt.get();
-
-            InputManager.getInstance().setKeycodeForInput(_input, code);
+            if (code != KeyCode.ESCAPE)
+                InputManager.getInstance().setKeycodeForInput(_input, code);
         }
 
         var code = InputManager.getInstance().getKeycodeForInput(_input);
