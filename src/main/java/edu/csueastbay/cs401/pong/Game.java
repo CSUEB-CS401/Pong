@@ -46,7 +46,7 @@ public abstract class Game {
     public int getVictor() {
         int victor = 0;
         if (playerOneScore >= victoryScore) victor = 1;
-        else if (playerTwoScore >= victoryScore) victor = 2;
+        else if (playerTwoScore>= victoryScore) victor =2;
         return victor;
     }
 
@@ -70,10 +70,6 @@ public abstract class Game {
         return (ArrayList<Puckable>) pucks.clone();
     }
 
-    public void clearPucks() {
-        pucks.clear();
-    }
-
     public void move() {
 
         playOnePaddle.move();
@@ -83,7 +79,6 @@ public abstract class Game {
             checkCollision(puck);
             puck.move();
         }
-
     }
 
     public void checkCollision(Puckable puck) {

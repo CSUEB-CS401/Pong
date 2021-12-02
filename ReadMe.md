@@ -30,3 +30,4 @@ Each student will:
   * Extra Credit 10% each for:      
     * voted best game play improvements       
     * voted most entertaining improvements 
+    * voted most creative improvements
