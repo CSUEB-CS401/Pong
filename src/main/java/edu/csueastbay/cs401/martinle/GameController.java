@@ -10,6 +10,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -22,7 +23,7 @@ import java.util.ResourceBundle;
 public class GameController implements Initializable {
     public static final int FIELD_WIDTH = 1300;
     public static final int FIELD_HEIGHT = 860;
-    public static final int VICTORY_SCORE = 20;
+    public static final boolean IS_GAME_OVER = false;
 
     private RPGpong game;
     private Timeline timeline;
@@ -33,14 +34,25 @@ public class GameController implements Initializable {
     Label playerOneHP;
     @FXML
     Label playerTwoHP;
+    @FXML
+    Label gameResult;
 
+    /**
+    * Initialization point
+    * sets up elements to field
+    * sets up timeline
+    * prints initialization results
+    * */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println("Martin's DarkPONG Game initialize!");
-        game = new RPGpong(VICTORY_SCORE, FIELD_WIDTH, FIELD_HEIGHT);
+        game = new RPGpong(IS_GAME_OVER, FIELD_WIDTH, FIELD_HEIGHT);
 
         addGameElementsToField();
         setUpTimeline();
+        System.out.println("Martin's DarkPONG Game has been initialized!");
+        System.out.println("Martin's DarkPONG Game timeline set!");
+        System.out.println("All your pucks are belong to us...");
     }
 
 
@@ -54,7 +66,16 @@ public class GameController implements Initializable {
         objects.forEach((object)-> {
             fieldPane.getChildren().add((Node) object);
         });
+    }
 
+    private void clearAllGameElementsOnField() {
+        ArrayList<Puckable> pucks = game.getPucks();
+        pucks.clear();
+
+        ArrayList<Collidable> objects = game.getObjects();
+        objects.clear();
+
+        fieldPane.getChildren().clear();
     }
 
     @FXML
@@ -69,6 +90,12 @@ public class GameController implements Initializable {
         System.out.println("Released: " + event.getCode());
     }
 
+
+    /*
+    * sets up timeline
+    * also checks game status if player has won or cpu did
+    * displays game result on field pane
+    * */
     private void setUpTimeline() {
 
         timeline = new Timeline(new KeyFrame(Duration.millis(10), new EventHandler<ActionEvent>() {
@@ -78,6 +105,14 @@ public class GameController implements Initializable {
                 game.move();
                 playerOneHP.setText(Integer.toString(game.getPlayerHP(1)));
                 playerTwoHP.setText(Integer.toString(game.getPlayerHP(2)));
+                if(game.getGameStatus()){
+                    //set text of game status to game result
+                    if(game.getVictor() == 1){
+                        gameResult.setText("ENEMY DEFEATED");
+                    }else if(game.getVictor() == 2){
+                        gameResult.setText("ALL YOUR PUCKS ARE BELONG TO US...");
+                    }
+                }
             }
         }, new javafx.animation.KeyValue[]{}));
 

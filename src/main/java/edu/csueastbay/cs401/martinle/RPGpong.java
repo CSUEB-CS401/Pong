@@ -15,9 +15,13 @@ public class RPGpong extends Game {
     private double fieldHeight;
     private double fieldWidth;
 
-
-    public RPGpong(int victoryScore, double fieldWidth, double fieldHeight) {
-        super(victoryScore);
+    /**
+    *
+    * Player 2 paddle set to larger height size
+    *
+     */
+    public RPGpong(boolean isGameOver, double fieldWidth, double fieldHeight) {
+        super(isGameOver);
 
         this.fieldWidth = fieldWidth;
         this.fieldHeight = fieldHeight;
@@ -59,7 +63,7 @@ public class RPGpong extends Game {
                 this.fieldWidth - 50,
                 (this.fieldHeight/2) - 50,
                 10,
-                600,
+                400,
                 10,
                 this.fieldHeight - 10);
         playerTwo.setFill(Color.BROWN);
@@ -67,6 +71,12 @@ public class RPGpong extends Game {
 
     }
 
+    /*
+    *
+    * Puck speed increases by 1 at every collision
+    * after every puck reset
+    *
+     */
     @Override
     public void collisionHandler(Puckable puck, Collision collision) {
 //        System.out.println(puck.getDirection());
@@ -79,7 +89,7 @@ public class RPGpong extends Game {
                     hitToPlayer(2, 1);
                     puck.reset();
                 } else if (collision.getObjectID() == "Player 2 Goal") {
-                    hitToPlayer(1, 1);
+                    hitToPlayer(1, 3);
                     puck.reset();
                 }
                 break;
@@ -92,6 +102,7 @@ public class RPGpong extends Game {
                     angle = mapRange(collision.getTop(), collision.getBottom(), 225, 135, puckCenter);
                 }
                 puck.setDirection(angle);
+                puck.setSpeed(puck.getSpeed() + 1);
                 break;
             case "Restart":
                 puck.reset();
