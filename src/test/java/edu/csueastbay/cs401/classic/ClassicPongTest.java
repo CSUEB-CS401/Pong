@@ -1,7 +1,6 @@
 package edu.csueastbay.cs401.classic;
 
 import edu.csueastbay.cs401.pong.*;
-import javafx.scene.layout.AnchorPane;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,8 +15,7 @@ class ClassicPongTest {
 
     @BeforeEach
     void setUp() {
-        AnchorPane field = new AnchorPane();
-        game = new ClassicPong(10, 1300, 860, field);
+        game = new ClassicPong(10, 1300, 860);
     }
 
     @Test
@@ -189,8 +187,6 @@ class ClassicPongTest {
         game.collisionHandler(puck, bang);
         assertEquals(1, game.getPlayerScore(2));
     }
-
-
 
     @Test
     void mapRange0to10and30to50() {

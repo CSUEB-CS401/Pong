@@ -8,7 +8,7 @@ import javafx.scene.shape.Shape;
 
 import java.util.Random;
 
-public class Paddle extends Rectangle implements Collidable {
+public class AnthonyPaddle extends Rectangle implements Collidable {
     // local variables
     public static final double STARTING_SPEED = 5.0;
     private String id;
@@ -22,7 +22,7 @@ public class Paddle extends Rectangle implements Collidable {
     private Direction moving;
 
     // create paddle object
-    public Paddle(String id, double x, double y, double width, double height, double topBound, double bottomBound) {
+    public AnthonyPaddle(String id, double x, double y, double width, double height, double topBound, double bottomBound) {
         super(x, y, width, height);
         this.id = id;
         this.topBound = topBound;

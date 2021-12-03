@@ -31,12 +31,12 @@ public class AnthonyPuck extends Circle implements Puckable {
 
         // Randomly assign a color to the puck
 
-        //Color[] newColors = { Color.RED, Color.RED, Color.RED };
+        Color[] newColors = { Color.RED, Color.RED, Color.RED };
 
-        //int colorIndex = (int) (Math.random() * newColors.length);
+        int colorIndex = (int) (Math.random() * newColors.length);
 
-        //this.setColor( newColors[ colorIndex ] );
-        //this.reset();
+        this.setColor( newColors[ colorIndex ] );
+        this.reset();
 
     }
 
@@ -46,7 +46,7 @@ public class AnthonyPuck extends Circle implements Puckable {
         this.fieldHeight = fieldHeight;
         this.color = color;
         this.radius = STARTING_RADIOUS;
-        //reset();
+        reset();
     }
 
     @Override

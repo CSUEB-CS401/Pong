@@ -8,16 +8,16 @@ import javafx.scene.shape.Shape;
 
 import java.util.ArrayList;
 
-public abstract class Game {
+public abstract class AnthonyGame {
     private int playerOneScore;
-    private Paddle playOnePaddle;
+    private AnthonyPaddle playOnePaddle;
     private int playerTwoScore;
-    private Paddle playTwoPaddle;
+    private AnthonyPaddle playTwoPaddle;
     private int victoryScore;
     private ArrayList<Collidable> objects;
     private ArrayList<Puckable> pucks;
 
-    public Game(int victoryScore) {
+    public AnthonyGame(int victoryScore) {
         this.victoryScore = victoryScore;
         this.objects = new ArrayList<>();
         this.pucks = new ArrayList<>();
@@ -113,7 +113,7 @@ public abstract class Game {
         });
     }
 
-    protected void addPlayerPaddle(int player, Paddle paddle) {
+    protected void addPlayerPaddle(int player, AnthonyPaddle paddle) {
         if (player == 1) {
             playOnePaddle = paddle;
             addObject(paddle);

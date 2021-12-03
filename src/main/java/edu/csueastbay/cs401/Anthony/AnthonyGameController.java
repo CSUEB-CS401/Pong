@@ -5,6 +5,7 @@ import edu.csueastbay.cs401.pong.Puckable;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -36,8 +37,10 @@ public class AnthonyGameController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        game = new AnthonyPong( VICTORY_SCORE, FIELD_WIDTH, FIELD_HEIGHT);
+        System.out.println( "\n...AnthonyGameController constructor....." );
 
+        game = new AnthonyPong( VICTORY_SCORE, FIELD_WIDTH, FIELD_HEIGHT);
+        Platform.runLater(()->fieldPane.requestFocus());
         addGameElementsToField();
         setUpTimeline();
     }

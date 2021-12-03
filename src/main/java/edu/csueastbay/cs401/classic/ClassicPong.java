@@ -12,6 +12,8 @@ public class ClassicPong extends Game {
     public ClassicPong(int victoryScore, double fieldWidth, double fieldHeight) {
         super(victoryScore);
 
+        System.out.println( "...ClassicPong constructor..." );
+
         this.fieldWidth = fieldWidth;
         this.fieldHeight = fieldHeight;
 

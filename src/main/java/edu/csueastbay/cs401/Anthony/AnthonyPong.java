@@ -3,7 +3,7 @@ package edu.csueastbay.cs401.Anthony;
 import edu.csueastbay.cs401.pong.*;
 import javafx.scene.paint.Color;
 
-public class AnthonyPong extends Game {
+public class AnthonyPong extends AnthonyGame {
 
     // Class Constants
 
@@ -14,8 +14,8 @@ public class AnthonyPong extends Game {
     private double fieldHeight;
     private double fieldWidth;
     private int paddleHeight;
-    private Paddle playerOne;
-    private Paddle playerTwo;
+    private AnthonyPaddle playerOne;
+    private AnthonyPaddle playerTwo;
 
     /*
     public AnthonyPong(int victoryScore, double fieldWidth, double fieldHeight) {
@@ -35,6 +35,8 @@ public class AnthonyPong extends Game {
         paddleHeight = PADDLE_HEIGHT;
 
         setupPong( fieldWidth, fieldHeight);
+
+        System.out.println( "\n...Anthony Pong constructor....." );
     }
 
     public int getHeight()
@@ -77,7 +79,7 @@ public class AnthonyPong extends Game {
         right.setFill(Color.BLUE);
         addObject(right);
 
-        playerOne = new Paddle(
+        playerOne = new AnthonyPaddle(
                 "Player 1 Paddle",
                 50,
                 (this.fieldHeight/2) - 50,
@@ -85,10 +87,10 @@ public class AnthonyPong extends Game {
                 this.paddleHeight,
                 10,
                 this.fieldHeight - 10);
-        playerOne.setFill(Color.RED);
+        playerOne.setFill(Color.GREEN);
         addPlayerPaddle(1, playerOne);
 
-        playerTwo = new Paddle(
+        playerTwo = new AnthonyPaddle(
                 "Player 2 Paddle",
                 this.fieldWidth - 50,
                 (this.fieldHeight/2) - 50,
@@ -96,13 +98,13 @@ public class AnthonyPong extends Game {
                 this.paddleHeight,
                 10,
                 this.fieldHeight - 10);
-        playerTwo.setFill(Color.BLUE);
+        playerTwo.setFill(Color.GREEN);
         addPlayerPaddle(2, playerTwo);
     }
 
     @Override
     public void collisionHandler(Puckable puck, Collision collision) {
-//        System.out.println(puck.getDirection());
+//       System.out.println(puck.getDirection());
         switch(collision.getType()) {
             case "Wall":
                 puck.setDirection(0 - puck.getDirection());
