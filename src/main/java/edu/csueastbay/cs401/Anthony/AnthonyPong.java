@@ -39,20 +39,20 @@ public class AnthonyPong extends AnthonyGame {
         System.out.println( "\n...Anthony Pong constructor....." );
     }
 
-    public int getHeight()
-    {
-        return this.paddleHeight;
-    }
-
-    public void setHeigth( int paddleHeight )
-    {
-        this.paddleHeight = paddleHeight;
-    }
-
-    public void reducePaddle()
-    {
-        this.paddleHeight = (int) ( 0.75 * this.paddleHeight );  // 25% reduction
-    }
+//    public int getHeight()
+//    {
+//        return this.paddleHeight;
+//    }
+//
+//    public void setHeigth( int paddleHeight )
+//    {
+//        this.paddleHeight = paddleHeight;
+//    }
+//
+//    public void reducePaddle()
+//    {
+//        this.paddleHeight = (int) ( 0.75 * this.paddleHeight );  // 25% reduction
+//    }
 
     private void setupPong( double fieldWidth, double fieldHeight )
     {

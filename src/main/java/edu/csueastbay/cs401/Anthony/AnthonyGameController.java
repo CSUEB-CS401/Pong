@@ -1,5 +1,6 @@
 package edu.csueastbay.cs401.Anthony;
 
+import edu.csueastbay.cs401.Anthony.AnthonyPong;
 import edu.csueastbay.cs401.pong.Collidable;
 import edu.csueastbay.cs401.pong.Puckable;
 import javafx.animation.Animation;

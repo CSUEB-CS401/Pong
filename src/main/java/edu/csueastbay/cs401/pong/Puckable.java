@@ -11,8 +11,9 @@ public interface Puckable {
     public double getDirection();
     public void setSpeed(double speed);
     public void setDirection(double angle);
-    public double getCenterX();
-    public double getCenterY();
 
     void reset();
+
+    public double getCenterX();
+    public double getCenterY();
 }

@@ -36,15 +36,15 @@ public class AnthonyPaddle extends Rectangle implements Collidable {
         setHeight( paddleHeight );
     }
 
-    public double getPaddleHeight()
-    {
-        return this.paddleHeight;
-    }
-
-    public void setPaddleHeight( double height )
-    {
-        this.paddleHeight = height;
-    }
+//    public double getPaddleHeight()
+//    {
+//        return this.paddleHeight;
+//    }
+//
+//    public void setPaddleHeight( double height )
+//    {
+//        this.paddleHeight = height;
+//    }
 
     public void reducePaddleHeight()
     {

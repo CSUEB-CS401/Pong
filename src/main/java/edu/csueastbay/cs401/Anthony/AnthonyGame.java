@@ -44,6 +44,8 @@ public abstract class AnthonyGame {
 
             if ( playerOneScore % 5 == 0 ) {
                 playOnePaddle.reducePaddleHeight();
+                ((AnthonyPuck) puck).reduceRadius();
+                ((AnthonyPuck) puck).increaseSpeed();
 
             }
         }
@@ -53,8 +55,11 @@ public abstract class AnthonyGame {
 
             System.out.println( "Game: player: " + player + " Points: " + playerTwoScore );
 
-            if ( playerTwoScore % 5 == 0 )
+            if ( playerTwoScore % 5 == 0 ){
                 playTwoPaddle.reducePaddleHeight();
+                ((AnthonyPuck) puck).reduceRadius();
+                ((AnthonyPuck) puck).increaseSpeed();
+            }
         }
     }
 

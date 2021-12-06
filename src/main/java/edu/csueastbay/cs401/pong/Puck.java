@@ -1,8 +1,12 @@
 package edu.csueastbay.cs401.pong;
 
 import edu.csueastbay.cs401.pong.Puckable;
+import javafx.fxml.FXML;
+import javafx.geometry.Bounds;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.stage.PopupWindow;
 
 import java.util.Random;
 
@@ -15,34 +19,34 @@ public class Puck extends Circle implements Puckable {
     private String id;
     private Double speed;
     private Double direction;
-    private Color color;
-    private int radius;
+//    private Color color;
+//    private int radius;
 
     public Puck(double fieldWidth, double fieldHeight) {
         super();
         this.fieldWidth = fieldWidth;
         this.fieldHeight = fieldHeight;
-        this.color = Color.WHITE;
-        this.radius = STARTING_RADIOUS;
+//        this.color = Color.WHITE;
+//        this.radius = STARTING_RADIOUS;
         reset();
     }
 
-    public Puck( Color color, double fieldWidth, double fieldHeight) {
-        super();
-        this.fieldWidth = fieldWidth;
-        this.fieldHeight = fieldHeight;
-        this.color = color;
-        this.radius = STARTING_RADIOUS;
-        reset();
-    }
+//    public Puck( Color color, double fieldWidth, double fieldHeight) {
+//        super();
+//        this.fieldWidth = fieldWidth;
+//        this.fieldHeight = fieldHeight;
+//        this.color = color;
+//        this.radius = STARTING_RADIOUS;
+//        reset();
+//    }
 
     @Override
     public void reset() {
         Random random = new Random();
         setCenterX(fieldWidth / 2);
         setCenterY(fieldHeight / 2);
-        setRadius( this.radius );
-        setFill(color);
+        setRadius( STARTING_RADIOUS );
+        setFill(Color.WHITE);
 
         speed = STARTING_SPEED;
         if (random.nextInt(2) == 0) {
@@ -52,24 +56,24 @@ public class Puck extends Circle implements Puckable {
         }
     }
 
-    public int getPuckRadius()
-    {
-        return this.radius;
-    }
-
-    public void setPuckRadius( int radius )
-    {
-        this.radius = radius;
-    }
-
-    public void reduceRadius()
-    {
-        this.radius = (int) ( 0.75 * this.radius );
-    }
-
-    public void setColor( Color color ) {
-        this.color = color;
-    }
+//    public int getPuckRadius()
+//    {
+//        return this.radius;
+//    }
+//
+//    public void setPuckRadius( int radius )
+//    {
+//        this.radius = radius;
+//    }
+//
+//    public void reduceRadius()
+//    {
+//        this.radius = (int) ( 0.75 * this.radius );
+//    }
+//
+//    public void setColor( Color color ) {
+//        this.color = color;
+//    }
 
     @Override
     public String getID() {
