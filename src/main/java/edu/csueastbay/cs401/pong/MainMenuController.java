@@ -31,8 +31,8 @@ public class MainMenuController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         registry = new Registry();
-        registry.register("Anthony'S Pong", "Anthony", "Anthony's Pong Game");
-        registry.register("Classic Pong", "classic", "Classic Pong Game");
+        registry.register("Anthony'S Pong", "Anthony", "Changes every 5 points");
+        //registry.register("Classic Pong", "classic", "Classic Pong Game");
 
 
         registry.reset();

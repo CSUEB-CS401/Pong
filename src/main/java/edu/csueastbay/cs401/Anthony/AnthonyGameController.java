@@ -1,6 +1,5 @@
 package edu.csueastbay.cs401.Anthony;
 
-import edu.csueastbay.cs401.Anthony.AnthonyPong;
 import edu.csueastbay.cs401.pong.Collidable;
 import edu.csueastbay.cs401.pong.Puckable;
 import javafx.animation.Animation;
@@ -38,8 +37,6 @@ public class AnthonyGameController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println( "\n...AnthonyGameController constructor....." );
-
         game = new AnthonyPong( VICTORY_SCORE, FIELD_WIDTH, FIELD_HEIGHT);
         Platform.runLater(()->fieldPane.requestFocus());
         addGameElementsToField();

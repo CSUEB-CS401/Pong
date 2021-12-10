@@ -41,9 +41,7 @@ public class GameController implements Initializable {
         Platform.runLater(() -> fieldPane.requestFocus());
         addGameElementsToField();
         setUpTimeline();
-
     }
-
 
     private void addGameElementsToField() {
         //adding the game objects to the game
@@ -72,7 +70,6 @@ public class GameController implements Initializable {
     }
 
     private void setUpTimeline() {
-
         timeline = new Timeline(new KeyFrame(Duration.millis(10), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {

@@ -12,8 +12,6 @@ public class ClassicPong extends Game {
     public ClassicPong(int victoryScore, double fieldWidth, double fieldHeight) {
         super(victoryScore);
 
-        System.out.println( "...ClassicPong constructor..." );
-
         this.fieldWidth = fieldWidth;
         this.fieldHeight = fieldHeight;
 
@@ -63,7 +61,6 @@ public class ClassicPong extends Game {
 
     @Override
     public void collisionHandler(Puckable puck, Collision collision) {
-//        System.out.println(puck.getDirection());
         switch(collision.getType()) {
             case "Wall":
                 puck.setDirection(0 - puck.getDirection());

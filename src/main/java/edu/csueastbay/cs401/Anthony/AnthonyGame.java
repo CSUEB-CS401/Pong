@@ -41,12 +41,14 @@ public abstract class AnthonyGame {
             playerOneScore += value;
 
             System.out.println( "Game: player: " + player + " Points: " + playerOneScore );
-
+            // ball changes every time a point is made
+            if(playerOneScore % 1 == 0)
+                ((AnthonyPuck) puck).changeColor();
+            // ball changes every 5 points
             if ( playerOneScore % 5 == 0 ) {
                 playOnePaddle.reducePaddleHeight();
                 ((AnthonyPuck) puck).reduceRadius();
                 ((AnthonyPuck) puck).increaseSpeed();
-
             }
         }
         else if (player == 2)
@@ -54,11 +56,15 @@ public abstract class AnthonyGame {
             playerTwoScore += value;
 
             System.out.println( "Game: player: " + player + " Points: " + playerTwoScore );
-
+            // ball changes every time a point is made
+            if(playerOneScore % 1 == 0)
+                ((AnthonyPuck) puck).changeColor();
+            // ball changes every 5 points
             if ( playerTwoScore % 5 == 0 ){
                 playTwoPaddle.reducePaddleHeight();
                 ((AnthonyPuck) puck).reduceRadius();
                 ((AnthonyPuck) puck).increaseSpeed();
+                //((AnthonyPuck) puck).IncreaseRadius();
             }
         }
     }
@@ -99,7 +105,6 @@ public abstract class AnthonyGame {
     }
 
     public void move() {
-
         playOnePaddle.move();
         playTwoPaddle.move();
 
@@ -132,16 +137,16 @@ public abstract class AnthonyGame {
 
     public void keyPressed(KeyCode code) {
         switch (code) {
-            case E:
+            case A:
                 playOnePaddle.moveUp();
                 break;
-            case D:
+            case Z:
                 playOnePaddle.moveDown();
                 break;
-            case I:
+            case UP:
                 playTwoPaddle.moveUp();
                 break;
-            case K:
+            case DOWN:
                 playTwoPaddle.moveDown();
                 break;
         }
@@ -149,10 +154,10 @@ public abstract class AnthonyGame {
 
     public void keyReleased(KeyCode code) {
         switch (code) {
-            case E, D:
+            case A, Z:
                 playOnePaddle.stop();
                 break;
-            case I, K:
+            case UP, DOWN:
                 playTwoPaddle.stop();
                 break;
         }

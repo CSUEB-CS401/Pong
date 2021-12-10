@@ -1,12 +1,9 @@
 package edu.csueastbay.cs401.Anthony;
 
-import edu.csueastbay.cs401.classic.GameController;
 import edu.csueastbay.cs401.pong.Collidable;
 import edu.csueastbay.cs401.pong.Collision;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
-
-import java.util.Random;
 
 public class AnthonyPaddle extends Rectangle implements Collidable {
     // local variables
@@ -36,22 +33,11 @@ public class AnthonyPaddle extends Rectangle implements Collidable {
         setHeight( paddleHeight );
     }
 
-//    public double getPaddleHeight()
-//    {
-//        return this.paddleHeight;
-//    }
-//
-//    public void setPaddleHeight( double height )
-//    {
-//        this.paddleHeight = height;
-//    }
-
     public void reducePaddleHeight()
     {
         this.paddleHeight = 0.75 * this.paddleHeight;
     }
 
-    //
     @Override
     public Collision getCollision(Shape shape) {
         return new Collision(

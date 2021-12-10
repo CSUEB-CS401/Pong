@@ -19,26 +19,13 @@ public class Puck extends Circle implements Puckable {
     private String id;
     private Double speed;
     private Double direction;
-//    private Color color;
-//    private int radius;
 
     public Puck(double fieldWidth, double fieldHeight) {
         super();
         this.fieldWidth = fieldWidth;
         this.fieldHeight = fieldHeight;
-//        this.color = Color.WHITE;
-//        this.radius = STARTING_RADIOUS;
         reset();
     }
-
-//    public Puck( Color color, double fieldWidth, double fieldHeight) {
-//        super();
-//        this.fieldWidth = fieldWidth;
-//        this.fieldHeight = fieldHeight;
-//        this.color = color;
-//        this.radius = STARTING_RADIOUS;
-//        reset();
-//    }
 
     @Override
     public void reset() {
@@ -55,25 +42,6 @@ public class Puck extends Circle implements Puckable {
             direction = (random.nextDouble() * 90) + 115;
         }
     }
-
-//    public int getPuckRadius()
-//    {
-//        return this.radius;
-//    }
-//
-//    public void setPuckRadius( int radius )
-//    {
-//        this.radius = radius;
-//    }
-//
-//    public void reduceRadius()
-//    {
-//        this.radius = (int) ( 0.75 * this.radius );
-//    }
-//
-//    public void setColor( Color color ) {
-//        this.color = color;
-//    }
 
     @Override
     public String getID() {

@@ -6,53 +6,20 @@ import javafx.scene.paint.Color;
 public class AnthonyPong extends AnthonyGame {
 
     // Class Constants
-
-    private final int PADDLE_HEIGHT = 150;
+    private final int PADDLE_HEIGHT = 200;
 
     // Class Variables
-
     private double fieldHeight;
     private double fieldWidth;
     private int paddleHeight;
     private AnthonyPaddle playerOne;
     private AnthonyPaddle playerTwo;
 
-    /*
-    public AnthonyPong(int victoryScore, double fieldWidth, double fieldHeight) {
-        super(victoryScore);
-
-        paddleHeight = PADDLE_HEIGHT;
-
-        setupPong( "Classic", fieldWidth, fieldHeight);
-
-        System.out.println( "\n...ClassicPong constructor....." );
-    }
-     */
-
     public AnthonyPong( int victoryScore, double fieldWidth, double fieldHeight) {
         super(victoryScore);
-
         paddleHeight = PADDLE_HEIGHT;
-
         setupPong( fieldWidth, fieldHeight);
-
-        System.out.println( "\n...Anthony Pong constructor....." );
     }
-
-//    public int getHeight()
-//    {
-//        return this.paddleHeight;
-//    }
-//
-//    public void setHeigth( int paddleHeight )
-//    {
-//        this.paddleHeight = paddleHeight;
-//    }
-//
-//    public void reducePaddle()
-//    {
-//        this.paddleHeight = (int) ( 0.75 * this.paddleHeight );  // 25% reduction
-//    }
 
     private void setupPong( double fieldWidth, double fieldHeight )
     {
@@ -72,11 +39,11 @@ public class AnthonyPong extends AnthonyGame {
         addObject(bottom);
 
         Goal left = new Goal("Player 1 Goal", this.fieldWidth -10, 10, 10, this.fieldHeight - 20);
-        left.setFill(Color.RED);
+        left.setFill(Color.WHITE);
         addObject(left);
 
         Goal right = new Goal("Player 2 Goal", 0, 10, 10, this.fieldHeight - 20);
-        right.setFill(Color.BLUE);
+        right.setFill(Color.WHITE);
         addObject(right);
 
         playerOne = new AnthonyPaddle(
@@ -87,7 +54,7 @@ public class AnthonyPong extends AnthonyGame {
                 this.paddleHeight,
                 10,
                 this.fieldHeight - 10);
-        playerOne.setFill(Color.GREEN);
+        playerOne.setFill(Color.WHITE);
         addPlayerPaddle(1, playerOne);
 
         playerTwo = new AnthonyPaddle(
@@ -98,13 +65,12 @@ public class AnthonyPong extends AnthonyGame {
                 this.paddleHeight,
                 10,
                 this.fieldHeight - 10);
-        playerTwo.setFill(Color.GREEN);
+        playerTwo.setFill(Color.WHITE);
         addPlayerPaddle(2, playerTwo);
     }
 
     @Override
     public void collisionHandler(Puckable puck, Collision collision) {
-//       System.out.println(puck.getDirection());
         switch(collision.getType()) {
             case "Wall":
                 puck.setDirection(0 - puck.getDirection());
