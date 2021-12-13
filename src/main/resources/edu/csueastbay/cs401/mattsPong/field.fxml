@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+
+<AnchorPane fx:id="fieldPane" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyPressed" onKeyReleased="#keyReleased" prefHeight="860.0" prefWidth="1300.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.csueastbay.cs401.mattsPong.MattsController">
+    <children>
+        <Line endX="650.0" layoutY="77.0" startX="650.0" startY="783.0" stroke="WHITE" strokeWidth="10.0" />
+        <Label fx:id="playerOneScore" layoutX="61.0" layoutY="38.0" style="-fx-font-size: 32;" text="0" textFill="WHITE" />
+        <Label fx:id="playerTwoScore" layoutX="1101.0" layoutY="38.0" style="-fx-font-size: 32;" text="0" textFill="WHITE" />
+        <Label fx:id="playerOneBlocks" layoutX="61.0" layoutY="132.0" style="-fx-font-size: 32;" text="0" textFill="WHITE" />
+        <Label fx:id="playerTwoBlocks" layoutX="1090.0" layoutY="132.0" style="-fx-font-size: 32;" text="0" textFill="WHITE" />
+        <Label fx:id="timer" layoutX="590.0" layoutY="-9.0" prefHeight="93.0" prefWidth="119.0" style="-fx-font-size: 64;" text="0:00" textFill="WHITE" />
+        <Line endX="100.0" layoutX="649.0" layoutY="72.0" startX="-100.0" stroke="WHITE" strokeWidth="10.0" />
+        <Line endX="-99.0" endY="62.0" layoutX="643.0" layoutY="10.0" startX="-99.0" startY="-10.0" stroke="WHITE" strokeWidth="10.0" />
+        <Line endX="-100.0" endY="72.0" layoutX="854.0" startX="-100.0" stroke="WHITE" strokeWidth="10.0" />
+    </children>
+</AnchorPane>

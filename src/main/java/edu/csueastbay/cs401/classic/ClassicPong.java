@@ -20,6 +20,7 @@ import static javafx.application.Platform.setImplicitExit;
 public class ClassicPong extends Game {
     private double fieldHeight;
     private double fieldWidth;
+
     private PuckFactory puckFactory;
     private AnchorPane field;
     private Timeline timeLine;
@@ -31,6 +32,11 @@ public class ClassicPong extends Game {
 
     public ClassicPong(int victoryScore, double fieldWidth, double fieldHeight, AnchorPane field,
                        Label winOneText, Label winTwoText) {
+
+
+
+    public ClassicPong(int victoryScore, double fieldWidth, double fieldHeight) {
+
         super(victoryScore);
 
         this.fieldWidth = fieldWidth;
@@ -44,7 +50,11 @@ public class ClassicPong extends Game {
         puck.setID("Suraj's Pong");
         addPuck(puck);
 
+
         Wall top = new Wall("Top Wall", 0, 0, this.fieldWidth, 10);
+
+        Wall top = new Wall("Top Wall", 0,0, this.fieldWidth, 10);
+
         top.setFill(Color.WHITE);
         addObject(top);
 
@@ -170,6 +180,10 @@ public class ClassicPong extends Game {
                     angle = mapRange(collision.getTop(), collision.getBottom(), 225, 135, puckCenter);
                 }
                 puck.setDirection(angle);
+                break;
+
+            case "Restart":
+                puck.reset();
                 break;
 
         }

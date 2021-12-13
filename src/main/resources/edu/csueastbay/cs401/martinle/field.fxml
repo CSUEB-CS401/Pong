@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="fieldPane" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyPressed" onKeyReleased="#keyReleased" prefHeight="860.0" prefWidth="1300.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.csueastbay.cs401.martinle.GameController">
+    <children>
+        <Line endX="650.0" startX="650.0" startY="860.0" stroke="WHITE" strokeWidth="10.0" />
+        <Label fx:id="playerOneHP" layoutX="61.0" layoutY="38.0" style="-fx-font-size: 64;" text="0" textFill="WHITE" />
+        <Label fx:id="playerTwoHP" layoutX="1207.0" layoutY="38.0" style="-fx-font-size: 64;" text="0" textFill="WHITE" />
+      <Label fx:id="gameResult" alignment="CENTER" layoutX="558.0" layoutY="26.0" style="-fx-font-size: 35;" text="DARK PONG" textFill="WHITE" underline="true">
+         <font>
+            <Font size="35.0" />
+         </font>
+         <effect>
+            <Glow />
+         </effect>
+      </Label>
+
+    </children>
+</AnchorPane>

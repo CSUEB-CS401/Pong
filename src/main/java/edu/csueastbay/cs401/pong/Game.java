@@ -20,12 +20,12 @@ public abstract class Game {
      * Variables to manipulate game variables
      */
     private int playerOneScore;
-    private Paddle playOnePaddle;
+    protected Paddle playOnePaddle;
     private int playerTwoScore;
-    private Paddle playTwoPaddle;
+    protected Paddle playTwoPaddle;
     private int victoryScore;
-    private ArrayList<Collidable> objects;
-    private ArrayList<Puckable> pucks;
+    protected ArrayList<Collidable> objects;
+    protected ArrayList<Puckable> pucks;
 
     /**
      * Constructor to instantiate Game Object
@@ -37,8 +37,8 @@ public abstract class Game {
         this.pucks = new ArrayList<>();
         this.playerOneScore = 0;
         this.playerTwoScore = 0;
-        private
 
+        private
     }
 
     /**
@@ -46,6 +46,8 @@ public abstract class Game {
      * @param player Player to get the score of
      * @return  either Player 1 or 2's score or return 0 if game just started
      */
+
+
 
     public int getPlayerScore(int player) {
         if (player == 1) return playerOneScore;
@@ -86,7 +88,10 @@ public abstract class Game {
     public int getVictor() {
         int victor = 0;
         if (playerOneScore >= victoryScore) victor = 1;
+
         else if(playerTwoScore >= victoryScore) victor = 2;
+
+        else if (playerTwoScore >= victoryScore) victor = 2;
         return victor;
     }
 
@@ -109,6 +114,7 @@ public abstract class Game {
         return (ArrayList<Collidable>) objects.clone();
     }
 
+
     /**
      * Adds puck to the game
      * @param ball puck to add
@@ -116,6 +122,9 @@ public abstract class Game {
     public void addPuck(Puckable ball) {
         this.pucks.add(ball);
     }
+
+    public void addPuck(Puckable ball) {this.pucks.add(ball);}
+
 
     /**
      * Gets shallow copy of arraylist of puckable objects
@@ -125,6 +134,7 @@ public abstract class Game {
         // Also shallow copy
         return (ArrayList<Puckable>) pucks.clone();
     }
+
 
     /**
      * clears pucks
@@ -136,6 +146,13 @@ public abstract class Game {
     /**
      * Detects collison of paddle and puck
      */
+
+
+    public void clearPucks() {
+
+        pucks.clear();
+    }
+
     public void move() {
 
         playOnePaddle.move();
@@ -195,6 +212,7 @@ public abstract class Game {
             case D:
                 playOnePaddle.moveDown();
                 break;
+
             case I:
                 playTwoPaddle.moveUp();
                 break;
@@ -218,4 +236,6 @@ public abstract class Game {
                 break;
         }
     }
+
 }
+

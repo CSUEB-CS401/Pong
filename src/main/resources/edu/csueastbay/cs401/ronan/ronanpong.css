@@ -1,0 +1,17 @@
+.anchor{
+    -fx-background-color: black;
+    -fx-background-image: url("images/tifo.jpg");
+}
+
+.menuPause{
+    -fx-background-color: #318CE7;
+    -fx-border-width: 4;
+    -fx-border-color: #03224C;
+    -fx-font-family: Garamond;
+}
+
+.menuPause .button{
+    -fx-pref-height: 40;
+    -fx-min-width: 120;
+    -fx-background-color: transparent;
+}

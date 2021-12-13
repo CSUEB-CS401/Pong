@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+
+<AnchorPane fx:id="fieldPane" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyPressed" onKeyReleased="#keyReleased" prefHeight="860.0" prefWidth="1300.0" styleClass="anchor" style="-fx-background-color: #3c3f51;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.csueastbay.cs401.lbernard.GameController">
+   <children>
+      <Line endX="650.0" startX="650.0" startY="860.0" stroke="WHITE" strokeWidth="10.0" />
+      <Label layoutX="32.0" layoutY="14.0" style="-fx-font-size: 64;" text="Player 1:" textFill="WHITE" />
+      <Label fx:id="playerOneScore" layoutX="1221.0" layoutY="7.0" style="-fx-font-size: 64;" text="0" textFill="WHITE" />
+      <Label layoutX="973.0" layoutY="7.0" style="-fx-font-size: 64;" text="Player 2:" textFill="WHITE" />
+      <Label fx:id="playerTwoScore" layoutX="278.0" layoutY="14.0" style="-fx-font-size: 64;" text="0" textFill="WHITE" />
+      <Label layoutX="28.0" layoutY="677.0" opacity="0.3" style="-fx-font-size: 64;" text="E: UP" textFill="WHITE" />
+      <Label layoutX="28.0" layoutY="741.0" opacity="0.3" style="-fx-font-size: 64;" text="D: DOWN" textFill="WHITE" />
+      <Label layoutX="1007.0" layoutY="677.0" opacity="0.3" style="-fx-font-size: 64;" text="I: UP" textFill="WHITE" />
+
+      <Label layoutX="1007.0" layoutY="741.0" opacity="0.3" style="-fx-font-size: 64;" text="K: DOWN" textFill="WHITE" />
+
+   </children>
+</AnchorPane>

@@ -42,11 +42,16 @@ public class GameController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         game = new ClassicPong(VICTORY_SCORE, FIELD_WIDTH, FIELD_HEIGHT, fieldPane,
                 playerOneVictoryText, playerTwoVictoryText);
 
+        System.out.println("p[eeee");
+        game = new ClassicPong(VICTORY_SCORE, FIELD_WIDTH, FIELD_HEIGHT);
+
         addGameElementsToField();
         setUpTimeline();
+
 
     }
 

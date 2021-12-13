@@ -2,7 +2,6 @@ package edu.csueastbay.cs401.pong;
 
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
-import javafx.scene.shape.Shape;
 
 /**
  * sets the background of the game consisting of 2 rectangle and a line.
