@@ -1,5 +1,6 @@
 package edu.csueastbay.cs401.classic;
 
+
 import edu.csueastbay.cs401.pong.Collidable;
 import edu.csueastbay.cs401.pong.Puckable;
 import javafx.animation.Animation;
@@ -34,9 +35,15 @@ public class GameController implements Initializable {
     @FXML
     Label playerTwoScore;
 
+    @FXML
+    private Label playerOneVictoryText;
+    @FXML
+    private Label playerTwoVictoryText;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        game = new ClassicPong(VICTORY_SCORE, FIELD_WIDTH, FIELD_HEIGHT);
+        game = new ClassicPong(VICTORY_SCORE, FIELD_WIDTH, FIELD_HEIGHT, fieldPane,
+                playerOneVictoryText, playerTwoVictoryText);
 
         addGameElementsToField();
         setUpTimeline();

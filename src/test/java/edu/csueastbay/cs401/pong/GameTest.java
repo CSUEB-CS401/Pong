@@ -263,6 +263,7 @@ class GameTest {
 
 
 
+
     private class TestGame extends Game {
 
         public boolean collisionDetected = false;

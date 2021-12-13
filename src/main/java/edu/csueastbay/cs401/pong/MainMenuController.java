@@ -15,6 +15,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Conroller for main menu
+ */
 public class MainMenuController implements Initializable {
 
     private Registry registry;
@@ -31,7 +34,7 @@ public class MainMenuController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         registry = new Registry();
-        registry.register("Classic Pong", "classic", "Classic Pong Game");
+        registry.register("Suraj Pong", "classic", "Classic Pong Game");
 
         registry.reset();
 
