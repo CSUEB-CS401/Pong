@@ -27,7 +27,7 @@ class PuckTest {
                 "After reset the puck should be back at center X");
         assertEquals(250, testPuck.getCenterY(),
                 "After reset the puck should be back at center Y");
-        assertEquals(5, testPuck.getSpeed(),
+        assertEquals(5.0, testPuck.getSpeed(),
                 "Test Puck should have a speed of 5 after reset");
         double d = testPuck.getDirection();
         assertTrue((d > -45 && d < 45) || (d > 115 && d < 205),
@@ -89,7 +89,7 @@ class PuckTest {
 
     @Test
     void reset() {
-        testPuck.setSpeed(20);
+        testPuck.setSpeed(5);
         testPuck.setDirection(100);
         testPuck.move();
         testPuck.move();
@@ -98,7 +98,7 @@ class PuckTest {
                 "After reset the puck should be back at center X");
         assertEquals(250, testPuck.getCenterY(),
                 "After reset the puck should be back at center Y");
-        assertEquals(5, testPuck.getSpeed(),
+        assertEquals(5.0, testPuck.getSpeed(),
                 "Test Puck should have a speed of 5 after reset");
         double d = testPuck.getDirection();
         assertTrue((d > -45 && d < 45) || (d > 115 && d < 205),

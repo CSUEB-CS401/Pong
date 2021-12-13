@@ -21,6 +21,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Conroller for main menu
+ */
 public class MainMenuController implements Initializable {
 
     private Registry registry;
@@ -39,6 +42,8 @@ public class MainMenuController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         registry = new Registry();
+
+        registry.register("Suraj Pong", "classic", "Classic Pong Game");
         registry.register("Classic Pong", "classic", "Classic Pong Game");
         registry.register("Tiffany Truong", "ttruong", "Pongo Pongo Pongo in the Congo");
         registry.register("Dillon Lin", "DlinPong", "Dillon's Pong Game");
@@ -69,6 +74,7 @@ public class MainMenuController implements Initializable {
         registry.register("Martin Le's Game", "martinle", "RPG Themed Pong");
         registry.register("Paul Sander", "psander", "Randomized Pong Modes");
         registry.register("Malik Eddy", "mEddyPong", "Classic Pong Game with extra paddle for players");
+
 
         registry.reset();
 

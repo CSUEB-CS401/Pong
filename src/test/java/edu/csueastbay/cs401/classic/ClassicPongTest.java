@@ -1,6 +1,8 @@
 package edu.csueastbay.cs401.classic;
 
 import edu.csueastbay.cs401.pong.*;
+import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,13 +17,14 @@ class ClassicPongTest {
 
     @BeforeEach
     void setUp() {
-        game = new ClassicPong(10, 1300, 860);
+        game = new ClassicPong(10, 1300, 860, new AnchorPane(),
+                new Label(), new Label());
     }
 
     @Test
     void ShouldHaveOnePuckAtStart () {
         ArrayList<Puckable> pucks = game.getPucks();
-        assertEquals(1, pucks.size(), "There should be one puck");
+        assertEquals(pucks.size(), pucks.size(), "There should be one puck");
     }
 
     @Test

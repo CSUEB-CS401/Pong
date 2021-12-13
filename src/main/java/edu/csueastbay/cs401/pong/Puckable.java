@@ -14,6 +14,11 @@ public interface Puckable {
 
     void reset();
 
+    public double getCenterX();
+    public double getCenterY();
+
+
     double getCenterX();
     double getCenterY();
+
 }
